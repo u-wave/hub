@@ -6,14 +6,16 @@ const debug = createDebug('u-wave-hub');
 const servers = new Map();
 
 export function announce(req, res) {
-  servers.set(req.ip, {
+  const data = req.body
+
+  servers.set(data.url, {
     ping: Date.now(),
-    data: req.body,
+    data,
   });
 
-  debug('announce', req.ip);
+  debug('announce', data.url);
 
-  const server = servers.get(req.ip);
+  const server = servers.get(data.url);
   res.json({
     received: server.data,
   });
@@ -33,10 +35,10 @@ export function list(req, res) {
 
 export function prune() {
   debug('prune');
-  servers.forEach((server, ip) => {
+  servers.forEach((server, url) => {
     if (server.ping + ms('5 minutes') < Date.now()) {
-      debug('prune', ip);
-      servers.delete(ip);
+      debug('prune', url);
+      servers.delete(url);
     }
   });
 }
