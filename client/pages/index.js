@@ -36,7 +36,7 @@ export default class App extends React.Component {
           `}</style>
           <style jsx>{`
             .app {
-              background: #303030;
+              background: #1b1b1b;
               color: #fff;
               position: absolute;
               height: 100%;
