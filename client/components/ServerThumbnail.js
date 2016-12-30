@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardMedia } from 'material-ui/Card';
 
-export default ({
+const ServerThumbnail = ({
   server,
   media
 }) => (
@@ -26,3 +26,5 @@ export default ({
     `}</style>
   </Card>
 );
+
+export default ServerThumbnail;

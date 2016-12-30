@@ -1,32 +1,11 @@
 import React from 'react';
 import fetch from 'isomorphic-fetch';
-import AppBar from 'material-ui/AppBar';
 import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import uwaveTheme from '../muiTheme';
-import ServerThumbnail from '../components/ServerThumbnail';
-
-const ServerListing = ({
-  servers
-}) => (
-  <div className="servers">
-    {servers.map((server) => (
-      <ServerThumbnail
-        key={server.url}
-        server={server}
-        media={server.booth && server.booth.media}
-      />
-    ))}
-    <style jsx>{`
-      .servers {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-      }
-    `}</style>
-  </div>
-);
+import AppBar from '../components/AppBar';
+import ServerListing from '../components/ServerListing';
 
 export default class App extends React.Component {
   static async getInitialProps() {
@@ -39,7 +18,7 @@ export default class App extends React.Component {
     return (
       <ThemeProvider muiTheme={getMuiTheme(uwaveTheme)}>
         <div className="app">
-          <AppBar title="üWave" />
+          <AppBar />
 
           <div className="main">
             <ServerListing servers={this.props.servers} />
