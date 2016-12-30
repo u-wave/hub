@@ -8,8 +8,14 @@ import AppBar from './AppBar';
 
 const Layout = ({
   children,
+  userAgent,
 }) => (
-  <ThemeProvider muiTheme={getMuiTheme(uwaveTheme)}>
+  <ThemeProvider
+    muiTheme={getMuiTheme({
+      ...uwaveTheme,
+      userAgent,
+    })}
+  >
     <div className="app">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -5,6 +5,7 @@
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^0.16.6",
+    "ms": "^0.7.2",
     "next": "^2.0.0-beta.5"
   },
   "scripts": {

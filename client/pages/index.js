@@ -12,8 +12,11 @@ async function loadServers() {
 }
 
 export default class App extends React.Component {
-  static async getInitialProps() {
-    return { servers: await loadServers() };
+  static async getInitialProps({ req }) {
+    return {
+      servers: await loadServers(),
+      userAgent: req ? req.headers['user-agent'] : navigator.userAgent,
+    };
   }
 
   state = {
@@ -45,7 +48,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <Layout userAgent={this.props.userAgent}>
         <ServerListing
           servers={this.state.servers}
         />
