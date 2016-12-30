@@ -1,8 +1,15 @@
 import got from 'got';
 import ms from 'ms';
 
+function stripSlashes(url) {
+  return url.replace(/\/+$/, '');
+}
+
 module.exports = function announcePlugin(options) {
-  const hubHost = options.hub || 'https://u-wave-hub.now.sh';
+  const hubHost = options.hub || 'https://u-wave-announce.now.sh';
+  const url = stripSlashes(options.url);
+
+  const announceUrl = `${stripSlashes(hubHost)}/announce`;
 
   return (uw) => {
     async function announce() {
@@ -12,15 +19,16 @@ module.exports = function announcePlugin(options) {
       entry.populate('user media.media');
       await entry.execPopulate();
 
-      await got.post(`${hubHost}/announce`, {
+      await got.post(announceUrl, {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           booth: entry,
           name: options.name,
           description: options.description,
-          url: `https://welovekpop.club/`,
-          apiUrl: `https://welovekpop.club/v1`,
-          socketUrl: `https://welovekpop.club/`,
+          url: `${url}/`,
+          // Derive URLs if not given.
+          apiUrl: options.apiUrl || `${url}/v1`,
+          socketUrl: options.socketUrl || `${url.replace(/^http/, 'ws')}/`,
         }),
       });
     }
