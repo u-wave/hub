@@ -2,9 +2,12 @@ import React from 'react';
 import Head from 'next/head';
 import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import uwaveTheme from '../muiTheme';
 import AppBar from './AppBar';
+
+injectTapEventPlugin();
 
 const Layout = ({
   children,
