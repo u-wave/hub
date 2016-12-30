@@ -4,10 +4,11 @@ import ms from 'ms';
 
 import Layout from '../components/Layout';
 import ServerListing from '../components/ServerListing';
+import { SERVERS_ENDPOINT } from '../config';
 
 async function loadServers() {
-  const response = await fetch('http://localhost:6451/')
-  const state = await response.json()
+  const response = await fetch(SERVERS_ENDPOINT);
+  const state = await response.json();
   return state.servers;
 }
 
