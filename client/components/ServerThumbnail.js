@@ -3,27 +3,27 @@ import React from 'react'
 export default ({
   server
 }) => (
-  <div>
+  <div className="thumb">
     <header>
       {server.name}
     </header>
     {server.booth && server.booth.media && (
-      <figure>
+      <div className="media">
         <img
           src={server.booth.media.media.thumbnail}
           title={`${server.booth.media.artist} - ${server.booth.media.title}`}
         />
-      </figure>
+      </div>
     )}
     <style jsx>{`
-      div {
+      .thumb {
         width: 300px;
       }
       header: {
         font-size: 125%;
         border-bottom: 1px solid red;
       }
-      figure {
+      .media {
         width: 100%;
         padding-bottom: 56.25%;
         position: relative;
