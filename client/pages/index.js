@@ -1,5 +1,6 @@
 import React from 'react';
 import fetch from 'isomorphic-fetch';
+import Head from 'next/head';
 import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
@@ -18,6 +19,10 @@ export default class App extends React.Component {
     return (
       <ThemeProvider muiTheme={getMuiTheme(uwaveTheme)}>
         <div className="app">
+          <Head>
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+          </Head>
+
           <AppBar />
 
           <div className="main">
