@@ -24,6 +24,7 @@ const ServerThumbnail = ({
     <style jsx>{`
       .thumb {
         width: 360px;
+        margin: 0 20px 20px 20px;
       }
     `}</style>
   </Card>
