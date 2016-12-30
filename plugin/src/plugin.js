@@ -6,10 +6,14 @@ export default function announcePlugin(options) {
 
   return (uw) => {
     async function announce() {
+      const entry = await uw.booth.getCurrentEntry();
+      entry.populate('user media.media');
+      await entry.execPopulate();
+
       await got.post(`${indexHost}/announce`, {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
-          booth: await uw.booth.getCurrentEntry(),
+          booth: entry,
           name: options.name,
           description: options.description,
           url: `https://welovekpop.club/`,
