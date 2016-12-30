@@ -16,8 +16,10 @@ module.exports = function announcePlugin(options) {
       // TODO add something to üWave Core so we don't have to manually populate
       // the relationships.
       const entry = await uw.booth.getCurrentEntry();
-      entry.populate('user media.media');
-      await entry.execPopulate();
+      if (entry) {
+        entry.populate('user media.media');
+        await entry.execPopulate();
+      }
 
       await got.post(announceUrl, {
         headers: { 'content-type': 'application/json' },
