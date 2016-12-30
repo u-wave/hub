@@ -7,7 +7,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import uwaveTheme from '../muiTheme';
 import AppBar from './AppBar';
 
-injectTapEventPlugin();
+if (typeof document !== 'undefined') {
+  injectTapEventPlugin();
+}
 
 const Layout = ({
   children,
