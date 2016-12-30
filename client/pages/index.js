@@ -1,60 +1,55 @@
 import React from 'react';
 import fetch from 'isomorphic-fetch';
-import Head from 'next/head';
-import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import ms from 'ms';
 
-import uwaveTheme from '../muiTheme';
-import AppBar from '../components/AppBar';
+import Layout from '../components/Layout';
 import ServerListing from '../components/ServerListing';
+
+async function loadServers() {
+  const response = await fetch('http://localhost:6451/')
+  const state = await response.json()
+  return state.servers;
+}
 
 export default class App extends React.Component {
   static async getInitialProps() {
-    const response = await fetch('http://localhost:6451/')
-    const state = await response.json()
-    return { servers: state.servers };
+    return { servers: await loadServers() };
   }
+
+  state = {
+    servers: this.props.servers,
+  };
+
+  componentDidMount() {
+    if (!this.state.servers) {
+      this.update();
+    } else {
+      this.timer = setTimeout(this.update, ms('20 seconds'));
+    }
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timer);
+    this.timer = null;
+  }
+
+  update = async () => {
+    try {
+      this.setState({
+        servers: await loadServers(),
+      });
+    } finally {
+      this.timer = setTimeout(this.update, ms('20 seconds'));
+    }
+  };
 
   render() {
     return (
-      <ThemeProvider muiTheme={getMuiTheme(uwaveTheme)}>
-        <div className="app">
-          <Head>
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-          </Head>
-
-          <AppBar />
-
-          <div className="main">
-            <ServerListing servers={this.props.servers} />
-          </div>
-
-          <style jsx global>{`
-            body {
-              margin: 0;
-            }
-          `}</style>
-          <style jsx>{`
-            .app {
-              background: #1b1b1b;
-              color: #fff;
-              position: absolute;
-              height: 100%;
-              width: 100%;
-            }
-
-            .main {
-              position: absolute;
-              padding-top: 20px;
-              top: 64px;
-              bottom: 0;
-              right: 0;
-              left: 0;
-              overflow-y: auto;
-            }
-          `}</style>
-        </div>
-      </ThemeProvider>
+      <Layout>
+        <ServerListing
+          servers={this.state.servers}
+        />
+      </Layout>
     );
   }
 }
