@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "version": "0.0.0",
+  "description": "üWave server listing.",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "ms": "^0.7.2"
+  },
+  "scripts": {
+    "start": "node lib/index.js"
+  }
+}
