@@ -3,8 +3,8 @@ import fetch from 'isomorphic-fetch';
 import AppBar from 'material-ui/AppBar';
 import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import darkTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
+import uwaveTheme from '../muiTheme';
 import ServerThumbnail from '../components/ServerThumbnail';
 
 const ServerListing = ({
@@ -37,7 +37,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <ThemeProvider muiTheme={getMuiTheme(darkTheme)}>
+      <ThemeProvider muiTheme={getMuiTheme(uwaveTheme)}>
         <div className="app">
           <AppBar title="üWave" />
 
