@@ -21,6 +21,7 @@ const ServerListing = ({
         display: flex;
         flex-wrap: wrap;
         justify-content: space-around;
+        margin: 0 20px;
       }
 
       .empty {
