@@ -2,7 +2,9 @@
   "name": "u-wave-announce",
   "version": "0.0.0",
   "description": "Announce your üWave server's existence to the world.",
+  "main": "./lib/plugin",
   "dependencies": {
+    "babel-runtime": "^6.20.0",
     "got": "^6.7.1",
     "ms": "^0.7.2"
   }

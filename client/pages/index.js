@@ -1,15 +1,24 @@
 import React from 'react';
+import fetch from 'isomorphic-fetch';
+
+import ServerThumbnail from '../components/ServerThumbnail';
 
 export default class extends React.Component {
-  async getInitialProps() {
-    const servers = fetch('http://localhost:6451/').then((response) => response.json());
-    return { servers: await servers };
+  static async getInitialProps() {
+    const response = await fetch('http://localhost:6451/')
+    const state = await response.json()
+    return { servers: state.servers };
   }
 
   render() {
     return (
       <ul>
-        {this.props.servers.map((server) => server.title)}
+        {this.props.servers.map((server) => (
+          <ServerThumbnail
+            key={server.url}
+            server={server}
+          />
+        ))}
       </ul>
     );
   }

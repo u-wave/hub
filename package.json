@@ -2,15 +2,18 @@
   "private": true,
   "devDependencies": {
     "babel-cli": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-es2017": "^6.16.0",
     "concurrently": "^3.1.0"
   },
   "scripts": {
     "start:server": "cd server && npm start",
     "start:client": "cd client && npm start",
     "start": "concurrently 'npm run start:server' 'npm run start:client'",
-    "build:server": "babel --presets es2015 server/src --out-dir server/lib/",
-    "build:plugin": "babel --presets es2015 plugin/src --out-dir plugin/lib/",
+    "build:server": "babel server/src --out-dir server/lib/",
+    "build:plugin": "babel plugin/src --out-dir plugin/lib/",
     "build": "npm run build:server && npm run build:plugin"
   }
 }

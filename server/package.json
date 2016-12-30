@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "description": "üWave server listing.",
   "dependencies": {
+    "babel-runtime": "^6.20.0",
     "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "debug": "^2.6.0",
     "express": "^4.14.0",
     "ms": "^0.7.2"
   },
