@@ -4,6 +4,7 @@
   "description": "Web client for üWave's server listing.",
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
+    "material-ui": "^0.16.6",
     "next": "^2.0.0-beta.5"
   },
   "scripts": {
