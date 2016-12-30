@@ -5,6 +5,9 @@
   "description": "üWave server listing.",
   "main": "lib/index.js",
   "bin": "bin/u-wave-hub.js",
+  "engines": {
+    "node": ">= 6"
+  },
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "body-parser": "^1.15.2",
@@ -13,7 +16,15 @@
     "express": "^4.14.0",
     "ms": "^0.7.2"
   },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-es2017": "^6.16.0"
+  },
   "scripts": {
-    "start": "node bin/u-wave-hub.js"
+    "start": "node bin/u-wave-hub.js",
+    "build": "babel src --out-dir lib/"
   }
 }

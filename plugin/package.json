@@ -3,9 +3,22 @@
   "version": "0.0.0",
   "description": "Announce your üWave server's existence to the world.",
   "main": "./lib/plugin",
+  "engines": {
+    "node": ">= 4"
+  },
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "got": "^6.7.1",
     "ms": "^0.7.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015-node4": "^2.1.1",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-es2017": "^6.16.0"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib/"
   }
 }
