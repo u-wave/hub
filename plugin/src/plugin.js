@@ -2,7 +2,7 @@ import got from 'got';
 import ms from 'ms';
 
 export default function announcePlugin(options) {
-  const indexHost = options.index || 'https://uwave-index.now.sh';
+  const hubHost = options.hub || 'https://u-wave-hub.now.sh';
 
   return (uw) => {
     async function announce() {
@@ -10,7 +10,7 @@ export default function announcePlugin(options) {
       entry.populate('user media.media');
       await entry.execPopulate();
 
-      await got.post(`${indexHost}/announce`, {
+      await got.post(`${hubHost}/announce`, {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           booth: entry,
