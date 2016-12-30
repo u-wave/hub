@@ -10,7 +10,8 @@
     "react-tap-event-plugin": "^2.0.1"
   },
   "scripts": {
+    "dev": "next dev",
     "build": "next build",
-    "start": "next dev"
+    "start": "next start"
   }
 }
