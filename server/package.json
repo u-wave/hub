@@ -1,7 +1,10 @@
 {
   "private": true,
+  "name": "u-wave-hub",
   "version": "0.0.0",
   "description": "üWave server listing.",
+  "main": "lib/index.js",
+  "bin": "bin/u-wave-hub.js",
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "body-parser": "^1.15.2",
@@ -11,6 +14,6 @@
     "ms": "^0.7.2"
   },
   "scripts": {
-    "start": "node lib/index.js"
+    "start": "node bin/u-wave-hub.js"
   }
 }

@@ -1,11 +1,13 @@
 import got from 'got';
 import ms from 'ms';
 
-export default function announcePlugin(options) {
+module.exports = function announcePlugin(options) {
   const hubHost = options.hub || 'https://u-wave-hub.now.sh';
 
   return (uw) => {
     async function announce() {
+      // TODO add something to üWave Core so we don't have to manually populate
+      // the relationships.
       const entry = await uw.booth.getCurrentEntry();
       entry.populate('user media.media');
       await entry.execPopulate();

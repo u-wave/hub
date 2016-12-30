@@ -5,19 +5,21 @@ import ms from 'ms';
 
 import * as controller from './controller';
 
-const app = express();
+module.exports = function hub() {
+  const app = express();
 
-app.use(bodyParser.json());
+  app.use(bodyParser.json());
 
-app.options(cors());
-app.use(cors());
+  app.options(cors());
+  app.use(cors());
 
-app.post('/announce', controller.announce);
-app.get('/', controller.list);
+  app.post('/announce', controller.announce);
+  app.get('/', controller.list);
 
-// Cleanup
-setInterval(() => {
-  controller.prune();
-}, ms('1 minute'));
+  // Cleanup
+  setInterval(() => {
+    controller.prune();
+  }, ms('1 minute'));
 
-app.listen(process.env.PORT || 6451);
+  return app;
+}

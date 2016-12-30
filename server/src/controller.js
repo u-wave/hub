@@ -1,3 +1,4 @@
+import ms from 'ms';
 import createDebug from 'debug';
 
 const debug = createDebug('u-wave-hub');
