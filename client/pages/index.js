@@ -4,7 +4,7 @@ import ms from 'ms';
 import CircularProgress from 'material-ui/CircularProgress';
 
 import Layout from '../components/Layout';
-import Text from '../components/Text';
+import Loading from '../components/Loading';
 import ServerListing from '../components/ServerListing';
 import { SERVERS_ENDPOINT } from '../config';
 
@@ -53,20 +53,7 @@ export default class App extends React.Component {
     return (
       <Layout userAgent={this.props.userAgent}>
         {this.state.servers == null ? (
-          <div className="loading">
-            <CircularProgress
-              size={300}
-              thickness={7}
-              mode="indeterminate"
-            />
-            <Text>Loading available servers...</Text>
-            <style jsx>{`
-              .loading {
-                width: 100%;
-                text-align: center;
-              }
-            `}</style>
-          </div>
+          <Loading message="Loading available servers..." />
         ) : (
           <ServerListing servers={this.state.servers} />
         )}
