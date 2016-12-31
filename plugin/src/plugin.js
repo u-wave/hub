@@ -24,10 +24,22 @@ module.exports = function announcePlugin(options) {
       await got.post(announceUrl, {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
-          booth: entry,
           name: options.name,
-          description: options.description,
-          url: `${url}/`,
+          subtitle: options.subtitle,
+          description: options.description || null,
+
+          booth: entry ? {
+            media: {
+              artist: entry.media.artist,
+              title: entry.media.title,
+              thumbnail: entry.media.media.thumbnail,
+            },
+            dj: entry.user ? {
+              username: entry.user.username,
+            } : null,
+          } : null,
+
+          url,
           // Derive URLs if not given.
           apiUrl: options.apiUrl || `${url}/v1`,
           socketUrl: options.socketUrl || `${url.replace(/^http/, 'ws')}/`,

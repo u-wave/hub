@@ -11,7 +11,7 @@ const ServerThumbnail = ({
 }) => (
   <Card className="thumb">
     <a href={server.url}>
-      <CardHeader title={server.name} subtitle={server.description} />
+      <CardHeader title={server.name} subtitle={server.subtitle} />
       {media && (
         <CardMedia
           overlay={(
@@ -22,7 +22,7 @@ const ServerThumbnail = ({
           )}
           overlayContentStyle={overlayContentStyle}
         >
-          <img src={media.media.thumbnail} />
+          <img src={media.thumbnail} />
         </CardMedia>
       )}
     </a>
