@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "u-wave-hub",
+  "name": "u-wave-hub-server",
   "version": "0.0.0",
   "description": "üWave server listing.",
   "main": "lib/index.js",
