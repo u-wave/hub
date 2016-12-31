@@ -1,6 +1,10 @@
 import React from 'react';
 import { Card, CardHeader, CardMedia, CardTitle } from 'material-ui/Card';
 
+const overlayContentStyle = {
+  background: 'rgba(0, 0, 0, 0.75)',
+};
+
 const ServerThumbnail = ({
   server,
   media
@@ -16,6 +20,7 @@ const ServerThumbnail = ({
               subtitle={media.artist}
             />
           )}
+          overlayContentStyle={overlayContentStyle}
         >
           <img src={media.media.thumbnail} />
         </CardMedia>
