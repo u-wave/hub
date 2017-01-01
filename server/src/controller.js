@@ -8,14 +8,14 @@ const servers = new Map();
 export function announce(req, res) {
   const data = req.body;
 
-  servers.set(data.url, {
+  servers.set(req.ip, {
     ping: Date.now(),
     data,
   });
 
-  debug('announce', data.url);
+  debug('announce', req.ip);
 
-  const server = servers.get(data.url);
+  const server = servers.get(req.ip);
   res.json({
     received: server.data,
   });
