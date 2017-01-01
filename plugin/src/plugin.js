@@ -6,6 +6,8 @@ function stripSlashes(url) {
 }
 
 async function getAnnounceData(uw, options) {
+  const url = stripSlashes(options.url);
+
   // TODO add something to üWave Core so we don't have to manually populate
   // the relationships.
   const entry = await uw.booth.getCurrentEntry();
@@ -39,7 +41,6 @@ async function getAnnounceData(uw, options) {
 
 module.exports = function announcePlugin(options) {
   const hubHost = options.hub || 'https://u-wave-announce.now.sh';
-  const url = stripSlashes(options.url);
 
   const announceUrl = `${stripSlashes(hubHost)}/announce`;
 
