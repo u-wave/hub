@@ -6,7 +6,7 @@ const debug = createDebug('u-wave-hub');
 const servers = new Map();
 
 export function announce(req, res) {
-  const data = req.body
+  const data = req.body;
 
   servers.set(data.url, {
     ping: Date.now(),

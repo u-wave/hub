@@ -28,6 +28,8 @@ function validate(validator) {
 module.exports = function hub() {
   const app = express();
 
+  app.set('trust proxy', true);
+
   app.use(bodyParser.json());
 
   app.options(cors());
