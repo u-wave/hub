@@ -54,8 +54,14 @@ module.exports = function announcePlugin(options) {
       });
     }
 
+    // Announce that we've started up and are now alive.
     announce();
 
+    // Announce again every time the song changes.
+    uw.on('advance', announce);
+
+    // And announce periodically in the mean time to let the Hub server know
+    // we're still alive.
     const interval = setInterval(announce, ms('1 minute'));
     uw.on('stop', () => {
       clearInterval(interval);
