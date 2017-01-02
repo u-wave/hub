@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import MuiAppBar from 'material-ui/AppBar';
 
 const AppBar = () => (
@@ -6,9 +7,11 @@ const AppBar = () => (
     <MuiAppBar
       iconElementLeft={<span />}
       title={(
-        <div className="logo">
-          <img src="/static/logo-white.png" />
-        </div>
+        <Link href="/">
+          <div className="logo">
+            <img src="/static/logo-white.png" />
+          </div>
+        </Link>
       )}
     />
     <style jsx>{`
