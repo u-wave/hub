@@ -18,7 +18,9 @@ async function loadServers() {
 export default class App extends React.Component {
   static async getInitialProps({ req }) {
     return {
-      servers: await loadServers(),
+      // If we're serving a new request, preload the servers.
+      // If we're transitioning on the client, show a loading indicator.
+      servers: req ? await loadServers() : null,
       userAgent: req ? req.headers['user-agent'] : navigator.userAgent,
     };
   }
