@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import router from 'next/router';
 import MuiAppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
 
 const AppBar = () => (
   <span>
@@ -12,6 +14,14 @@ const AppBar = () => (
             <img src="/static/logo-white.png" />
           </div>
         </Link>
+      )}
+      iconElementRight={(
+        <FlatButton
+          label="About"
+          href="/about"
+          onClick={event => event.preventDefault()}
+          onTouchTap={() => router.push('/about')}
+        />
       )}
     />
     <style jsx>{`
