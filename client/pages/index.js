@@ -6,10 +6,11 @@ import CircularProgress from 'material-ui/CircularProgress';
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 import ServerListing from '../components/ServerListing';
-import { SERVERS_ENDPOINT } from '../config';
+
+const HUB_SERVER = process.env.HUB_SERVER || 'http://localhost:6451';
 
 async function loadServers() {
-  const response = await fetch(SERVERS_ENDPOINT);
+  const response = await fetch(HUB_SERVER);
   const state = await response.json();
   return state.servers;
 }
