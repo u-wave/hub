@@ -6,7 +6,7 @@ const Text = ({ children }) => (
 
     <style jsx>{`
       p {
-        font: 125% 'open sans', arial;
+        font-size: 125%;
       }
     `}</style>
   </p>
