@@ -17,7 +17,21 @@ const CurrentMedia = ({
     )}
     overlayContentStyle={overlayContentStyle}
   >
-    <img src={media.thumbnail} />
+    <div
+      className="image"
+      style={{ backgroundImage: `url(${JSON.stringify(media.thumbnail)})` }}
+    />
+
+    <style jsx>{`
+      .image {
+        width: 100%;
+        padding-bottom: 75%;
+        background-color: black;
+        background-position: center center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    `}</style>
   </CardMedia>
 ) : (
   <span />
