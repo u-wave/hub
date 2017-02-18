@@ -40,7 +40,7 @@ async function getAnnounceData(uw, options) {
 }
 
 module.exports = function announcePlugin(options) {
-  const hubHost = options.hub || 'https://u-wave-announce.now.sh';
+  const hubHost = options.hub || 'https://announce.u-wave.net';
 
   const announceUrl = `${stripSlashes(hubHost)}/announce`;
 

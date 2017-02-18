@@ -57,4 +57,4 @@ uw.use(announce({
 
 [MIT]: ./LICENSE
 
-[Live Site]: https://u-wave-hub.now.sh
+[Live Site]: https://hub.u-wave.net

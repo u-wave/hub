@@ -18,6 +18,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "now -e HUB_SERVER=https://u-wave-announce.now.sh/"
+    "deploy": "now -e HUB_SERVER=https://announce.u-wave.net/"
   }
 }
