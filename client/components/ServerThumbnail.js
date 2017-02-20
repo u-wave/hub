@@ -43,38 +43,39 @@ const ServerThumbnail = ({
   onOpenDescription,
   onCloseDescription,
 }) => (
-  <Card className="thumb">
-    <CardHeader
-      style={headerStyle}
-      textStyle={headerContentStyle}
-      title={server.name}
-      subtitle={server.subtitle}
-    >
-      <IconButton
-        style={descriptionIconStyle}
-        onTouchTap={onOpenDescription}
+  <div className="thumb">
+    <Card>
+      <CardHeader
+        style={headerStyle}
+        textStyle={headerContentStyle}
+        title={server.name}
+        subtitle={server.subtitle}
       >
-        <DescriptionIcon />
-      </IconButton>
-    </CardHeader>
+        <IconButton
+          style={descriptionIconStyle}
+          onTouchTap={onOpenDescription}
+        >
+          <DescriptionIcon />
+        </IconButton>
+      </CardHeader>
 
-    <a href={server.url}>
-      <CurrentMedia media={media} />
-    </a>
+      <a href={server.url}>
+        <CurrentMedia media={media} />
+      </a>
 
-    <DescriptionDialog
-      server={server}
-      isOpen={isOpen}
-      onCloseDescription={onCloseDescription}
-    />
-
+      <DescriptionDialog
+        server={server}
+        isOpen={isOpen}
+        onCloseDescription={onCloseDescription}
+      />
+    </Card>
     <style jsx>{`
       .thumb {
         width: 360px;
         margin: 0 20px 20px 20px;
       }
     `}</style>
-  </Card>
+  </div>
 );
 
 export default enhance(ServerThumbnail);
