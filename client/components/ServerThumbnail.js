@@ -4,7 +4,7 @@ import withState from 'recompose/withState';
 import withProps from 'recompose/withProps';
 import { Card, CardHeader } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
-import DescriptionIcon from 'material-ui/svg-icons/navigation/more-vert';
+import DescriptionIcon from 'material-ui/svg-icons/menu';
 
 import DescriptionDialog from './DescriptionDialog';
 import CurrentMedia from './ServerMedia';

@@ -1,5 +1,5 @@
 import * as Colors from 'material-ui/styles/colors';
-import * as ColorManipulator from 'material-ui/utils/colorManipulator';
+import * as ColorManipulator from 'material-ui/styles/colorManipulator';
 import * as Spacing from 'material-ui/styles/spacing';
 
 export default {

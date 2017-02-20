@@ -1,8 +1,7 @@
 import React from 'react';
 import stripIndent from 'strip-indent';
 import Markdown from 'react-markdown';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 import Dialog from 'material-ui/Dialog';
 
 const dialogStyle = {
@@ -25,13 +24,14 @@ const DescriptionDialog = ({
     onRequestClose={onCloseDescription}
     autoScrollBodyContent
     actions={[
-      <FlatButton
+      <Button
         key="close"
         label="Close"
         onTouchTap={onCloseDescription}
       />,
-      <RaisedButton
+      <Button
         key="join"
+        raised
         label="Join"
         href={server.url}
         labelStyle={joinLabelStyle}

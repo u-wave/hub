@@ -1,5 +1,5 @@
 import React from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from 'material-ui/Progress';
 import Text from './Text';
 
 const Loading = ({ message }) => (
