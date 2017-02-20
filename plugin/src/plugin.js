@@ -1,5 +1,6 @@
 import got from 'got';
 import ms from 'ms';
+import stripIndent from 'strip-indent';
 
 function stripSlashes(url) {
   return url.replace(/\/+$/, '');
@@ -19,7 +20,7 @@ async function getAnnounceData(uw, options) {
   return {
     name: options.name,
     subtitle: options.subtitle,
-    description: options.description || null,
+    description: options.description ? stripIndent(options.description) : null,
 
     booth: entry ? {
       media: {
