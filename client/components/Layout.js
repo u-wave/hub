@@ -5,6 +5,7 @@ import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import createUwaveTheme from '../muiTheme';
 import AppBar from './AppBar';
 import Text from './Text';
+import SSR from './SSR';
 
 const Layout = ({
   children,
@@ -12,6 +13,8 @@ const Layout = ({
 }) => (
   <ThemeProvider theme={createUwaveTheme()}>
     <div className="app">
+      <SSR />
+
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
