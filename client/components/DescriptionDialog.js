@@ -2,15 +2,7 @@ import React from 'react';
 import stripIndent from 'strip-indent';
 import Markdown from 'react-markdown';
 import Button from 'material-ui/Button';
-import Dialog from 'material-ui/Dialog';
-
-const dialogStyle = {
-  minWidth: 320,
-};
-
-const joinLabelStyle = {
-  color: 'white',
-};
+import Dialog, { DialogTitle, DialogContent, DialogActions } from 'material-ui/Dialog';
 
 const DescriptionDialog = ({
   server,
@@ -18,30 +10,29 @@ const DescriptionDialog = ({
   onCloseDescription,
 }) => (
   <Dialog
-    title={server.name}
     open={isOpen}
-    contentStyle={dialogStyle}
     onRequestClose={onCloseDescription}
-    autoScrollBodyContent
-    actions={[
-      <Button
-        key="close"
-        label="Close"
-        onTouchTap={onCloseDescription}
-      />,
-      <Button
-        key="join"
-        raised
-        label="Join"
-        href={server.url}
-        labelStyle={joinLabelStyle}
-        primary
-      />
-    ]}
   >
-    <Markdown
-      source={stripIndent(server.description)}
-    />
+    <DialogTitle>
+      {server.name}
+    </DialogTitle>
+    <DialogContent>
+      <Markdown
+        source={stripIndent(server.description)}
+      />
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={onCloseDescription}>
+        Close
+      </Button>
+      <Button
+        primary
+        raised
+        href={server.url}
+      >
+        Join
+      </Button>
+    </DialogActions>
   </Dialog>
 );
 
