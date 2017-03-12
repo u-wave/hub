@@ -7,7 +7,7 @@ import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 import ServerListing from '../components/ServerListing';
 
-const HUB_SERVER = process.env.HUB_SERVER || 'http://localhost:6451';
+const HUB_SERVER = process.env.HUB_SERVER || 'https://announce.u-wave.net';
 
 async function loadServers() {
   const response = await fetch(HUB_SERVER);
