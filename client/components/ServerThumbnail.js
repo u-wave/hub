@@ -14,10 +14,6 @@ const headerStyle = {
   justifyContent: 'space-between',
 };
 
-const headerContentStyle = {
-  paddingRight: 0,
-};
-
 const descriptionIconStyle = {
   width: 40,
   height: 40,
@@ -47,9 +43,8 @@ const ServerThumbnail = ({
     <Card>
       <CardHeader
         style={headerStyle}
-        textStyle={headerContentStyle}
         title={server.name}
-        subtitle={server.subtitle}
+        subhead={server.subtitle}
       >
         <IconButton
           style={descriptionIconStyle}
