@@ -1,9 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
 import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-import uwaveTheme from '../muiTheme';
+import createUwaveTheme from '../muiTheme';
 import AppBar from './AppBar';
 import Text from './Text';
 
@@ -11,12 +10,7 @@ const Layout = ({
   children,
   userAgent,
 }) => (
-  <ThemeProvider
-    muiTheme={({
-      ...uwaveTheme,
-      userAgent,
-    })}
-  >
+  <ThemeProvider theme={createUwaveTheme()}>
     <div className="app">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

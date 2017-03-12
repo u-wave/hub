@@ -17,9 +17,9 @@ const DescriptionDialog = ({
       {server.name}
     </DialogTitle>
     <DialogContent>
-      <Markdown
-        source={stripIndent(server.description)}
-      />
+      <div className="markdown">
+        <Markdown source={stripIndent(server.description)} />
+      </div>
     </DialogContent>
     <DialogActions>
       <Button onClick={onCloseDescription}>
@@ -33,6 +33,11 @@ const DescriptionDialog = ({
         Join
       </Button>
     </DialogActions>
+    <style jsx>{`
+      .markdown {
+        color: rgba(255, 255, 255, 0.6);
+      }
+    `}</style>
   </Dialog>
 );
 
