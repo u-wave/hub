@@ -1,26 +1,19 @@
 import React from 'react';
-import { CardMedia, CardTitle } from 'material-ui/Card';
-
-const overlayContentStyle = {
-  background: 'rgba(0, 0, 0, 0.75)',
-};
+import { CardMedia } from 'material-ui/Card';
 
 const CurrentMedia = ({
   media,
 }) => (media ? (
-  <CardMedia
-    overlay={(
-      <CardTitle
-        title={media.title}
-        subtitle={media.artist}
-      />
-    )}
-    overlayContentStyle={overlayContentStyle}
-  >
+  <CardMedia>
     <div
       className="image"
       style={{ backgroundImage: `url(${JSON.stringify(media.thumbnail)})` }}
     />
+
+    <div className="nowPlaying">
+      <p className="title">{media.title}</p>
+      <p className="artist">{media.artist}</p>
+    </div>
 
     <style jsx>{`
       .image {
@@ -30,6 +23,25 @@ const CurrentMedia = ({
         background-position: center center;
         background-size: contain;
         background-repeat: no-repeat;
+      }
+
+      .nowPlaying {
+        box-sizing: border-box;
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        color: white;
+        background: rgba(0, 0, 0, 0.75);
+        padding: 16px;
+        padding-top: 24px;
+      }
+
+      .title, .artist {
+        margin: 0;
+      }
+
+      .title {
+        font-size: 150%;
       }
     `}</style>
   </CardMedia>

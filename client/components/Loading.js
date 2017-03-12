@@ -1,14 +1,10 @@
 import React from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
+import { CircularProgress } from 'material-ui/Progress';
 import Text from './Text';
 
 const Loading = ({ message }) => (
   <div className="loading">
-    <CircularProgress
-      size={300}
-      thickness={7}
-      mode="indeterminate"
-    />
+    <CircularProgress size={300} mode="indeterminate" />
     <Text>{message}</Text>
     <style jsx>{`
       .loading {

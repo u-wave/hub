@@ -1,17 +1,8 @@
 import React from 'react';
 import stripIndent from 'strip-indent';
 import Markdown from 'react-markdown';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
-
-const dialogStyle = {
-  minWidth: 320,
-};
-
-const joinLabelStyle = {
-  color: 'white',
-};
+import Button from 'material-ui/Button';
+import Dialog, { DialogTitle, DialogContent, DialogActions } from 'material-ui/Dialog';
 
 const DescriptionDialog = ({
   server,
@@ -19,29 +10,34 @@ const DescriptionDialog = ({
   onCloseDescription,
 }) => (
   <Dialog
-    title={server.name}
     open={isOpen}
-    contentStyle={dialogStyle}
     onRequestClose={onCloseDescription}
-    autoScrollBodyContent
-    actions={[
-      <FlatButton
-        key="close"
-        label="Close"
-        onTouchTap={onCloseDescription}
-      />,
-      <RaisedButton
-        key="join"
-        label="Join"
-        href={server.url}
-        labelStyle={joinLabelStyle}
-        primary
-      />
-    ]}
   >
-    <Markdown
-      source={stripIndent(server.description)}
-    />
+    <DialogTitle>
+      {server.name}
+    </DialogTitle>
+    <DialogContent>
+      <div className="markdown">
+        <Markdown source={stripIndent(server.description)} />
+      </div>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={onCloseDescription}>
+        Close
+      </Button>
+      <Button
+        primary
+        raised
+        href={server.url}
+      >
+        Join
+      </Button>
+    </DialogActions>
+    <style jsx>{`
+      .markdown {
+        color: rgba(255, 255, 255, 0.6);
+      }
+    `}</style>
   </Dialog>
 );
 
