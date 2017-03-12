@@ -2,23 +2,13 @@ import React from 'react';
 import compose from 'recompose/compose';
 import withState from 'recompose/withState';
 import withProps from 'recompose/withProps';
-import { Card, CardHeader } from 'material-ui/Card';
+import { Card, CardContent } from 'material-ui/Card';
+import Text from 'material-ui/Text';
 import IconButton from 'material-ui/IconButton';
 import DescriptionIcon from 'material-ui/svg-icons/menu';
 
 import DescriptionDialog from './DescriptionDialog';
 import CurrentMedia from './ServerMedia';
-
-const headerStyle = {
-  display: 'flex',
-  justifyContent: 'space-between',
-};
-
-const descriptionIconStyle = {
-  width: 40,
-  height: 40,
-  padding: 4,
-};
 
 const enhance = compose(
   withState('isOpen', 'setDescriptionOpen', false),
@@ -41,18 +31,21 @@ const ServerThumbnail = ({
 }) => (
   <div className="thumb">
     <Card>
-      <CardHeader
-        style={headerStyle}
-        title={server.name}
-        subhead={server.subtitle}
-      >
-        <IconButton
-          style={descriptionIconStyle}
-          onTouchTap={onOpenDescription}
-        >
-          <DescriptionIcon />
-        </IconButton>
-      </CardHeader>
+      <CardContent>
+        <div className="header">
+          <div>
+            <Text type="headline">
+              {server.name}
+            </Text>
+            <Text type="body1" secondary>
+              {server.subtitle}
+            </Text>
+          </div>
+          <IconButton onClick={onOpenDescription}>
+            <DescriptionIcon />
+          </IconButton>
+        </div>
+      </CardContent>
 
       <a href={server.url}>
         <CurrentMedia media={media} />
@@ -68,6 +61,11 @@ const ServerThumbnail = ({
       .thumb {
         width: 360px;
         margin: 0 20px 20px 20px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
       }
     `}</style>
   </div>
