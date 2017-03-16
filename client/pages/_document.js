@@ -18,7 +18,7 @@ export default class SSRDocument extends Document {
     return (
       <html>
         <Head>
-          <title>My page</title>
+          <title>üWave</title>
           <style id="ssr">{this.props.jss}</style>
           <style>{this.props.styledJsx}</style>
         </Head>
