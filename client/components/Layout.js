@@ -1,11 +1,19 @@
 import React from 'react';
 import Head from 'next/head';
 import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import withContext from 'recompose/withContext';
+import isMobile from 'is-mobile';
 
 import createUwaveTheme from '../muiTheme';
 import AppBar from './AppBar';
 import Text from './Text';
 import SSR from './SSR';
+
+const enhance = withContext({
+  isMobile: React.PropTypes.bool,
+}, ({ userAgent }) => ({
+  isMobile: isMobile(userAgent),
+}));
 
 const Layout = ({
   children,
@@ -74,4 +82,4 @@ const Layout = ({
   </ThemeProvider>
 );
 
-export default Layout;
+export default enhance(Layout);
