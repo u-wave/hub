@@ -42,7 +42,7 @@ const Layout = ({
       <style jsx global>{`
         body {
           margin: 0;
-          font-family: 'open sans', arial;
+          font-family: 'open sans', arial, sans-serif;
         }
       `}</style>
 
