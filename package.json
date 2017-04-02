@@ -1,14 +1,14 @@
 {
   "private": true,
   "devDependencies": {
-    "concurrently": "^3.1.0"
+    "npm-run-all": "^4.0.2"
   },
   "scripts": {
     "start:server": "cd server && npm start",
     "start:client": "cd client && npm run dev",
-    "start": "concurrently 'npm run start:server' 'npm run start:client'",
+    "start": "npm-run-all --parallel start:*",
     "build:server": "cd server && npm run build",
     "build:plugin": "cd plugin && npm run build",
-    "build": "concurrently 'npm run build:server' 'npm run build:plugin'"
+    "build": "npm-run-all --parallel build:*"
   }
 }
