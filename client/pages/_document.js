@@ -6,7 +6,7 @@ import { manager } from '../components/SSR'
 export default class SSRDocument extends Document {
   static getInitialProps ({ renderPage }) {
     const page = renderPage();
-    const jss = manager.sheetsToString();
+    const jss = manager && manager.sheetsToString();
     return {
       ...page,
       jss,
@@ -19,7 +19,7 @@ export default class SSRDocument extends Document {
       <html>
         <Head>
           <title>üWave</title>
-          <style id="ssr">{this.props.jss}</style>
+          <style id="ssr">{this.props.jss || ''}</style>
           <style>{this.props.styledJsx}</style>
         </Head>
         <body>
