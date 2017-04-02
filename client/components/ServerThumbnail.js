@@ -5,7 +5,7 @@ import withProps from 'recompose/withProps';
 import { Card, CardContent } from 'material-ui/Card';
 import Text from 'material-ui/Text';
 import IconButton from 'material-ui/IconButton';
-import DescriptionIcon from 'material-ui/svg-icons/menu';
+import DescriptionIcon from 'material-ui-icons/Menu';
 
 import DescriptionDialog from './DescriptionDialog';
 import CurrentMedia from './ServerMedia';
