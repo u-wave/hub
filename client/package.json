@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "u-wave-hub-client",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Web client for üWave's server listing.",
   "dependencies": {
     "babel-plugin-transform-inline-environment-variables": "^6.8.0",
