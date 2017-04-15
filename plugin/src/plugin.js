@@ -18,6 +18,17 @@ async function getAnnounceData(uw, options) {
     await entry.execPopulate();
   }
 
+  // TODO add something to üWave Core so we don't have to manually ask Redis for
+  // this information. Currently üWave Core may register duplicates in this
+  // list, too, which is a bit annoying!
+  // TODO add guest users here too.
+  const onlineUserIDs = await uw.redis.lrange('users', 0, -1);
+  const onlineUsersMap = {};
+  onlineUserIDs.forEach((id) => {
+    onlineUsersMap[id] = true;
+  });
+  const usersCount = Object.keys(onlineUsersMap).length;
+
   return {
     name: options.name,
     subtitle: options.subtitle,
@@ -33,6 +44,8 @@ async function getAnnounceData(uw, options) {
         username: entry.user.username,
       } : null,
     } : null,
+
+    usersCount,
 
     url,
     // Derive URLs if not given.

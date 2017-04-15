@@ -23,6 +23,7 @@ export const announceData = joi.object({
       username: joi.string().max(50),
     }).optional().allow(null),
   }).optional().allow(null),
+  usersCount: joi.number().min(0).allow(null),
 });
 
 export const announce = {
