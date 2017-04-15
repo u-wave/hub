@@ -8,6 +8,8 @@ import * as validators from './validators';
 const validate = pify(joi.validate);
 const debug = createDebug('u-wave-hub');
 
+const removeTimeout = ms('1 day');
+
 const servers = new Map();
 
 async function announceP(req, res) {
@@ -60,7 +62,7 @@ export function list(req, res) {
     response.push(Object.assign(
       {},
       server.data,
-      { publicKey }
+      { publicKey, timeSincePing: Date.now() - server.ping }
     ));
   });
 
@@ -72,7 +74,7 @@ export function list(req, res) {
 export function prune() {
   debug('prune');
   servers.forEach((server, publicKey) => {
-    if (server.ping + ms('5 minutes') < Date.now()) {
+    if (server.ping + removeTimeout < Date.now()) {
       debug('prune', publicKey);
       servers.delete(publicKey);
     }

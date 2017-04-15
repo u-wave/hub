@@ -6,9 +6,13 @@ import { Card, CardContent } from 'material-ui/Card';
 import Text from 'material-ui/Text';
 import IconButton from 'material-ui/IconButton';
 import DescriptionIcon from 'material-ui-icons/Menu';
+import MuiWarningIcon from 'material-ui-icons/Warning';
+import ms from 'ms';
 
 import DescriptionDialog from './DescriptionDialog';
 import CurrentMedia from './ServerMedia';
+
+const downTimeout = ms('10 minutes');
 
 const enhance = compose(
   withState('isOpen', 'setDescriptionOpen', false),
@@ -21,6 +25,20 @@ const enhance = compose(
     onCloseDescription: () => setDescriptionOpen(false),
   }))
 );
+
+const WarningIcon = withProps({
+  style: {
+    height: 16,
+    width: 16,
+    verticalAlign: 'sub',
+  },
+})(MuiWarningIcon);
+const WarningText = withProps({
+  type: 'body1',
+  style: {
+    color: '#ed404f',
+  },
+})(Text);
 
 const ServerThumbnail = ({
   server,
@@ -41,9 +59,11 @@ const ServerThumbnail = ({
               {server.subtitle}
             </Text>
           </div>
-          <IconButton onClick={onOpenDescription}>
-            <DescriptionIcon />
-          </IconButton>
+          {server.description && (
+            <IconButton onClick={onOpenDescription}>
+              <DescriptionIcon />
+            </IconButton>
+          )}
         </div>
       </CardContent>
 
@@ -51,11 +71,22 @@ const ServerThumbnail = ({
         <CurrentMedia media={media} />
       </a>
 
-      <DescriptionDialog
-        server={server}
-        isOpen={isOpen}
-        onCloseDescription={onCloseDescription}
-      />
+      {server.timeSincePing >= downTimeout && (
+        <CardContent>
+          <WarningText>
+            <WarningIcon /> This server may be down.
+            It has not responded for {ms(server.timeSincePing, { long: true })}.
+          </WarningText>
+        </CardContent>
+      )}
+
+      {server.description && (
+        <DescriptionDialog
+          server={server}
+          isOpen={isOpen}
+          onCloseDescription={onCloseDescription}
+        />
+      )}
     </Card>
     <style jsx>{`
       .thumb {

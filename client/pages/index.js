@@ -9,10 +9,20 @@ import ServerListing from '../components/ServerListing';
 
 const HUB_SERVER = process.env.HUB_SERVER || 'https://announce.u-wave.net';
 
+const downTimeout = ms('10 minutes');
+
 async function loadServers() {
   const response = await fetch(HUB_SERVER);
   const state = await response.json();
-  return state.servers;
+  return state.servers.sort((a, b) => {
+    if (a.timeSincePing >= downTimeout) {
+      return 1;
+    }
+    if (b.timeSincePing >= downTimeout) {
+      return -1;
+    }
+    return 0;
+  });
 }
 
 export default class App extends React.Component {
