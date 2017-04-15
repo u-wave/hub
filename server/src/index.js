@@ -2,25 +2,31 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import ms from 'ms';
+import pify from 'pify';
 import joi from 'joi';
 
 import * as controller from './controller';
 import * as validators from './validators';
 
+const joiValidate = pify(joi.validate);
+
 function validate(validator) {
   return (req, res, next) => {
-    joi.validate(req.body, validator.body, {
+    const opts = {
       allowUnknown: true,
       stripUnknown: true,
-    }, (err, value) => {
+    };
+    Promise.all([
+      joiValidate(req.params, validator.params, opts),
+      joiValidate(req.body, validator.body, opts),
+    ]).then(([ params, body ]) => {
+      req.originalParams = req.params;
       req.originalBody = req.body;
-      req.body = value;
-
-      if (err) {
-        next(err);
-      } else {
-        next();
-      }
+      req.params = params;
+      req.body = body;
+      next();
+    }).catch((err) => {
+      next(err);
     });
   };
 }
@@ -35,7 +41,7 @@ module.exports = function hub() {
   app.options(cors());
   app.use(cors());
 
-  app.post('/announce', validate(validators.announce), controller.announce);
+  app.post('/announce/:publicKey', validate(validators.announce), controller.announce);
   app.get('/', controller.list);
 
   // Cleanup

@@ -1,31 +1,67 @@
 import ms from 'ms';
 import createDebug from 'debug';
+import pify from 'pify';
+import joi from 'joi';
+import { verify } from 'sodium-signatures';
+import * as validators from './validators';
 
+const validate = pify(joi.validate);
 const debug = createDebug('u-wave-hub');
 
 const servers = new Map();
 
-export function announce(req, res) {
-  const data = req.body;
+async function announceP(req, res) {
+  const publicKey = Buffer.from(req.params.publicKey, 'hex');
+  const data = Buffer.from(req.body.data, 'utf8');
+  const signature = Buffer.from(req.body.signature, 'hex');
 
-  servers.set(req.ip, {
-    ping: Date.now(),
-    data,
+  const serverId = publicKey.toString('hex');
+
+  if (!verify(data, signature, publicKey)) {
+    debug('invalid signature from', serverId);
+    throw new Error('Invalid signature');
+  }
+
+  let object;
+  try {
+    object = JSON.parse(data.toString('utf8'));
+  } catch (err) {
+    debug('invalid json from', serverId);
+    err.message = `Invalid JSON: ${err.message}`;
+    throw err;
+  }
+
+  object = await validate(object, validators.announceData, {
+    allowUnknown: true,
+    stripUnknown: true,
   });
 
-  debug('announce', req.ip);
+  servers.set(serverId, {
+    ping: Date.now(),
+    data: object,
+  });
 
-  const server = servers.get(req.ip);
+  debug('announce', serverId);
+
+  const server = servers.get(serverId);
   res.json({
     received: server.data,
   });
 }
 
+export function announce(req, res, next) {
+  announceP(req, res).catch(next);
+}
+
 export function list(req, res) {
   const response = [];
 
-  servers.forEach((value) => {
-    response.push(value.data);
+  servers.forEach((server, publicKey) => {
+    response.push(Object.assign(
+      {},
+      server.data,
+      { publicKey }
+    ));
   });
 
   res.json({
@@ -35,10 +71,10 @@ export function list(req, res) {
 
 export function prune() {
   debug('prune');
-  servers.forEach((server, url) => {
+  servers.forEach((server, publicKey) => {
     if (server.ping + ms('5 minutes') < Date.now()) {
-      debug('prune', url);
-      servers.delete(url);
+      debug('prune', publicKey);
+      servers.delete(publicKey);
     }
   });
 }
