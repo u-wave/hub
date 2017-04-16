@@ -16,6 +16,7 @@
     "express": "^4.14.0",
     "joi": "^10.1.0",
     "ms": "^1.0.0",
+    "pify": "^2.3.0",
     "sodium-signatures": "^2.0.0"
   },
   "devDependencies": {
