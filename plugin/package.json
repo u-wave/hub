@@ -1,6 +1,6 @@
 {
   "name": "u-wave-announce",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Announce your üWave server's existence to the world.",
   "main": "./lib/plugin",
   "engines": {
