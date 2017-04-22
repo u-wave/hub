@@ -1,10 +1,38 @@
+import fs from 'fs';
 import got from 'got';
 import ms from 'ms';
 import { keyPair as createKeyPair, sign } from 'sodium-signatures';
 import stripIndent from 'strip-indent';
+import findCacheDir from 'find-cache-dir';
+
+const meta = require('../package.json');
 
 function stripSlashes(url) {
   return url.replace(/\/+$/, '');
+}
+
+function getKeyPair(seed) {
+  const keyPairPath = findCacheDir({
+    name: meta.name,
+    create: true,
+    thunk: true
+  })('keypair.json');
+  try {
+    const { publicKey, secretKey } = JSON.parse(
+      fs.readFileSync(keyPairPath, 'utf8')
+    );
+    return {
+      publicKey: Buffer.from(publicKey, 'base64'),
+      secretKey: Buffer.from(publicKey, 'base64')
+    };
+  } catch (err) {
+    const { publicKey, secretKey } = createKeyPair(seed);
+    fs.writeFileSync(keyPairPath, JSON.stringify({
+      publicKey: publicKey.toString('base64'),
+      secretKey: secretKey.toString('base64')
+    }, null, 2), 'utf8');
+    return { publicKey, secretKey };
+  }
 }
 
 async function getAnnounceData(uw, options) {
@@ -56,7 +84,7 @@ async function getAnnounceData(uw, options) {
 
 module.exports = function announcePlugin(options) {
   const hubHost = options.hub || 'https://announce.u-wave.net';
-  const { publicKey, secretKey } = createKeyPair(options.seed);
+  const { publicKey, secretKey } = getKeyPair(options.seed);
 
   const announceUrl = `${stripSlashes(hubHost)}/announce/${publicKey.toString('hex')}`;
 
