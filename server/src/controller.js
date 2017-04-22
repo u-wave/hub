@@ -1,9 +1,9 @@
-import ms from 'ms';
-import createDebug from 'debug';
-import pify from 'pify';
-import joi from 'joi';
-import { verify } from 'sodium-signatures';
-import * as validators from './validators';
+const ms = require('ms');
+const createDebug = require('debug');
+const pify = require('pify');
+const joi = require('joi');
+const { verify } = require('sodium-signatures');
+const validators = require('./validators');
 
 const validate = pify(joi.validate);
 const debug = createDebug('u-wave-hub');
@@ -51,11 +51,11 @@ async function announceP(req, res) {
   });
 }
 
-export function announce(req, res, next) {
+exports.announce = function announce(req, res, next) {
   announceP(req, res).catch(next);
 }
 
-export function list(req, res) {
+exports.list = function list(req, res) {
   const response = [];
 
   servers.forEach((server, publicKey) => {
@@ -71,7 +71,7 @@ export function list(req, res) {
   });
 }
 
-export function prune() {
+exports.prune = function prune() {
   debug('prune');
   servers.forEach((server, publicKey) => {
     if (server.ping + removeTimeout < Date.now()) {

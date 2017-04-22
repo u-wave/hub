@@ -1,9 +1,9 @@
-import fs from 'fs';
-import got from 'got';
-import ms from 'ms';
-import { keyPair as createKeyPair, sign } from 'sodium-signatures';
-import stripIndent from 'strip-indent';
-import findCacheDir from 'find-cache-dir';
+const fs = require('fs');
+const got = require('got');
+const ms = require('ms');
+const sodium = require('sodium-signatures');
+const stripIndent = require('strip-indent');
+const findCacheDir = require('find-cache-dir');
 
 const meta = require('../package.json');
 
@@ -26,7 +26,7 @@ function getKeyPair(seed) {
       secretKey: Buffer.from(publicKey, 'base64')
     };
   } catch (err) {
-    const { publicKey, secretKey } = createKeyPair(seed);
+    const { publicKey, secretKey } = sodium.createKeyPair(seed);
     fs.writeFileSync(keyPairPath, JSON.stringify({
       publicKey: publicKey.toString('base64'),
       secretKey: secretKey.toString('base64')
@@ -92,7 +92,7 @@ module.exports = function announcePlugin(options) {
     async function announce() {
       const announcement = await getAnnounceData(uw, options);
       const data = JSON.stringify(announcement);
-      const signature = sign(Buffer.from(data, 'utf8'), secretKey).toString('hex');
+      const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex');
 
       await got.post(announceUrl, {
         headers: { 'content-type': 'application/json' },

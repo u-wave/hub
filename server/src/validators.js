@@ -1,6 +1,6 @@
-import joi from 'joi';
+const joi = require('joi');
 
-export const announceData = joi.object({
+exports.announceData = joi.object({
   name: joi.string().required().max(50),
   subtitle: joi.string().required().max(50),
   description: joi.string().optional().allow(null),
@@ -26,7 +26,7 @@ export const announceData = joi.object({
   usersCount: joi.number().min(0).allow(null),
 });
 
-export const announce = {
+exports.announce = {
   params: joi.object({
     publicKey: joi.string().hex().length(64),
   }),
