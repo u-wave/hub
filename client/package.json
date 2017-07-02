@@ -6,6 +6,7 @@
   "dependencies": {
     "babel-plugin-transform-inline-environment-variables": "^6.8.0",
     "babel-preset-env": "^1.5.2",
+    "ecstatic": "^2.2.1",
     "is-mobile": "^0.2.2",
     "isomorphic-fetch": "^2.2.1",
     "material-ui": "^1.0.0-alpha.20",
@@ -22,6 +23,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "now -e HUB_SERVER=https://announce.u-wave.net/"
+    "deploy": "now -e HUB_SERVER=https://announce.u-wave.net/",
+    "export": "next build && next export -o out",
+    "static": "ecstatic out"
   }
 }

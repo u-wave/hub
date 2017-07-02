@@ -1,5 +1,6 @@
 import React from 'react';
 import Markdown from 'react-markdown';
+import getUserAgent from '../util/getUserAgent';
 import Layout from '../components/Layout';
 
 const text = `
@@ -21,7 +22,7 @@ const Image = props => (
 export default class About extends React.Component {
   static async getInitialProps({ req }) {
     return {
-      userAgent: req ? req.headers['user-agent'] : navigator.userAgent,
+      userAgent: getUserAgent(req),
     };
   }
 

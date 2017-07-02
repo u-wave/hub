@@ -2,7 +2,7 @@ import React from 'react';
 import fetch from 'isomorphic-fetch';
 import ms from 'ms';
 import { CircularProgress } from 'material-ui/Progress';
-
+import getUserAgent from '../util/getUserAgent';
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 import ServerListing from '../components/ServerListing';
@@ -27,11 +27,12 @@ async function loadServers() {
 
 export default class App extends React.Component {
   static async getInitialProps({ req }) {
+    const isExporting = req && !req.headers && typeof navigator === 'undefined';
     return {
       // If we're serving a new request, preload the servers.
       // If we're transitioning on the client, show a loading indicator.
-      servers: req ? await loadServers() : null,
-      userAgent: req ? req.headers['user-agent'] : navigator.userAgent,
+      servers: req && !isExporting ? await loadServers() : null,
+      userAgent: getUserAgent(req),
     };
   }
 

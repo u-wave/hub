@@ -15,10 +15,7 @@ const enhance = withContext({
   isMobile: isMobile(userAgent),
 }));
 
-const Layout = ({
-  children,
-  userAgent,
-}) => (
+const Layout = ({ children }) => (
   <ThemeProvider theme={createUwaveTheme()}>
     <div className="app">
       <SSR />

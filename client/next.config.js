@@ -15,3 +15,8 @@ exports.webpack = (config) => {
 
   return config
 }
+
+exports.exportPathMap = () => ({
+  '/': { page: '/' },
+  '/about': { page: '/about' }
+})
