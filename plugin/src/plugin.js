@@ -95,8 +95,8 @@ module.exports = function announcePlugin(options) {
       const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex');
 
       await got.post(announceUrl, {
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ data, signature }),
+        json: true,
+        body: { data, signature },
       });
     }
 
