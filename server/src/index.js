@@ -1,12 +1,12 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import ms from 'ms';
-import pify from 'pify';
-import joi from 'joi';
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const ms = require('ms');
+const pify = require('pify');
+const joi = require('joi');
 
-import * as controller from './controller';
-import * as validators from './validators';
+const controller = require('./controller');
+const validators = require('./validators');
 
 const joiValidate = pify(joi.validate);
 
