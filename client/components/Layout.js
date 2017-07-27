@@ -31,7 +31,7 @@ const Layout = ({ children }) => (
 
         <footer>
           <Text>
-            Powered by <a className="now" href="https://now.sh">▲ now</a>
+            <a className="src" href="https://github.com/u-wave/hub/tree/master/client">view source</a>
           </Text>
         </footer>
       </main>
@@ -69,7 +69,7 @@ const Layout = ({ children }) => (
           color: #777;
         }
 
-        .now {
+        .src {
           text-decoration: none;
           color: #aaa;
           border-bottom: 1px solid #aaa;
