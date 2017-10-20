@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import withContext from 'recompose/withContext';
@@ -10,7 +11,7 @@ import Text from './Text';
 import SSR from './SSR';
 
 const enhance = withContext({
-  isMobile: React.PropTypes.bool,
+  isMobile: PropTypes.bool,
 }, ({ userAgent }) => ({
   isMobile: isMobile(userAgent),
 }));

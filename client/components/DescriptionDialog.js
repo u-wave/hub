@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import stripIndent from 'strip-indent';
 import Markdown from 'react-markdown';
 import Button from 'material-ui/Button';
@@ -6,7 +7,7 @@ import Dialog, { DialogTitle, DialogContent, DialogActions } from 'material-ui/D
 import getContext from 'recompose/getContext';
 
 const enhance = getContext({
-  isMobile: React.PropTypes.bool,
+  isMobile: PropTypes.bool,
 });
 
 const DescriptionDialog = ({
