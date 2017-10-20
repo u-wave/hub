@@ -19,7 +19,6 @@
     "pify": "^3.0.0",
     "sodium-signatures": "^2.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "node bin/u-wave-hub.js"
   }

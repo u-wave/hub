@@ -7,7 +7,7 @@
     "start:server": "cd server && npm start",
     "start:client": "cd client && npm run dev",
     "start": "npm-run-all --parallel start:*",
-    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
     "build:plugin": "cd plugin && npm run build",
     "build": "npm-run-all --parallel build:*"
   }
