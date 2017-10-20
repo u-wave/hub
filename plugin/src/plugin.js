@@ -23,10 +23,10 @@ function getKeyPair(seed) {
     );
     return {
       publicKey: Buffer.from(publicKey, 'base64'),
-      secretKey: Buffer.from(publicKey, 'base64')
+      secretKey: Buffer.from(secretKey, 'base64')
     };
   } catch (err) {
-    const { publicKey, secretKey } = sodium.createKeyPair(seed);
+    const { publicKey, secretKey } = sodium.keyPair(seed);
     fs.writeFileSync(keyPairPath, JSON.stringify({
       publicKey: publicKey.toString('base64'),
       secretKey: secretKey.toString('base64')
