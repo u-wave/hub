@@ -1,10 +1,9 @@
-export default function getUserAgent(req) {
+export default function getUserAgent (req) {
   if (req && req.headers) {
-    return req.headers['user-agent'];
+    return req.headers['user-agent']
   }
   if (typeof navigator !== 'undefined' && navigator.userAgent) {
-    return navigator.userAgent;
+    return navigator.userAgent
   }
-  return 'all';
+  return 'all'
 }
-

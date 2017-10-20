@@ -1,28 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Head from 'next/head';
-import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import withContext from 'recompose/withContext';
-import isMobile from 'is-mobile';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Head from 'next/head'
+import ThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import withContext from 'recompose/withContext'
+import isMobile from 'is-mobile'
 
-import createUwaveTheme from '../muiTheme';
-import AppBar from './AppBar';
-import Text from './Text';
-import SSR from './SSR';
+import createUwaveTheme from '../muiTheme'
+import AppBar from './AppBar'
+import Text from './Text'
+import SSR from './SSR'
 
 const enhance = withContext({
-  isMobile: PropTypes.bool,
+  isMobile: PropTypes.bool
 }, ({ userAgent }) => ({
-  isMobile: isMobile(userAgent),
-}));
+  isMobile: isMobile(userAgent)
+}))
 
 const Layout = ({ children }) => (
   <ThemeProvider theme={createUwaveTheme()}>
-    <div className="app">
+    <div className='app'>
       <SSR />
 
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
       </Head>
 
       <AppBar />
@@ -32,7 +32,7 @@ const Layout = ({ children }) => (
 
         <footer>
           <Text>
-            <a className="src" href="https://github.com/u-wave/hub/tree/master/client">view source</a>
+            <a className='src' href='https://github.com/u-wave/hub/tree/master/client'>view source</a>
           </Text>
         </footer>
       </main>
@@ -78,6 +78,6 @@ const Layout = ({ children }) => (
       `}</style>
     </div>
   </ThemeProvider>
-);
+)
 
-export default enhance(Layout);
+export default enhance(Layout)

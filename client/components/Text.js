@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Text = ({ children }) => (
   <p>
@@ -10,6 +10,6 @@ const Text = ({ children }) => (
       }
     `}</style>
   </p>
-);
+)
 
-export default Text;
+export default Text

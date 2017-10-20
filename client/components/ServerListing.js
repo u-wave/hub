@@ -1,11 +1,11 @@
-import React from 'react';
-import ServerThumbnail from './ServerThumbnail';
-import Text from './Text';
+import React from 'react'
+import ServerThumbnail from './ServerThumbnail'
+import Text from './Text'
 
 const ServerListing = ({
   servers
 }) => (
-  <div className="servers">
+  <div className='servers'>
     {servers.length === 0 ? (
       <Text>No servers are currently available.</Text>
     ) : servers.map((server) => (
@@ -23,6 +23,6 @@ const ServerListing = ({
       }
     `}</style>
   </div>
-);
+)
 
-export default ServerListing;
+export default ServerListing

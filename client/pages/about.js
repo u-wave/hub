@@ -1,7 +1,7 @@
-import React from 'react';
-import Markdown from 'react-markdown';
-import getUserAgent from '../util/getUserAgent';
-import Layout from '../components/Layout';
+import React from 'react'
+import Markdown from 'react-markdown'
+import getUserAgent from '../util/getUserAgent'
+import Layout from '../components/Layout'
 
 const text = `
   üWave is a self-hosted collaborative listening platform. Users take
@@ -9,7 +9,7 @@ const text = `
   variety of media sources like YouTube and SoundCloud.
 
   ![Screenshot](/static/screenshot.png)
-`;
+`
 
 const Image = props => (
   <img
@@ -17,19 +17,19 @@ const Image = props => (
     alt={props.alt}
     src={props.src}
   />
-);
+)
 
 export default class About extends React.Component {
-  static async getInitialProps({ req }) {
+  static async getInitialProps ({ req }) {
     return {
-      userAgent: getUserAgent(req),
-    };
+      userAgent: getUserAgent(req)
+    }
   }
 
-  render() {
+  render () {
     return (
       <Layout userAgent={this.props.userAgent}>
-        <div className="about">
+        <div className='about'>
           <Markdown
             source={text}
             renderers={{ ...Markdown.renderers, Image }}
@@ -46,6 +46,6 @@ export default class About extends React.Component {
           }
         `}</style>
       </Layout>
-    );
+    )
   }
 }

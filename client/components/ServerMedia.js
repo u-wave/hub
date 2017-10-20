@@ -1,18 +1,18 @@
-import React from 'react';
-import { CardMedia } from 'material-ui/Card';
+import React from 'react'
+import { CardMedia } from 'material-ui/Card'
 
 const CurrentMedia = ({
-  media,
+  media
 }) => (media ? (
   <CardMedia>
     <div
-      className="image"
+      className='image'
       style={{ backgroundImage: `url(${JSON.stringify(media.thumbnail)})` }}
     />
 
-    <div className="nowPlaying">
-      <p className="title">{media.title}</p>
-      <p className="artist">{media.artist}</p>
+    <div className='nowPlaying'>
+      <p className='title'>{media.title}</p>
+      <p className='artist'>{media.artist}</p>
     </div>
 
     <style jsx>{`
@@ -47,6 +47,6 @@ const CurrentMedia = ({
   </CardMedia>
 ) : (
   <span />
-));
+))
 
-export default CurrentMedia;
+export default CurrentMedia

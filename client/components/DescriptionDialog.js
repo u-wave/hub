@@ -1,20 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import stripIndent from 'strip-indent';
-import Markdown from 'react-markdown';
-import Button from 'material-ui/Button';
-import Dialog, { DialogTitle, DialogContent, DialogActions } from 'material-ui/Dialog';
-import getContext from 'recompose/getContext';
+import React from 'react'
+import PropTypes from 'prop-types'
+import stripIndent from 'strip-indent'
+import Markdown from 'react-markdown'
+import Button from 'material-ui/Button'
+import Dialog, { DialogTitle, DialogContent, DialogActions } from 'material-ui/Dialog'
+import getContext from 'recompose/getContext'
 
 const enhance = getContext({
-  isMobile: PropTypes.bool,
-});
+  isMobile: PropTypes.bool
+})
 
 const DescriptionDialog = ({
   server,
   isMobile,
   isOpen,
-  onCloseDescription,
+  onCloseDescription
 }) => (
   <Dialog
     open={isOpen}
@@ -25,7 +25,7 @@ const DescriptionDialog = ({
       {server.name}
     </DialogTitle>
     <DialogContent>
-      <div className="markdown">
+      <div className='markdown'>
         <Markdown source={stripIndent(server.description)} />
       </div>
     </DialogContent>
@@ -47,6 +47,6 @@ const DescriptionDialog = ({
       }
     `}</style>
   </Dialog>
-);
+)
 
-export default enhance(DescriptionDialog);
+export default enhance(DescriptionDialog)

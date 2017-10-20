@@ -1,10 +1,10 @@
-import React from 'react';
-import { CircularProgress } from 'material-ui/Progress';
-import Text from './Text';
+import React from 'react'
+import { CircularProgress } from 'material-ui/Progress'
+import Text from './Text'
 
 const Loading = ({ message }) => (
-  <div className="loading">
-    <CircularProgress size={300} mode="indeterminate" />
+  <div className='loading'>
+    <CircularProgress size={300} mode='indeterminate' />
     <Text>{message}</Text>
     <style jsx>{`
       .loading {
@@ -13,6 +13,6 @@ const Loading = ({ message }) => (
       }
     `}</style>
   </div>
-);
+)
 
-export default Loading;
+export default Loading
