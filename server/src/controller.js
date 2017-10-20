@@ -1,4 +1,5 @@
 const ms = require('ms');
+const once = require('once');
 const createDebug = require('debug');
 const pify = require('pify');
 const joi = require('joi');
@@ -10,6 +11,7 @@ const debug = createDebug('u-wave-hub');
 
 const removeTimeout = ms('1 day');
 
+const bus = new Set();
 const servers = new Map();
 
 async function announceP(req, res) {
@@ -49,6 +51,10 @@ async function announceP(req, res) {
   res.json({
     received: server.data,
   });
+
+  bus.forEach((notify) => {
+    notify(Object.assign({ publicKey: serverId }, server.data));
+  });
 }
 
 exports.announce = function announce(req, res, next) {
@@ -69,6 +75,29 @@ exports.list = function list(req, res) {
   res.json({
     servers: response,
   });
+}
+
+exports.events = function events(req, res) {
+  res.writeHead(200, {
+    'content-type': 'text/event-stream',
+    'cache-control': 'no-cache'
+  });
+
+  let id = 0;
+  res.write('retry:10000\n');
+
+  bus.add(write);
+
+  const remove = once(() => {
+    bus.delete(write);
+  });
+  req.on('error', remove);
+  res.on('error', remove);
+  req.connection.on('close', remove);
+
+  function write(event) {
+    res.write(`id:${id++}\ndata:${JSON.stringify(event)}\n\n`);
+  }
 }
 
 exports.prune = function prune() {

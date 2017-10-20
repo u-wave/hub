@@ -43,6 +43,7 @@ module.exports = function hub() {
 
   app.post('/announce/:publicKey', validate(validators.announce), controller.announce);
   app.get('/', controller.list);
+  app.get('/events', controller.events);
 
   // Cleanup
   setInterval(() => {

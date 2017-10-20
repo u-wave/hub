@@ -25,6 +25,37 @@ async function loadServers() {
   });
 }
 
+function addServer(list, update) {
+  const servers = list.map((server) => server.publicKey === update.publicKey ? update : server)
+  if (servers.indexOf(update) === -1) {
+    servers.unshift(update);
+  }
+  return servers;
+}
+
+function announceEvents(notify) {
+  const source = new EventSource(`${HUB_SERVER}/events`);
+
+  const listener = (event) => {
+    let data;
+    try {
+      data = JSON.parse(event.data);
+    } catch (err) {
+      return;
+    }
+
+    notify(data);
+  };
+  source.addEventListener('message', listener);
+
+  const remove = () => {
+    source.removeEventListener('message', listener);
+    source.close();
+  };
+
+  return { remove };
+}
+
 export default class App extends React.Component {
   static async getInitialProps({ req }) {
     const isExporting = req && !req.headers && typeof navigator === 'undefined';
@@ -43,24 +74,24 @@ export default class App extends React.Component {
   componentDidMount() {
     if (!this.state.servers) {
       this.update();
-    } else {
-      this.timer = setTimeout(this.update, ms('20 seconds'));
     }
+    this.events = announceEvents(this.handleUpdate);
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timer);
-    this.timer = null;
+    this.events.remove();
   }
 
   update = async () => {
-    try {
-      this.setState({
-        servers: await loadServers(),
-      });
-    } finally {
-      this.timer = setTimeout(this.update, ms('20 seconds'));
-    }
+    this.setState({
+      servers: await loadServers(),
+    });
+  };
+
+  handleUpdate = (update) => {
+    this.setState(({ servers }) => ({
+      servers: addServer(servers, update)
+    }));
   };
 
   render() {
