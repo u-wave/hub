@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "u-wave-hub-server",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "üWave server listing.",
   "main": "src/index.js",
   "bin": "bin/u-wave-hub.js",
