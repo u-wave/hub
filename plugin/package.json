@@ -2,9 +2,10 @@
   "name": "u-wave-announce",
   "version": "0.2.0",
   "description": "Announce your üWave server's existence to the world.",
-  "main": "./lib/plugin",
+  "main": "./dist/u-wave-announce.cjs.js",
+  "module": "./dist/u-wave-announce.es.js",
   "engines": {
-    "node": ">= 4"
+    "node": ">= 8.9"
   },
   "dependencies": {
     "babel-runtime": "^6.20.0",
@@ -15,13 +16,11 @@
     "strip-indent": "^2.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-plugin-transform-runtime": "^6.15.0",
-    "babel-preset-es2015-node4": "^2.1.1",
-    "babel-preset-es2016": "^6.16.0",
-    "babel-preset-es2017": "^6.16.0"
+    "is-builtin-module": "^2.0.0",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-node-resolve": "^3.0.2"
   },
   "scripts": {
-    "build": "babel src --out-dir lib/"
+    "build": "rollup -c"
   }
 }

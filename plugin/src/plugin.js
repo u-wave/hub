@@ -1,11 +1,10 @@
-const fs = require('fs')
-const got = require('got')
-const ms = require('ms')
-const sodium = require('sodium-signatures')
-const stripIndent = require('strip-indent')
-const findCacheDir = require('find-cache-dir')
-
-const meta = require('../package.json')
+import fs from 'fs'
+import got from 'got'
+import ms from 'ms'
+import sodium from 'sodium-signatures'
+import stripIndent from 'strip-indent'
+import findCacheDir from 'find-cache-dir'
+import { name as pkgName } from '../package.json'
 
 function stripSlashes (url) {
   return url.replace(/\/+$/, '')
@@ -13,7 +12,7 @@ function stripSlashes (url) {
 
 function getKeyPair (seed) {
   const keyPairPath = findCacheDir({
-    name: meta.name,
+    name: pkgName,
     create: true,
     thunk: true
   })('keypair.json')
@@ -82,7 +81,7 @@ async function getAnnounceData (uw, options) {
   }
 }
 
-module.exports = function announcePlugin (options) {
+export default function announcePlugin (options) {
   const hubHost = options.hub || 'https://announce.u-wave.net'
   const { publicKey, secretKey } = getKeyPair(options.seed)
 
