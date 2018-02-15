@@ -34,8 +34,8 @@ const DescriptionDialog = ({
         Close
       </Button>
       <Button
-        primary
-        raised
+        color='primary'
+        variant='raised'
         href={server.url}
       >
         Join

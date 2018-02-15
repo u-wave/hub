@@ -36,7 +36,7 @@ const AppBar = () => (
         flex: 1;
         box-sizing: border-box;
         padding: 7px 0;
-        height: 100%;
+        height: 64px;
         text-align: center;
       }
       .logo img {

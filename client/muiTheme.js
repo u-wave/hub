@@ -1,6 +1,6 @@
-import createPalette from 'material-ui/styles/palette';
-import createTheme from 'material-ui/styles/theme';
-import { pink } from 'material-ui/styles/colors';
+import createPalette from 'material-ui/styles/createPalette';
+import createTheme from 'material-ui/styles/createMuiTheme';
+import pink from 'material-ui/colors/pink';
 
 export default function muiTheme() {
   const palette = createPalette({

@@ -52,10 +52,10 @@ const ServerThumbnail = ({
       <CardContent>
         <div className='header'>
           <div>
-            <Text type='headline'>
+            <Text variant='headline'>
               {server.name}
             </Text>
-            <Text type='body1' secondary>
+            <Text variant='body1' secondary>
               {server.subtitle}
             </Text>
           </div>
@@ -92,6 +92,7 @@ const ServerThumbnail = ({
       .thumb {
         width: 360px;
         margin: 0 20px 20px 20px;
+        position: relative;
       }
 
       .header {
