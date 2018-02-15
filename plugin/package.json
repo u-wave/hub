@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "find-cache-dir": "^1.0.0",
-    "got": "^7.1.0",
+    "got": "^8.1.0",
     "ms": "^2.0.0",
     "sodium-signatures": "^2.0.0",
     "strip-indent": "^2.0.0"
