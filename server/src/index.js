@@ -1,14 +1,14 @@
+const { promisify } = require('util')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const ms = require('ms')
-const pify = require('pify')
 const joi = require('joi')
 
 const controller = require('./controller')
 const validators = require('./validators')
 
-const joiValidate = pify(joi.validate)
+const joiValidate = promisify(joi.validate)
 
 function validate (validator) {
   return (req, res, next) => {

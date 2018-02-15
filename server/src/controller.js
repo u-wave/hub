@@ -1,12 +1,12 @@
 const ms = require('ms')
 const once = require('once')
 const createDebug = require('debug')
-const pify = require('pify')
+const { promisify } = require('util')
 const joi = require('joi')
 const { verify } = require('sodium-signatures')
 const validators = require('./validators')
 
-const validate = pify(joi.validate)
+const validate = promisify(joi.validate)
 const debug = createDebug('u-wave-hub')
 
 const removeTimeout = ms('1 day')
