@@ -32,7 +32,7 @@ export default class About extends React.Component {
         <div className='about'>
           <Markdown
             source={text}
-            renderers={{ ...Markdown.renderers, Image }}
+            renderers={{ image: Image }}
           />
         </div>
 
