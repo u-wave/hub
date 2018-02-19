@@ -2,7 +2,7 @@
   "private": true,
   "dependencies": {
     "npm-run-all": "^4.0.2",
-    "standard": "^10.0.3"
+    "standard": "^11.0.0"
   },
   "scripts": {
     "start:server": "cd server && npm start",
