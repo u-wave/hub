@@ -1,7 +1,6 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 import { JssProvider, SheetsRegistry } from 'react-jss'
-import { manager } from '../components/SSR'
 
 export default class SSRDocument extends Document {
   static getInitialProps ({ renderPage }) {

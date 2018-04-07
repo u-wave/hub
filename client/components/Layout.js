@@ -9,7 +9,6 @@ import withContext from 'recompose/withContext'
 import isMobile from 'is-mobile'
 import createUwaveTheme from '../muiTheme'
 import AppBar from './AppBar'
-import SSR from './SSR'
 
 const enhance = compose(
   withContext({
@@ -23,7 +22,7 @@ const enhance = compose(
       color: '#fff',
       position: 'absolute',
       height: '100%',
-      width: '100%',
+      width: '100%'
     },
     main: {
       position: 'absolute',
@@ -54,8 +53,6 @@ const Layout = ({
 }) => (
   <ThemeProvider theme={createUwaveTheme()}>
     <div className={classes.app}>
-      <SSR />
-
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <style>{`
@@ -72,7 +69,7 @@ const Layout = ({
         {children}
 
         <footer className={classes.footer}>
-          <Typography component="p">
+          <Typography component='p'>
             <a className={classes.src} href='https://github.com/u-wave/hub/tree/master/client'>view source</a>
           </Typography>
         </footer>

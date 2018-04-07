@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "Web client for üWave's server listing.",
   "dependencies": {
-    "@u-wave/react-server-list": "file:../../react-server-list/u-wave-react-server-list-0.0.0.tgz",
+    "@u-wave/react-server-list": "^1.0.0",
     "babel-plugin-transform-inline-environment-variables": "^6.8.0",
     "babel-preset-env": "^1.6.1",
     "ecstatic": "^3.2.0",
