@@ -4,20 +4,37 @@ import router from 'next/router'
 import MuiAppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Button from 'material-ui/Button'
+import { withStyles } from 'material-ui/styles'
 
-const AppBar = () => (
+const enhance = withStyles({
+  gutter: {
+    flex: 0.1
+  },
+  logo: {
+    flex: 1,
+    boxSizing: 'border-box',
+    padding: '7px 0',
+    height: 64,
+    textAlign: 'center'
+  },
+  logoImg: {
+    maxHeight: '100%'
+  }
+}, { name: 'AppBar' })
+
+const AppBar = ({ classes }) => (
   <span>
     <MuiAppBar>
       <Toolbar>
-        <div className='gutter' />
+        <div className={classes.gutter} />
         <Link href='/'>
-          <div className='logo'>
-            <img src='/static/logo-white.png' />
+          <div className={classes.logo}>
+            <img className={classes.logoImg} src='/static/logo-white.png' />
           </div>
         </Link>
         <Button
           contrast
-          className='gutter'
+          className={classes.gutter}
           href='/about'
           onClick={(event) => {
             event.preventDefault()
@@ -28,22 +45,7 @@ const AppBar = () => (
         </Button>
       </Toolbar>
     </MuiAppBar>
-    <style jsx>{`
-      .gutter {
-        flex: 0.1;
-      }
-      .logo {
-        flex: 1;
-        box-sizing: border-box;
-        padding: 7px 0;
-        height: 64px;
-        text-align: center;
-      }
-      .logo img {
-        max-height: 100%;
-      }
-    `}</style>
   </span>
 )
 
-export default AppBar
+export default enhance(AppBar)

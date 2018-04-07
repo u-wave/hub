@@ -1,5 +1,6 @@
 import React from 'react'
 import Markdown from 'react-markdown'
+import { withStyles } from 'material-ui/styles'
 import getUserAgent from '../util/getUserAgent'
 import Layout from '../components/Layout'
 
@@ -19,7 +20,17 @@ const Image = props => (
   />
 )
 
-export default class About extends React.Component {
+const enhance = withStyles({
+  about: {
+    width: 800,
+    maxWidth: '90%',
+    fontSize: '110%',
+    margin: 'auto',
+    color: '#ccc'
+  }
+}, { name: 'About' })
+
+class About extends React.Component {
   static async getInitialProps ({ req }) {
     return {
       userAgent: getUserAgent(req)
@@ -27,25 +38,18 @@ export default class About extends React.Component {
   }
 
   render () {
+    const { classes, userAgent } = this.props
     return (
-      <Layout userAgent={this.props.userAgent}>
-        <div className='about'>
+      <Layout userAgent={userAgent}>
+        <div className={classes.about}>
           <Markdown
             source={text}
             renderers={{ image: Image }}
           />
         </div>
-
-        <style jsx>{`
-          .about {
-            width: 800px;
-            max-width: 90%;
-            font-size: 110%;
-            margin: auto;
-            color: #ccc;
-          }
-        `}</style>
       </Layout>
     )
   }
 }
+
+export default enhance(About)

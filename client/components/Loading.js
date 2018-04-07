@@ -1,18 +1,20 @@
 import React from 'react'
 import { CircularProgress } from 'material-ui/Progress'
-import Text from './Text'
+import { withStyles } from 'material-ui/styles'
+import Typography from 'material-ui/Typography'
 
-const Loading = ({ message }) => (
-  <div className='loading'>
+const enhance = withStyles({
+  root: {
+    width: '100%',
+    textAlign: 'center'
+  }
+}, { name: 'Loading' })
+
+const Loading = ({ classes, message }) => (
+  <div className={classes.root}>
     <CircularProgress size={300} mode='indeterminate' />
-    <Text>{message}</Text>
-    <style jsx>{`
-      .loading {
-        width: 100%;
-        text-align: center;
-      }
-    `}</style>
+    <Typography>{message}</Typography>
   </div>
 )
 
-export default Loading
+export default enhance(Loading)

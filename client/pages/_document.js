@@ -1,16 +1,20 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
-import flush from 'styled-jsx/server'
+import { JssProvider, SheetsRegistry } from 'react-jss'
 import { manager } from '../components/SSR'
 
 export default class SSRDocument extends Document {
   static getInitialProps ({ renderPage }) {
-    const page = renderPage()
-    const jss = manager && manager.sheetsToString()
+    const sheets = new SheetsRegistry()
+    const page = renderPage((Page) => (props) => (
+      <JssProvider registry={sheets}>
+        <Page {...props} />
+      </JssProvider>
+    ))
+
     return {
       ...page,
-      jss,
-      styledJsx: flush()
+      jss: sheets.toString()
     }
   }
 
@@ -19,8 +23,7 @@ export default class SSRDocument extends Document {
       <html>
         <Head>
           <title>üWave</title>
-          <style id='ssr'>{this.props.jss || ''}</style>
-          {this.props.styledJsx}
+          <style id='ssr' dangerouslySetInnerHTML={{ __html: this.props.jss || '' }} />
         </Head>
         <body>
           <Main />
