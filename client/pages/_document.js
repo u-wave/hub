@@ -1,5 +1,6 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
+import { MuiThemeProvider } from 'material-ui/styles'
 import { JssProvider, SheetsRegistry } from 'react-jss'
 
 export default class SSRDocument extends Document {
@@ -7,7 +8,9 @@ export default class SSRDocument extends Document {
     const sheets = new SheetsRegistry()
     const page = renderPage((Page) => (props) => (
       <JssProvider registry={sheets}>
-        <Page {...props} />
+        <MuiThemeProvider sheetsManager={new Map()}>
+          <Page {...props} />
+        </MuiThemeProvider>
       </JssProvider>
     ))
 
