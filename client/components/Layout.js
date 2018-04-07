@@ -7,7 +7,7 @@ import { withStyles } from 'material-ui/styles'
 import compose from 'recompose/compose'
 import withContext from 'recompose/withContext'
 import isMobile from 'is-mobile'
-import createUwaveTheme from '../muiTheme'
+import theme from '../muiTheme'
 import AppBar from './AppBar'
 
 const enhance = compose(
@@ -58,7 +58,7 @@ const Layout = ({
   classes,
   children
 }) => (
-  <ThemeProvider theme={createUwaveTheme()}>
+  <ThemeProvider theme={theme}>
     <div className={classes.app}>
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
