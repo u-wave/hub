@@ -44,8 +44,15 @@ const enhance = compose(
       color: '#aaa',
       borderBottom: '1px solid #aaa'
     }
-  })
+  }, { name: 'Layout' })
 )
+
+const globalCss = `
+  body {
+    margin: 0;
+    font-family: 'open sans', arial, sans-serif;
+  }
+`
 
 const Layout = ({
   classes,
@@ -55,12 +62,7 @@ const Layout = ({
     <div className={classes.app}>
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <style>{`
-          body {
-            margin: 0;
-            font-family: 'open sans', arial, sans-serif;
-          }
-        `}</style>
+        <style dangerouslySetInnerHTML={{ __html: globalCss }} />
       </Head>
 
       <AppBar />
