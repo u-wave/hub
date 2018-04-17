@@ -4,7 +4,10 @@ import ms from 'ms'
 import sodium from 'sodium-signatures'
 import stripIndent from 'strip-indent'
 import findCacheDir from 'find-cache-dir'
+import createDebug from 'debug'
 import { name as pkgName } from '../package.json'
+
+const debug = createDebug('uwave:announce')
 
 function stripSlashes (url) {
   return url.replace(/\/+$/, '')
@@ -99,15 +102,23 @@ export default function announcePlugin (options) {
       })
     }
 
+    function onError (err) {
+      debug(err)
+    }
+
     // Announce that we've started up and are now alive.
-    announce()
+    announce().catch(onError)
 
     // Announce again every time the song changes.
-    uw.on('advance', announce)
+    uw.on('advance', () => {
+      announce().catch(onError)
+    })
 
     // And announce periodically in the mean time to let the Hub server know
     // we're still alive.
-    const interval = setInterval(announce, ms('1 minute'))
+    const interval = setInterval(() => {
+      announce().catch(onError)
+    }, ms('1 minute'))
     uw.on('stop', () => {
       clearInterval(interval)
     })

@@ -8,6 +8,7 @@
     "node": ">= 8.9"
   },
   "dependencies": {
+    "debug": "^3.1.0",
     "find-cache-dir": "^1.0.0",
     "got": "^8.3.0",
     "ms": "^2.0.0",
