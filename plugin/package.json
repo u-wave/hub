@@ -1,6 +1,6 @@
 {
   "name": "u-wave-announce",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Announce your üWave server's existence to the world.",
   "main": "./dist/u-wave-announce.cjs.js",
   "module": "./dist/u-wave-announce.es.js",
