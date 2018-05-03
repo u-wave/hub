@@ -11,7 +11,7 @@
     "is-mobile": "^0.2.2",
     "material-ui": "^1.0.0-beta.40",
     "material-ui-icons": "^1.0.0-beta.36",
-    "next": "^5.1.0",
+    "next": "^6.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
