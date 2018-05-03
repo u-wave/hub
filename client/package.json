@@ -6,7 +6,6 @@
   "dependencies": {
     "@u-wave/react-server-list": "^1.0.0",
     "babel-plugin-transform-inline-environment-variables": "^6.8.0",
-    "babel-preset-env": "^1.6.1",
     "ecstatic": "^3.2.0",
     "is-mobile": "^0.2.2",
     "material-ui": "^1.0.0-beta.40",
