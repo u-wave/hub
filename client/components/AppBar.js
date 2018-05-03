@@ -1,6 +1,5 @@
 import React from 'react'
 import Link from 'next/link'
-import router from 'next/router'
 import MuiAppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Button from 'material-ui/Button'
@@ -35,11 +34,7 @@ const AppBar = ({ classes }) => (
         <Button
           contrast
           className={classes.gutter}
-          href='/about'
-          onClick={(event) => {
-            event.preventDefault()
-            router.push('/about')
-          }}
+          href='https://u-wave.net'
         >
           About
         </Button>
