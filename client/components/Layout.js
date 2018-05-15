@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
-import Typography from 'material-ui/Typography'
-import ThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import { withStyles } from 'material-ui/styles'
+import Typography from '@material-ui/core/Typography'
+import { MuiThemeProvider, withStyles } from '@material-ui/core/styles'
 import compose from 'recompose/compose'
 import withContext from 'recompose/withContext'
 import isMobile from 'is-mobile'
@@ -58,7 +57,7 @@ const Layout = ({
   classes,
   children
 }) => (
-  <ThemeProvider theme={theme}>
+  <MuiThemeProvider theme={theme}>
     <div className={classes.app}>
       <Head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -77,7 +76,7 @@ const Layout = ({
         </footer>
       </main>
     </div>
-  </ThemeProvider>
+  </MuiThemeProvider>
 )
 
 export default enhance(Layout)

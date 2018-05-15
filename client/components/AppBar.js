@@ -1,9 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
-import AppBar from 'material-ui/AppBar'
-import Toolbar from 'material-ui/Toolbar'
-import Button from 'material-ui/Button'
-import { withStyles } from 'material-ui/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Button from '@material-ui/core/Button'
+import { withStyles } from '@material-ui/core/styles'
 
 const LOGO_HEIGHT = 114
 const LOGO_SQUARE_WIDTH = 104
