@@ -12,6 +12,11 @@ const debug = createDebug('uwave:announce')
 const optionsSchema = {
   type: 'object',
   properties: {
+    enabled: {
+      type: 'boolean',
+      description: 'Whether to announce at all.',
+      default: true
+    },
     name: {
       type: 'string',
       description: 'The server name.'
@@ -53,7 +58,7 @@ const optionsSchema = {
       default: 'https://announce.u-wave.net'
     }
   },
-  required: ['name', 'subtitle', 'url']
+  required: ['enabled', 'name', 'subtitle', 'url']
 }
 
 function stripSlashes (url) {
@@ -141,6 +146,10 @@ export default function announcePlugin (options) {
       const options = await uw.config.get('announce')
       if (typeof options !== 'object') {
         debug('announcing not configured, skipping')
+        return
+      }
+      if (!options.enabled) {
+        debug('announcing disabled, skipping')
         return
       }
 
