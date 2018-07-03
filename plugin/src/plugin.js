@@ -9,6 +9,53 @@ import { name as pkgName } from '../package.json'
 
 const debug = createDebug('uwave:announce')
 
+const optionsSchema = {
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+      description: 'The server name.'
+    },
+    subtitle: {
+      type: 'string',
+      description: 'A short description of the server\'s purpose, up to about 30 characters.',
+      examples: [
+        'EDM and more!',
+        'International K-Pop Community'
+      ]
+    },
+    description: {
+      type: 'string',
+      description: 'A long-form description of the server. '
+        + 'The description can contain markdown, including images and links. '
+        + 'This can be a good place to put rules, links to social media accounts associated '
+        + 'with your server, and whatever else you want visitors to know.'
+    },
+    url: {
+      type: 'string',
+      format: 'uri',
+      description: 'A URL to your server. Ideally this should be hosting a web client of some form.'
+    },
+    socketUrl: {
+      type: 'string',
+      format: 'uri',
+      description: 'A WebSocket endpoint URL for your server. This defaults to `url` with the ws:// or wss:// protocol, so this almost never has to be set.'
+    },
+    apiUrl: {
+      type: 'string',
+      format: 'uri',
+      description: 'The base URL for the HTTP API your server. This defaults to `url` + /v1, so this almost never has to be set.'
+    },
+    hub: {
+      type: 'string',
+      format: 'uri',
+      description: 'The announce server to announce to. Uses https://announce.u-wave.net, the server behind https://hub.u-wave.net, by default.',
+      default: 'https://announce.u-wave.net'
+    }
+  },
+  required: ['name', 'subtitle', 'url']
+}
+
 function stripSlashes (url) {
   return url.replace(/\/+$/, '')
 }
@@ -85,13 +132,22 @@ async function getAnnounceData (uw, options) {
 }
 
 export default function announcePlugin (options) {
-  const hubHost = options.hub || 'https://announce.u-wave.net'
   const { publicKey, secretKey } = getKeyPair(options.seed)
 
-  const announceUrl = `${stripSlashes(hubHost)}/announce/${publicKey.toString('hex')}`
-
   return (uw) => {
+    uw.config.register('announce', optionsSchema);
+
     async function announce () {
+      const options = await uw.config.get('announce')
+      if (typeof options !== 'object') {
+        debug('announcing not configured, skipping')
+        return
+      }
+
+      const hubHost = options.hub || 'https://announce.u-wave.net'
+      const announceUrl = `${stripSlashes(hubHost)}/announce/${publicKey.toString('hex')}`
+      debug('announcing to', announceUrl)
+
       const announcement = await getAnnounceData(uw, options)
       const data = JSON.stringify(announcement)
       const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex')
