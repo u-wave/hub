@@ -11,6 +11,8 @@ const debug = createDebug('uwave:announce')
 
 const optionsSchema = {
   type: 'object',
+  title: 'Announce',
+  description: 'Options for publically announcing this server. Announcing allows users to find this server on "Hubs", such as https://hub.u-wave.net.',
   properties: {
     enabled: {
       type: 'boolean',
