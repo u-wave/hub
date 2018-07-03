@@ -9,16 +9,16 @@
   },
   "dependencies": {
     "debug": "^3.1.0",
-    "find-cache-dir": "^1.0.0",
-    "got": "^8.3.0",
+    "find-cache-dir": "^2.0.0",
+    "got": "^8.3.2",
     "ms": "^2.0.0",
     "sodium-signatures": "^2.0.0",
     "strip-indent": "^2.0.0"
   },
   "devDependencies": {
     "is-builtin-module": "^2.0.0",
-    "rollup": "^0.57.1",
-    "rollup-plugin-json": "^2.3.0",
+    "rollup": "^0.62.0",
+    "rollup-plugin-json": "^3.0.0",
     "rollup-plugin-node-resolve": "^3.3.0"
   },
   "scripts": {
