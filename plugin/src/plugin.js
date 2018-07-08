@@ -16,15 +16,17 @@ const optionsSchema = {
   properties: {
     enabled: {
       type: 'boolean',
+      title: 'Enabled',
       description: 'Whether to announce at all.',
       default: true
     },
     name: {
       type: 'string',
-      description: 'The server name.'
+      title: 'Server Name'
     },
     subtitle: {
       type: 'string',
+      title: 'Tagline',
       description: 'A short description of the server\'s purpose, up to about 30 characters.',
       examples: [
         'EDM and more!',
@@ -33,29 +35,35 @@ const optionsSchema = {
     },
     description: {
       type: 'string',
-      description: 'A long-form description of the server. '
-        + 'The description can contain markdown, including images and links. '
-        + 'This can be a good place to put rules, links to social media accounts associated '
-        + 'with your server, and whatever else you want visitors to know.'
+      'uw:control': 'textarea',
+      title: 'Description',
+      description: 'A long-form description of the server. ' +
+        'The description can contain Markdown, including images and links. ' +
+        'This can be a good place to put rules, links to social media accounts associated ' +
+        'with your server, and whatever else you want visitors to know.'
     },
     url: {
       type: 'string',
       format: 'uri',
+      title: 'URL',
       description: 'A URL to your server. Ideally this should be hosting a web client of some form.'
     },
     socketUrl: {
       type: 'string',
       format: 'uri',
+      title: 'WebSocket URL',
       description: 'A WebSocket endpoint URL for your server. This defaults to `url` with the ws:// or wss:// protocol, so this almost never has to be set.'
     },
     apiUrl: {
       type: 'string',
       format: 'uri',
+      title: 'API URL',
       description: 'The base URL for the HTTP API your server. This defaults to `url` + /v1, so this almost never has to be set.'
     },
     hub: {
       type: 'string',
       format: 'uri',
+      title: 'Hub URL',
       description: 'The announce server to announce to. Uses https://announce.u-wave.net, the server behind https://hub.u-wave.net, by default.',
       default: 'https://announce.u-wave.net'
     }
@@ -142,7 +150,7 @@ export default function announcePlugin (options) {
   const { publicKey, secretKey } = getKeyPair(options.seed)
 
   return (uw) => {
-    uw.config.register('announce', optionsSchema);
+    uw.config.register('announce', optionsSchema)
 
     async function announce () {
       const options = await uw.config.get('announce')
