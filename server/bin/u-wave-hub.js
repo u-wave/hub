@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-const hub = require('../');
+const hub = require('../')
 
-hub().listen(process.env.PORT || 6451);
+hub().listen(process.env.PORT || 6451)

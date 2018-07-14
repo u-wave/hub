@@ -9,6 +9,12 @@
     "prepare": "lerna bootstrap",
     "start": "lerna run --parallel watch",
     "build": "lerna run --stream build",
-    "test": "standard client/**/*.js server/src/**/*.js plugin/src/**/*.js"
+    "test": "standard"
+  },
+  "standard": {
+    "ignore": [
+      "client/out/**",
+      "*/dist/*.js"
+    ]
   }
 }

@@ -3,7 +3,7 @@ exports.webpack = (config) => {
     test: /\.js$/,
     include: [
       /strip-indent/,
-      /@material-ui\/.*?\/es/,
+      /@material-ui\/.*?\/es/
     ],
     use: {
       loader: 'babel-loader',
@@ -16,7 +16,7 @@ exports.webpack = (config) => {
 
   Object.assign(config.resolve.alias, {
     '@material-ui/core': '@material-ui/core/es',
-    '@material-ui/icons': '@material-ui/icons/es',
+    '@material-ui/icons': '@material-ui/icons/es'
   })
 
   return config
