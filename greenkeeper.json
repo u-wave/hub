@@ -1,0 +1,12 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "client/package.json",
+        "package.json",
+        "plugin/package.json",
+        "server/package.json"
+      ]
+    }
+  }
+}
