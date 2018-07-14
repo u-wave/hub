@@ -1,0 +1,8 @@
+{
+  "packages": [
+    "client",
+    "server",
+    "plugin"
+  ],
+  "version": "independent"
+}
