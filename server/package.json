@@ -19,6 +19,7 @@
     "sodium-signatures": "^2.0.0"
   },
   "scripts": {
-    "start": "node bin/u-wave-hub.js"
+    "start": "node bin/u-wave-hub.js",
+    "dev": "npm start"
   }
 }

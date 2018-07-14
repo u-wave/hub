@@ -2,12 +2,13 @@
   "private": true,
   "name": "u-wave-hub",
   "dependencies": {
+    "cross-env": "^5.2.0",
     "lerna": "^3.0.0-beta.21",
     "standard": "^11.0.0"
   },
   "scripts": {
     "prepare": "lerna bootstrap --no-ci",
-    "start": "lerna run --parallel watch",
+    "start": "cross-env HUB_SERVER=http://localhost:6451 lerna run --parallel dev",
     "build": "lerna run --stream build",
     "test": "standard"
   },
