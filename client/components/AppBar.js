@@ -15,34 +15,34 @@ const enhance = withStyles(theme => ({
     [theme.breakpoints.down('md')]: {
       width: `${LOGO_SQUARE_WIDTH * 48 / LOGO_HEIGHT}px`,
       overflow: 'hidden',
-      marginRight: 12,
-    },
+      marginRight: 12
+    }
   },
   logoImg: {
-    maxHeight: '100%',
-  },
-}));
+    maxHeight: '100%'
+  }
+}))
 
 const Header = ({ classes }) => (
   <AppBar elevation={0}>
     <Toolbar>
-      <Link href="https://u-wave.net/">
+      <Link href='https://u-wave.net/'>
         <a className={classes.logo}>
-          <img src="/static/logo-white.png" className={classes.logoImg} />
+          <img src='/static/logo-white.png' className={classes.logoImg} />
         </a>
       </Link>
-      <Link href="/" passHref>
-        <Button variant="flat">
+      <Link href='/' passHref>
+        <Button variant='flat'>
           Join
         </Button>
       </Link>
-      <Link href="https://u-wave.net/install" passHref>
-        <Button variant="flat">
+      <Link href='https://u-wave.net/install' passHref>
+        <Button variant='flat'>
           Install
         </Button>
       </Link>
     </Toolbar>
   </AppBar>
-);
+)
 
 export default enhance(Header)

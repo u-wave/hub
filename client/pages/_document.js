@@ -2,7 +2,7 @@ import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import { JssProvider, SheetsRegistry } from 'react-jss'
-import theme from '../muiTheme';
+import theme from '../muiTheme'
 
 export default class SSRDocument extends Document {
   static getInitialProps ({ renderPage }) {
