@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "is-builtin-module": "^2.0.0",
-    "rollup": "^0.63.0",
+    "rollup": "^0.64.0",
     "rollup-plugin-json": "^3.0.0",
     "rollup-plugin-node-resolve": "^3.3.0"
   },
