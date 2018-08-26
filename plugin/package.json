@@ -10,7 +10,7 @@
   "dependencies": {
     "debug": "^3.1.0",
     "find-cache-dir": "^2.0.0",
-    "got": "^8.3.2",
+    "got": "^9.0.0",
     "ms": "^2.0.0",
     "sodium-signatures": "^2.0.0",
     "strip-indent": "^2.0.0"
