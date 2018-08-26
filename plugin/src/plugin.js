@@ -1,10 +1,10 @@
 import fs from 'fs'
 import got from 'got'
 import ms from 'ms'
-import sodium from 'sodium-signatures'
 import stripIndent from 'strip-indent'
 import findCacheDir from 'find-cache-dir'
 import createDebug from 'debug'
+import * as sodium from './signatures'
 import { name as pkgName } from '../package.json'
 
 const debug = createDebug('uwave:announce')
