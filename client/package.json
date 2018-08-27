@@ -4,7 +4,7 @@
   "version": "0.3.0",
   "description": "Web client for üWave's server listing.",
   "dependencies": {
-    "@material-ui/core": "^1.3.1",
+    "@material-ui/core": "^3.0.0",
     "@material-ui/icons": "^2.0.0",
     "@u-wave/react-server-list": "^2.0.1",
     "@u-wave/site-layout": "^1.0.0",
