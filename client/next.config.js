@@ -15,8 +15,7 @@ exports.webpack = (config) => {
   })
 
   Object.assign(config.resolve.alias, {
-    '@material-ui/core': '@material-ui/core/es',
-    '@material-ui/icons': '@material-ui/icons/es'
+    '@material-ui/core': '@material-ui/core/es'
   })
 
   return config
