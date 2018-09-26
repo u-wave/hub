@@ -13,7 +13,7 @@ const enhance = compose(
   withContext({
     isMobile: PropTypes.bool
   }, ({ userAgent }) => ({
-    isMobile: isMobile(userAgent)
+    isMobile: isMobile({ ua: userAgent })
   })),
   withStyles({
     app: {
