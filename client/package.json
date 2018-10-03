@@ -16,7 +16,6 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-jss": "^8.6.0",
-    "react-markdown": "^3.3.4",
     "recompose": "^0.30.0"
   },
   "scripts": {
