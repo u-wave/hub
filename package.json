@@ -3,7 +3,7 @@
   "name": "u-wave-hub",
   "dependencies": {
     "cross-env": "^5.2.0",
-    "lerna": "^3.0.0-beta.21",
+    "lerna": "^3.13.4",
     "standard": "^12.0.0"
   },
   "scripts": {
