@@ -1,3 +1,5 @@
+exports.target = 'serverless'
+
 exports.webpack = (config) => {
   config.module.rules.push({
     test: /\.js$/,

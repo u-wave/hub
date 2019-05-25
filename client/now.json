@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "u-wave-hub-client",
+  "alias": "hub.u-wave.net",
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@now/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/_next/static/(?:[^/]+/pages|chunks|runtime)/.+",
+      "headers": {
+        "cache-control": "immutable,max-age=31536000"
+      }
+    }
+  ],
+  "env": {
+    "HUB_SERVER": "https://announce.u-wave.net"
+  }
+}
