@@ -15,12 +15,6 @@
     "sodium-javascript": "^0.5.5",
     "strip-indent": "^3.0.0"
   },
-  "devDependencies": {
-    "is-builtin-module": "^3.0.0",
-    "rollup": "^1.0.0",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.0.0"
-  },
   "scripts": {
     "build": "rollup -c"
   }

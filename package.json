@@ -1,15 +1,23 @@
 {
-  "private": true,
   "name": "u-wave-hub",
   "dependencies": {
-    "cross-env": "^5.2.0",
-    "lerna": "^3.13.4",
-    "standard": "^12.0.0"
+    "u-wave-announce": "file:plugin",
+    "u-wave-hub-client": "file:client",
+    "u-wave-hub-server": "file:server"
   },
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "is-builtin-module": "^3.0.0",
+    "lerna": "^3.14.1",
+    "rollup": "^1.0.0",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.0.0",
+    "standard": "^12.0.1"
+  },
+  "private": true,
   "scripts": {
-    "prepare": "lerna bootstrap --no-ci",
-    "start": "cross-env HUB_SERVER=http://localhost:6451 lerna run --parallel dev",
     "build": "lerna run --stream build",
+    "start": "cross-env HUB_SERVER=http://localhost:6451 lerna run --parallel dev",
     "test": "standard"
   },
   "standard": {
