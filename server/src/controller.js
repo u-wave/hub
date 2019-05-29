@@ -3,6 +3,7 @@ const once = require('once')
 const createDebug = require('debug')
 const { promisify } = require('util')
 const joi = require('joi')
+const SSE = require('sse-writer')
 const { verify } = require('sodium-signatures')
 const validators = require('./validators')
 
@@ -78,25 +79,24 @@ exports.list = function list (req, res) {
 }
 
 exports.events = function events (req, res) {
-  res.writeHead(200, {
-    'content-type': 'text/event-stream',
-    'cache-control': 'no-cache'
-  })
+  const stream = new SSE()
+    .retry(10000)
 
   let id = 0
-  res.write('retry:10000\n')
 
   bus.add(write)
-
   const remove = once(() => {
+    stream.end()
     bus.delete(write)
   })
   req.on('error', remove)
   res.on('error', remove)
   req.connection.on('close', remove)
 
+  stream.pipe(res)
+
   function write (event) {
-    res.write(`id:${id++}\ndata:${JSON.stringify(event)}\n\n`)
+    stream.event(id++, 'data', event)
   }
 }
 

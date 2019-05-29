@@ -16,7 +16,8 @@
     "joi": "^14.0.0",
     "ms": "^2.0.0",
     "once": "^1.4.0",
-    "sodium-signatures": "^2.0.0"
+    "sodium-signatures": "^2.0.0",
+    "sse-writer": "^3.0.0"
   },
   "scripts": {
     "start": "node bin/u-wave-hub.js",
