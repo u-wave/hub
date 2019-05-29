@@ -6,7 +6,7 @@ const joi = require('joi')
 const { verify } = require('sodium-signatures')
 const validators = require('./validators')
 
-const validate = promisify(joi.validate)
+const validate = promisify(joi.validate.bind(joi))
 const debug = createDebug('u-wave-hub')
 
 const removeTimeout = ms('1 day')

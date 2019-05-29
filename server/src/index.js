@@ -8,7 +8,7 @@ const joi = require('joi')
 const controller = require('./controller')
 const validators = require('./validators')
 
-const joiValidate = promisify(joi.validate)
+const joiValidate = promisify(joi.validate.bind(joi))
 
 function validate (validator) {
   return (req, res, next) => {
