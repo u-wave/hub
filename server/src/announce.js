@@ -26,7 +26,7 @@ module.exports = async function announce (req, res) {
   const params = await validate(req.params, validators.announce.params, validateOpts)
   const body = await validate(await json(req), validators.announce.body, validateOpts)
 
-  const publicKey = Buffer.from(req.params.publicKey, 'hex')
+  const publicKey = Buffer.from(params.publicKey, 'hex')
   const data = Buffer.from(body.data, 'utf8')
   const signature = Buffer.from(body.signature, 'hex')
 

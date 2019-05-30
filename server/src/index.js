@@ -1,5 +1,4 @@
 const { router, get, post } = require('microrouter')
-const micro = require('micro')
 const controller = require('./controller')
 
 module.exports = router(
