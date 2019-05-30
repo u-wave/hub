@@ -6,9 +6,10 @@
   "main": "src/index.js",
   "bin": "bin/u-wave-hub.js",
   "engines": {
-    "node": ">= 8"
+    "node": ">= 10"
   },
   "dependencies": {
+    "@google-cloud/firestore": "^1.3.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.3",
     "debug": "^4.0.0",

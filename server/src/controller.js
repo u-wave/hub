@@ -6,6 +6,7 @@ const joi = require('joi')
 const SSE = require('sse-writer')
 const { verify } = require('sodium-signatures')
 const validators = require('./validators')
+const Store = process.env.FIRESTORE_PROJECT ? require('./firebase') : require('./memory')
 
 const validate = promisify(joi.validate.bind(joi))
 const debug = createDebug('u-wave-hub')
@@ -13,7 +14,13 @@ const debug = createDebug('u-wave-hub')
 const removeTimeout = ms('1 day')
 
 const bus = new Set()
-const servers = new Map()
+const servers = new Store()
+
+function onUpdate (serverId, server) {
+  bus.forEach((notify) => {
+    notify({ publicKey: serverId, ...server })
+  })
+}
 
 async function announceP (req, res) {
   const publicKey = Buffer.from(req.params.publicKey, 'hex')
@@ -41,20 +48,16 @@ async function announceP (req, res) {
     stripUnknown: true
   })
 
-  servers.set(serverId, {
+  await servers.update(serverId, {
     ping: Date.now(),
     data: object
   })
 
   debug('announce', serverId)
 
-  const server = servers.get(serverId)
+  const server = await servers.get(serverId)
   res.json({
     received: server.data
-  })
-
-  bus.forEach((notify) => {
-    notify(Object.assign({ publicKey: serverId }, server.data))
   })
 }
 
@@ -62,16 +65,16 @@ exports.announce = function announce (req, res, next) {
   announceP(req, res).catch(next)
 }
 
-exports.list = function list (req, res) {
+exports.list = async function list (req, res) {
   const response = []
 
-  servers.forEach((server, publicKey) => {
+  for await (const [publicKey, server] of servers.list()) {
     response.push(Object.assign(
       {},
       server.data,
       { publicKey, timeSincePing: Date.now() - server.ping }
     ))
-  })
+  }
 
   res.json({
     servers: response
@@ -84,10 +87,18 @@ exports.events = function events (req, res) {
 
   let id = 0
 
+  if (bus.size === 0) {
+    servers.on('update', onUpdate)
+  }
+
   bus.add(write)
   const remove = once(() => {
     stream.end()
     bus.delete(write)
+
+    if (bus.size === 0) {
+      servers.off('update', onUpdate)
+    }
   })
   req.on('error', remove)
   res.on('error', remove)
@@ -100,12 +111,7 @@ exports.events = function events (req, res) {
   }
 }
 
-exports.prune = function prune () {
+exports.prune = async function prune () {
   debug('prune')
-  servers.forEach((server, publicKey) => {
-    if (server.ping + removeTimeout < Date.now()) {
-      debug('prune', publicKey)
-      servers.delete(publicKey)
-    }
-  })
+  await servers.deleteBefore(Date.now() - removeTimeout)
 }
