@@ -2,7 +2,6 @@ const { promisify } = require('util')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const ms = require('ms')
 const joi = require('joi')
 
 const controller = require('./controller')
@@ -44,11 +43,6 @@ module.exports = function hub () {
   app.post('/announce/:publicKey', validate(validators.announce), controller.announce)
   app.get('/', controller.list)
   app.get('/events', controller.events)
-
-  // Cleanup
-  setInterval(() => {
-    controller.prune()
-  }, ms('1 minute'))
 
   return app
 }

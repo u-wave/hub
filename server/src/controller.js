@@ -22,6 +22,13 @@ function onUpdate (serverId, server) {
   })
 }
 
+function prune () {
+  debug('prune')
+  servers.deleteBefore(Date.now() - removeTimeout).catch((err) => {
+    debug('error while pruning', err)
+  })
+}
+
 async function announceP (req, res) {
   const publicKey = Buffer.from(req.params.publicKey, 'hex')
   const data = Buffer.from(req.body.data, 'utf8')
@@ -54,6 +61,8 @@ async function announceP (req, res) {
   })
 
   debug('announce', serverId)
+
+  prune()
 
   const server = await servers.get(serverId)
   res.json({
@@ -109,9 +118,4 @@ exports.events = function events (req, res) {
   function write (event) {
     stream.event(id++, 'data', event)
   }
-}
-
-exports.prune = async function prune () {
-  debug('prune')
-  await servers.deleteBefore(Date.now() - removeTimeout)
 }
