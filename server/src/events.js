@@ -1,6 +1,7 @@
+const helmet = require('micro-helmet')
+const servers = require('./store')
 const SSE = require('sse-writer')
 const once = require('once')
-const servers = require('./store')
 
 const bus = new Set()
 
@@ -10,7 +11,9 @@ function onUpdate (serverId, server) {
   })
 }
 
-module.exports = function events (req, res) {
+module.exports = async function events (req, res) {
+  await helmet.addHeaders(req, res)
+
   const stream = new SSE()
     .retry(10000)
 

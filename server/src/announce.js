@@ -2,6 +2,7 @@ const { verify } = require('sodium-signatures')
 const debug = require('debug')('u-wave-hub')
 const validators = require('./validators')
 const { json, send } = require('micro')
+const helmet = require('micro-helmet')
 const { promisify } = require('util')
 const servers = require('./store')
 const joi = require('joi')
@@ -23,6 +24,8 @@ function prune () {
 }
 
 module.exports = async function announce (req, res) {
+  await helmet.addHeaders(req, res)
+
   const params = await validate(req.params, validators.announce.params, validateOpts)
   const body = await validate(await json(req), validators.announce.body, validateOpts)
 
