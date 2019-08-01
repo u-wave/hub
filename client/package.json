@@ -11,7 +11,7 @@
     "babel-plugin-transform-inline-environment-variables": "^6.8.0",
     "ecstatic": "^4.0.0",
     "is-mobile": "^2.0.0",
-    "next": "^8.1.0",
+    "next": "^9.0.3",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
