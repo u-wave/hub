@@ -1,4 +1,5 @@
 const helmet = require('micro-helmet')
+const cors = require('micro-cors')
 const servers = require('./store')
 const SSE = require('sse-writer')
 const once = require('once')
@@ -11,7 +12,9 @@ function onUpdate (serverId, server) {
   })
 }
 
-module.exports = async function events (req, res) {
+const enhance = cors({ allowedMethods: ['GET'] })
+
+module.exports = enhance(async function events (req, res) {
   await helmet.addHeaders(req, res)
 
   const stream = new SSE()
@@ -41,4 +44,4 @@ module.exports = async function events (req, res) {
   }
 
   return stream
-}
+})

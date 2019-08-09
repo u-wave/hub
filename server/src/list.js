@@ -1,8 +1,11 @@
 const { send } = require('micro')
 const helmet = require('micro-helmet')
+const cors = require('micro-cors')
 const servers = require('./store')
 
-module.exports = async function list (req, res) {
+const enhance = cors({ allowedMethods: ['GET'] })
+
+module.exports = enhance(async function list (req, res) {
   await helmet.addHeaders(req, res)
 
   const response = []
@@ -17,4 +20,4 @@ module.exports = async function list (req, res) {
   send(res, 200, {
     servers: response
   })
-}
+})
