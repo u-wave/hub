@@ -6,6 +6,7 @@
     "u-wave-hub-server": "file:server"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.3",
     "cross-env": "^5.2.0",
     "is-builtin-module": "^3.0.0",
     "lerna": "^3.16.4",
@@ -22,6 +23,7 @@
     "test": "standard"
   },
   "standard": {
+    "parser": "babel-eslint",
     "ignore": [
       "client/out/**",
       "*/dist/*.js"
