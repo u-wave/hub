@@ -4,25 +4,24 @@
   "version": "0.3.0",
   "description": "Web client for üWave's server listing.",
   "dependencies": {
-    "@material-ui/core": "^3.9.3",
-    "@material-ui/icons": "^3.0.0",
-    "@u-wave/react-server-list": "^3.0.0",
+    "@material-ui/core": "^4.5.0",
+    "@material-ui/icons": "^4.5.0",
+    "@u-wave/react-server-list": "4.0.0-alpha.1",
     "@u-wave/site-layout": "^1.0.0",
     "babel-plugin-transform-inline-environment-variables": "^6.8.0",
-    "ecstatic": "^4.0.0",
     "is-mobile": "^2.0.0",
     "next": "^9.0.3",
     "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-jss": "^8.6.0",
-    "recompose": "^0.30.0"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "recompose": "^0.30.0",
+    "serve": "^11.0.0"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "export": "next build && next export -o out",
-    "static": "ecstatic out"
+    "static": "serve out"
   }
 }

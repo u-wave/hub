@@ -1,32 +1,39 @@
 import React from 'react'
 import Document, { Head, Main, NextScript } from 'next/document'
-import { MuiThemeProvider } from '@material-ui/core/styles'
-import { JssProvider, SheetsRegistry } from 'react-jss'
+import { MuiThemeProvider, ServerStyleSheets } from '@material-ui/core/styles'
 import theme from '../muiTheme'
 
 export default class SSRDocument extends Document {
-  static getInitialProps ({ renderPage }) {
-    const sheets = new SheetsRegistry()
-    const page = renderPage((Page) => (props) => (
-      <JssProvider registry={sheets}>
-        <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
-          <Page {...props} />
-        </MuiThemeProvider>
-      </JssProvider>
-    ))
+  static async getInitialProps (ctx) {
+    // Render app and page and get the context of the page with collected side effects.
+    const sheets = new ServerStyleSheets()
+
+    const initialProps = await Document.getInitialProps({
+      ...ctx,
+      renderPage: () => ctx.renderPage({
+        enhanceApp: App => props => sheets.collect(<App {...props} />)
+      })
+    })
 
     return {
-      ...page,
-      jss: sheets.toString()
+      ...initialProps,
+      // Styles fragment is rendered after the app and page rendering finish.
+      styles: [
+        <React.Fragment key="styles">
+          {initialProps.styles}
+          {sheets.getStyleElement()}
+        </React.Fragment>,
+      ],
     }
   }
+
 
   render () {
     return (
       <html>
         <Head>
           <title>üWave</title>
-          <style id='ssr' dangerouslySetInnerHTML={{ __html: this.props.jss || '' }} />
+          {this.props.styles}
         </Head>
         <body>
           <Main />

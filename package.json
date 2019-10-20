@@ -19,7 +19,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run --stream build",
-    "start": "cross-env HUB_SERVER=http://localhost:6451 lerna run --scope u-wave-hub-client dev & micro-dev server/src/index.js -p 6451",
+    "start": "cross-env HUB_SERVER=http://localhost:6451 lerna run --no-prefix --stream --scope u-wave-hub-client dev & micro-dev server/src/index.js -p 6451",
     "test": "standard"
   },
   "standard": {
