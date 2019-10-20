@@ -5,10 +5,9 @@ const { json, send } = require('micro')
 const helmet = require('micro-helmet')
 const { promisify } = require('util')
 const servers = require('./store')
-const joi = require('joi')
+const joi = require('@hapi/joi')
 const ms = require('ms')
 
-const validate = promisify(joi.validate.bind(joi))
 const validateOpts = {
   allowUnknown: true,
   stripUnknown: true
@@ -26,8 +25,8 @@ function prune () {
 module.exports = async function announce (req, res) {
   await helmet.addHeaders(req, res)
 
-  const params = await validate(req.params, validators.announce.params, validateOpts)
-  const body = await validate(await json(req), validators.announce.body, validateOpts)
+  const params = await validators.announce.params.validateAsync(req.params, validateOpts)
+  const body = await validators.announce.body.validateAsync(await json(req), validateOpts)
 
   const publicKey = Buffer.from(params.publicKey, 'hex')
   const data = Buffer.from(body.data, 'utf8')
@@ -49,7 +48,7 @@ module.exports = async function announce (req, res) {
     throw err
   }
 
-  object = await validate(object, validators.announceData, validateOpts)
+  object = await validators.announceData.validateAsync(object, validateOpts)
 
   await servers.update(serverId, {
     ping: Date.now(),

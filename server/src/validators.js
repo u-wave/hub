@@ -1,4 +1,4 @@
-const joi = require('joi')
+const joi = require('@hapi/joi')
 
 exports.announceData = joi.object({
   name: joi.string().required().max(50),
