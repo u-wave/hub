@@ -3,9 +3,7 @@ const debug = require('debug')('u-wave-hub')
 const validators = require('./validators')
 const { json, send } = require('micro')
 const helmet = require('micro-helmet')
-const { promisify } = require('util')
 const servers = require('./store')
-const joi = require('@hapi/joi')
 const ms = require('ms')
 
 const validateOpts = {
