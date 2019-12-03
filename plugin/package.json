@@ -10,8 +10,8 @@
   "dependencies": {
     "debug": "^4.0.0",
     "find-cache-dir": "^3.0.0",
-    "got": "^9.6.0",
     "ms": "^2.0.0",
+    "node-fetch": "^2.6.0",
     "sodium-javascript": "^0.5.5",
     "strip-indent": "^3.0.0"
   },

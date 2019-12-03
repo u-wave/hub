@@ -1,5 +1,5 @@
 import fs from 'fs'
-import got from 'got'
+import fetch from 'node-fetch'
 import ms from 'ms'
 import stripIndent from 'strip-indent'
 import findCacheDir from 'find-cache-dir'
@@ -96,9 +96,12 @@ export default function announcePlugin (options) {
       const data = JSON.stringify(announcement)
       const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex')
 
-      await got.post(announceUrl, {
-        json: true,
-        body: { data, signature }
+      await fetch(announceUrl, {
+        method: 'post',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({ data, signature })
       })
     }
 
