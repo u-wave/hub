@@ -9,7 +9,7 @@
     "node": ">= 10"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^2.1.1",
+    "@google-cloud/firestore": "^3.0.0",
     "debug": "^4.0.0",
     "@hapi/joi": "^16.0.0",
     "micro": "^9.3.4",
