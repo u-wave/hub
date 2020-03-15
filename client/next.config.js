@@ -19,7 +19,7 @@ exports.webpack = (config) => {
       loader: 'babel-loader',
       query: {
         babelrc: false,
-        presets: ['@babel/preset-env']
+        presets: ['next/babel']
       }
     }
   })
