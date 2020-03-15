@@ -7,11 +7,10 @@
     "@material-ui/core": "^4.5.0",
     "@material-ui/icons": "^4.5.0",
     "@u-wave/react-server-list": "^4.0.0",
-    "@u-wave/site-layout": "^1.0.0",
-    "babel-plugin-transform-inline-environment-variables": "^6.8.0",
-    "next": "^9.0.3",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "@u-wave/site-layout": "^2.0.0",
+    "next": "^9.3.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
     "serve": "^11.0.0"
   },
   "scripts": {

@@ -4,7 +4,7 @@ import getUserAgent from '../util/getUserAgent'
 import Layout from '../components/Layout'
 import Loading from '../components/Loading'
 
-const HUB_SERVER = process.env.HUB_SERVER || 'https://announce.u-wave.net'
+const HUB_SERVER = process.env.HUB_SERVER
 
 function addServer (list, update) {
   const servers = list.map((server) => server.publicKey === update.publicKey ? update : server)
