@@ -1,8 +1,9 @@
 language: node_js
-sudo: false
+dist: bionic
+os: linux
 node_js:
   - stable
-  - 8.9
+  - 10
 
 script:
   - npm test
