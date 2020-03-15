@@ -30,11 +30,11 @@ const Header = ({ classes }) => (
         <img src='/static/logo-white.png' className={classes.logoImg} />
       </a>
       <Link href='/' passHref>
-        <Button variant='flat'>
+        <Button variant='text'>
           Join
         </Button>
       </Link>
-      <Button href='https://u-wave.net/install' variant='flat'>
+      <Button href='https://u-wave.net/install' variant='text'>
         Install
       </Button>
     </Toolbar>
