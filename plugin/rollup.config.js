@@ -1,5 +1,5 @@
-import json from 'rollup-plugin-json'
-import nodeResolve from 'rollup-plugin-node-resolve'
+import json from '@rollup/plugin-json'
+import nodeResolve from '@rollup/plugin-node-resolve'
 import isBuiltinModule from 'is-builtin-module'
 
 const pkg = require('./package.json')
