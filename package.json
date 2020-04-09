@@ -6,14 +6,10 @@
     "u-wave-hub-server": "file:server"
   },
   "devDependencies": {
-    "@rollup/plugin-json": "^4.0.2",
-    "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-eslint": "^10.0.3",
     "cross-env": "^7.0.0",
-    "is-builtin-module": "^3.0.0",
     "lerna": "^3.19.0",
     "micro-dev": "^3.0.0",
-    "rollup": "^2.0.0",
     "standard": "^14.0.2"
   },
   "private": true,

@@ -1,13 +1,11 @@
-import fs from 'fs'
-import fetch from 'node-fetch'
-import ms from 'ms'
-import stripIndent from 'strip-indent'
-import findCacheDir from 'find-cache-dir'
-import createDebug from 'debug'
-import * as sodium from './signatures'
-import { name as pkgName } from '../package.json'
-
-const debug = createDebug('uwave:announce')
+const fs = require('fs')
+const fetch = require('node-fetch')
+const ms = require('ms')
+const stripIndent = require('strip-indent')
+const findCacheDir = require('find-cache-dir')
+const debug = require('debug')('uwave:announce')
+const sodium = require('./signatures')
+const pkg = require('../package.json')
 
 function stripSlashes (url) {
   return url.replace(/\/+$/, '')
@@ -15,7 +13,7 @@ function stripSlashes (url) {
 
 function getKeyPair (seed) {
   const keyPairPath = findCacheDir({
-    name: pkgName,
+    name: pkg.name,
     create: true,
     thunk: true
   })('keypair.json')
@@ -84,7 +82,7 @@ async function getAnnounceData (uw, options) {
   }
 }
 
-export default function announcePlugin (options) {
+function announcePlugin (options) {
   const hubHost = options.hub || 'https://announce.u-wave.net'
   const { publicKey, secretKey } = getKeyPair(options.seed)
 
@@ -127,3 +125,5 @@ export default function announcePlugin (options) {
     })
   }
 }
+
+module.exports = announcePlugin
