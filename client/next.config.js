@@ -9,21 +9,6 @@ exports.env = {
 }
 
 exports.webpack = (config) => {
-  config.module.rules.push({
-    test: /\.js$/,
-    include: [
-      /strip-indent/,
-      /@material-ui\/.*?\/es/
-    ],
-    use: {
-      loader: 'babel-loader',
-      query: {
-        babelrc: false,
-        presets: ['next/babel']
-      }
-    }
-  })
-
   Object.assign(config.resolve.alias, {
     '@material-ui/core': '@material-ui/core/esm',
     '@material-ui/icons': '@material-ui/icons/esm',
