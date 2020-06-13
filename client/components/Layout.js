@@ -59,7 +59,7 @@ function LayoutElements ({ children }) {
 
         <footer className={classes.footer}>
           <Typography component='p'>
-            <a className={classes.src} href='https://github.com/u-wave/hub/tree/master/client'>view source</a>
+            <a className={classes.src} href='https://github.com/u-wave/hub/tree/default/client'>view source</a>
           </Typography>
         </footer>
       </main>
