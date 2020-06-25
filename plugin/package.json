@@ -11,7 +11,7 @@
     "find-cache-dir": "^3.0.0",
     "ms": "^2.0.0",
     "node-fetch": "^2.6.0",
-    "sodium-javascript": "^0.5.5",
+    "sodium-javascript": "^0.6.1",
     "strip-indent": "^3.0.0"
   }
 }
