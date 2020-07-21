@@ -15,7 +15,7 @@ function prune () {
   })
 }
 
-module.exports = async function announce (req, res) {
+async function announce (req, res) {
   await helmet.addHeaders(req, res)
 
   const params = req.params
@@ -65,3 +65,42 @@ module.exports = async function announce (req, res) {
     received: server.data
   })
 }
+
+announce.path = '/announce/{publicKey}'
+announce.openapi = {
+  post: {
+    description: 'Announce the existence of a server',
+    responses: {
+      200: {
+        description: 'Announced successfully',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                received: validators.announceData.schema
+              }
+            }
+          }
+        }
+      }
+    },
+    parameters: [{
+      name: 'publicKey',
+      in: 'path',
+      description: 'The public key of the server',
+      required: true,
+      schema: validators.announce.params.schema.properties.publicKey
+    }],
+    requestBody: {
+      description: 'Server state data',
+      content: {
+        'application/json': {
+          schema: validators.announce.body.schema
+        }
+      }
+    }
+  }
+}
+
+module.exports = announce

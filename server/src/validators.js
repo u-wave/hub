@@ -86,8 +86,8 @@ exports.announceData = ajv.compile({
             }
           },
           required: ['username']
-        },
-      },
+        }
+      }
     },
     usersCount: {
       description: 'The amount of users that are currently online',
@@ -106,7 +106,7 @@ exports.announce = {
         type: 'string',
         min: 64,
         max: 64,
-        pattern: '^[0-9a-fA-F]{64}$',
+        pattern: '^[0-9a-fA-F]{64}$'
       }
     },
     required: ['publicKey']
