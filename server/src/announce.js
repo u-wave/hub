@@ -6,11 +6,6 @@ const helmet = require('micro-helmet')
 const servers = require('./store')
 const ms = require('ms')
 
-const validateOpts = {
-  allowUnknown: true,
-  stripUnknown: true
-}
-
 const removeTimeout = ms('1 day')
 
 function prune () {
@@ -20,11 +15,17 @@ function prune () {
   })
 }
 
-module.exports = async function announce (req, res) {
+async function announce (req, res) {
   await helmet.addHeaders(req, res)
 
-  const params = await validators.announce.params.validateAsync(req.params, validateOpts)
-  const body = await validators.announce.body.validateAsync(await json(req), validateOpts)
+  const params = req.params
+  if (!validators.announce.params(params)) {
+    throw validators.error(validators.announce.params.errors)
+  }
+  const body = await json(req)
+  if (!validators.announce.body(body)) {
+    throw validators.error(validators.announce.body.errors)
+  }
 
   const publicKey = Buffer.from(params.publicKey, 'hex')
   const data = Buffer.from(body.data, 'utf8')
@@ -46,7 +47,9 @@ module.exports = async function announce (req, res) {
     throw err
   }
 
-  object = await validators.announceData.validateAsync(object, validateOpts)
+  if (!validators.announceData(object)) {
+    throw validators.error(validators.announceData.errors)
+  }
 
   await servers.update(serverId, {
     ping: Date.now(),
@@ -62,3 +65,42 @@ module.exports = async function announce (req, res) {
     received: server.data
   })
 }
+
+announce.path = '/announce/{publicKey}'
+announce.openapi = {
+  post: {
+    description: 'Announce the existence of a server',
+    responses: {
+      200: {
+        description: 'Announced successfully',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                received: validators.announceData.schema
+              }
+            }
+          }
+        }
+      }
+    },
+    parameters: [{
+      name: 'publicKey',
+      in: 'path',
+      description: 'The public key of the server',
+      required: true,
+      schema: validators.announce.params.schema.properties.publicKey
+    }],
+    requestBody: {
+      description: 'Server state data',
+      content: {
+        'application/json': {
+          schema: validators.announce.body.schema
+        }
+      }
+    }
+  }
+}
+
+module.exports = announce

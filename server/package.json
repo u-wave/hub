@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^3.0.0",
+    "ajv": "^6.12.3",
     "debug": "^4.0.0",
-    "@hapi/joi": "^17.0.2",
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",
     "micro-fork": "^3.0.0",

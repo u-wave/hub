@@ -1,37 +1,129 @@
-const joi = require('@hapi/joi')
+const Ajv = require('ajv')
 
-exports.announceData = joi.object({
-  name: joi.string().required().max(50),
-  subtitle: joi.string().required().max(50),
-  description: joi.string().optional().allow(null),
-  url: joi.string().required().uri({
-    scheme: ['http', 'https']
-  }),
-  apiUrl: joi.string().required().uri({
-    scheme: ['http', 'https']
-  }),
-  socketUrl: joi.string().required().uri({
-    scheme: ['ws', 'wss']
-  }),
-  booth: joi.object({
-    media: joi.object({
-      artist: joi.string(),
-      title: joi.string(),
-      thumbnail: joi.string().uri()
-    }).optional().allow(null),
-    dj: joi.object({
-      username: joi.string().max(50)
-    }).optional().allow(null)
-  }).optional().allow(null),
-  usersCount: joi.number().min(0).allow(null)
+const ajv = new Ajv({
+  removeAdditional: true,
+  useDefaults: true,
+  coerceTypes: true,
+  nullable: true
+})
+
+exports.error = (errors) => new Error(ajv.errorsText(errors))
+
+exports.announceData = ajv.compile({
+  type: 'object',
+  properties: {
+    name: {
+      description: 'Name of the server',
+      type: 'string',
+      max: 50,
+      examples: [
+        'WLK',
+        'Fake EDM'
+      ]
+    },
+    subtitle: {
+      description: 'A (very) short description of what the server is about',
+      type: 'string',
+      max: 50,
+      examples: [
+        'International Korean music community',
+        'Fake server for the screenshot'
+      ]
+    },
+    description: {
+      description: 'A longer description about the server, may be markdown',
+      type: 'string'
+    },
+    url: {
+      description: 'A URL to a hosted web application for the server',
+      type: 'string',
+      format: 'uri',
+      examples: [
+        'https://wlk.yt',
+        'https://demo.u-wave.net'
+      ]
+    },
+    apiUrl: {
+      description: 'The base URL for the server\'s HTTP API',
+      type: 'string',
+      format: 'uri',
+      examples: [
+        'https://wlk.yt/api',
+        'https://demo.u-wave.net/api'
+      ]
+    },
+    socketUrl: {
+      description: 'The base URL for the server\'s WebSocket API',
+      type: 'string',
+      format: 'uri',
+      examples: [
+        'wss://wlk.yt',
+        'wss://demo.u-wave.net'
+      ]
+    },
+    booth: {
+      description: 'The current booth state, or null if no media is being played',
+      type: 'object',
+      nullable: true,
+      properties: {
+        media: {
+          description: 'An object describing the media that\'s being played',
+          type: 'object',
+          properties: {
+            artist: { description: 'The media artist or author', type: 'string' },
+            title: { description: 'The media title', type: 'string' },
+            thumbnail: { description: 'A URL to a thumbnail image for this media', type: 'string', format: 'uri' }
+          },
+          required: ['artist', 'title']
+        },
+        dj: {
+          description: 'An object describing the user playing the media',
+          type: 'object',
+          properties: {
+            username: {
+              description: 'The user\'s name',
+              type: 'string'
+            }
+          },
+          required: ['username']
+        }
+      }
+    },
+    usersCount: {
+      description: 'The amount of users that are currently online',
+      type: 'number',
+      min: 0
+    }
+  },
+  required: ['name', 'subtitle', 'url', 'apiUrl', 'socketUrl']
 })
 
 exports.announce = {
-  params: joi.object({
-    publicKey: joi.string().hex().length(64)
+  params: ajv.compile({
+    type: 'object',
+    properties: {
+      publicKey: {
+        type: 'string',
+        min: 64,
+        max: 64,
+        pattern: '^[0-9a-fA-F]{64}$'
+      }
+    },
+    required: ['publicKey']
   }),
-  body: joi.object({
-    data: joi.string(),
-    signature: joi.string().hex()
+  body: ajv.compile({
+    type: 'object',
+    properties: {
+      data: {
+        description: 'JSON-encoded string containing server data',
+        type: 'string'
+      },
+      signature: {
+        description: 'Sodium signature for the server data signed with the server\'s private key',
+        type: 'string',
+        pattern: '^[0-9a-fA-F]+$'
+      }
+    },
+    required: ['data', 'signature']
   })
 }

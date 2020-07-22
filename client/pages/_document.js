@@ -29,10 +29,7 @@ export default class SSRDocument extends Document {
   render () {
     return (
       <html>
-        <Head>
-          <title>üWave</title>
-          {this.props.styles}
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />

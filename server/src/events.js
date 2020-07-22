@@ -14,7 +14,7 @@ function onUpdate (serverId, server) {
 
 const enhance = cors({ allowedMethods: ['GET'] })
 
-module.exports = enhance(async function events (req, res) {
+const events = enhance(async function events (req, res) {
   await helmet.addHeaders(req, res)
 
   const stream = new SSE()
@@ -45,3 +45,20 @@ module.exports = enhance(async function events (req, res) {
 
   return stream
 })
+
+events.path = '/events'
+events.openapi = {
+  get: {
+    description: 'Listen for updates announced by servers',
+    responses: {
+      200: {
+        description: 'A stream of updates',
+        content: {
+          'text/event-stream': {}
+        }
+      }
+    }
+  }
+}
+
+module.exports = events

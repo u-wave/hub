@@ -27,7 +27,7 @@ const Header = ({ classes }) => (
   <AppBar elevation={0}>
     <Toolbar>
       <a href='https://u-wave.net/' className={classes.logo}>
-        <img src='/static/logo-white.png' className={classes.logoImg} />
+        <img src='/logo-white.png' className={classes.logoImg} />
       </a>
       <Link href='/' passHref>
         <Button variant='text'>

@@ -5,7 +5,7 @@ const servers = require('./store')
 
 const enhance = cors({ allowedMethods: ['GET'] })
 
-module.exports = enhance(async function list (req, res) {
+const list = enhance(async function list (req, res) {
   await helmet.addHeaders(req, res)
 
   const response = []
@@ -21,3 +21,19 @@ module.exports = enhance(async function list (req, res) {
     servers: response
   })
 })
+
+list.path = '/'
+list.openapi = {
+  get: {
+    description: 'Show the current state of all known servers',
+    responses: {
+      200: {
+        content: {
+          'application/json': {}
+        }
+      }
+    }
+  }
+}
+
+module.exports = list
