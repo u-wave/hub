@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "u-wave-hub-client",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Web client for üWave's server listing.",
   "engines": {
     "node": ">= 12"
