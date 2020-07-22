@@ -48,6 +48,7 @@ function LayoutElements ({ children }) {
   return (
     <div className={classes.app}>
       <Head>
+        <title>üWave</title>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <style dangerouslySetInnerHTML={{ __html: globalCss }} />
       </Head>
