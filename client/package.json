@@ -1,8 +1,11 @@
 {
   "private": true,
   "name": "u-wave-hub-client",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Web client for üWave's server listing.",
+  "engines": {
+    "node": ">= 12"
+  },
   "dependencies": {
     "@material-ui/core": "^4.5.0",
     "@material-ui/icons": "^4.5.0",
