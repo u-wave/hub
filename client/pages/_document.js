@@ -29,9 +29,7 @@ export default class SSRDocument extends Document {
   render () {
     return (
       <html>
-        <Head>
-          {this.props.styles}
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
