@@ -8,14 +8,6 @@
       "use": "@now/next"
     }
   ],
-  "routes": [
-    {
-      "src": "/_next/static/(?:[^/]+/pages|chunks|runtime)/.+",
-      "headers": {
-        "cache-control": "immutable,max-age=31536000"
-      }
-    }
-  ],
   "env": {
     "HUB_SERVER": "https://announce.u-wave.net"
   }
