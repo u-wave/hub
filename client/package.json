@@ -1,29 +1,26 @@
 {
   "private": true,
   "name": "u-wave-hub-client",
-  "version": "0.3.0",
+  "version": "0.5.1",
   "description": "Web client for üWave's server listing.",
+  "engines": {
+    "node": ">= 12"
+  },
   "dependencies": {
-    "@material-ui/core": "^3.0.0",
-    "@material-ui/icons": "^3.0.0",
-    "@u-wave/react-server-list": "^3.0.0",
-    "@u-wave/site-layout": "^1.0.0",
-    "babel-plugin-transform-inline-environment-variables": "^6.8.0",
-    "ecstatic": "^3.2.0",
-    "is-mobile": "^2.0.0",
-    "next": "^7.0.0",
-    "prop-types": "^15.6.2",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
-    "react-jss": "^8.6.0",
-    "recompose": "^0.30.0"
+    "@material-ui/core": "^4.5.0",
+    "@material-ui/icons": "^4.5.0",
+    "@u-wave/react-server-list": "^4.0.0",
+    "@u-wave/site-layout": "^2.0.0",
+    "next": "^9.4.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "serve": "^11.0.0"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "now -e HUB_SERVER=https://announce.u-wave.net/",
     "export": "next build && next export -o out",
-    "static": "ecstatic out"
+    "static": "serve out"
   }
 }

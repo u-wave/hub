@@ -2,26 +2,16 @@
   "name": "u-wave-announce",
   "version": "0.3.0",
   "description": "Announce your üWave server's existence to the world.",
-  "main": "./dist/u-wave-announce.cjs.js",
-  "module": "./dist/u-wave-announce.es.js",
+  "main": "./src/plugin.js",
   "engines": {
-    "node": ">= 8.9"
+    "node": ">= 10"
   },
   "dependencies": {
     "debug": "^4.0.0",
-    "find-cache-dir": "^2.0.0",
-    "got": "^9.0.0",
+    "find-cache-dir": "^3.0.0",
     "ms": "^2.0.0",
+    "node-fetch": "^2.6.0",
     "sodium-javascript": "^0.5.5",
-    "strip-indent": "^2.0.0"
-  },
-  "devDependencies": {
-    "is-builtin-module": "^3.0.0",
-    "rollup": "^0.66.0",
-    "rollup-plugin-json": "^3.0.0",
-    "rollup-plugin-node-resolve": "^3.3.0"
-  },
-  "scripts": {
-    "build": "rollup -c"
+    "strip-indent": "^3.0.0"
   }
 }

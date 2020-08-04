@@ -1,13 +1,11 @@
-import fs from 'fs'
-import got from 'got'
-import ms from 'ms'
-import stripIndent from 'strip-indent'
-import findCacheDir from 'find-cache-dir'
-import createDebug from 'debug'
-import * as sodium from './signatures'
-import { name as pkgName } from '../package.json'
-
-const debug = createDebug('uwave:announce')
+const fs = require('fs')
+const fetch = require('node-fetch')
+const ms = require('ms')
+const stripIndent = require('strip-indent')
+const findCacheDir = require('find-cache-dir')
+const debug = require('debug')('uwave:announce')
+const sodium = require('./signatures')
+const pkg = require('../package.json')
 
 const optionsSchema = {
   type: 'object',
@@ -77,7 +75,7 @@ function stripSlashes (url) {
 
 function getKeyPair (seed) {
   const keyPairPath = findCacheDir({
-    name: pkgName,
+    name: pkg.name,
     create: true,
     thunk: true
   })('keypair.json')
@@ -85,15 +83,16 @@ function getKeyPair (seed) {
     const { publicKey, secretKey } = JSON.parse(
       fs.readFileSync(keyPairPath, 'utf8')
     )
+
     return {
       publicKey: Buffer.from(publicKey, 'base64'),
       secretKey: Buffer.from(secretKey, 'base64')
     }
-  } catch (err) {
+  } catch {
     const { publicKey, secretKey } = sodium.keyPair(seed)
     fs.writeFileSync(keyPairPath, JSON.stringify({
       publicKey: publicKey.toString('base64'),
-      secretKey: secretKey.toString('base64')
+      secretKey: secretKey.toString('base64'),
     }, null, 2), 'utf8')
     return { publicKey, secretKey }
   }
@@ -146,7 +145,7 @@ async function getAnnounceData (uw, options) {
   }
 }
 
-export default function announcePlugin (options) {
+function announcePlugin (options) {
   const { publicKey, secretKey } = getKeyPair(options.seed)
 
   return (uw) => {
@@ -171,9 +170,12 @@ export default function announcePlugin (options) {
       const data = JSON.stringify(announcement)
       const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex')
 
-      await got.post(announceUrl, {
-        json: true,
-        body: { data, signature }
+      await fetch(announceUrl, {
+        method: 'post',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({ data, signature })
       })
     }
 
@@ -199,3 +201,5 @@ export default function announcePlugin (options) {
     })
   }
 }
+
+module.exports = announcePlugin

@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "name": "u-wave-hub-client",
+  "alias": "hub.u-wave.net",
+  "builds": [
+    {
+      "src": "next.config.js",
+      "use": "@now/next"
+    }
+  ],
+  "env": {
+    "HUB_SERVER": "https://announce.u-wave.net"
+  }
+}

@@ -26,21 +26,17 @@ const enhance = withStyles(theme => ({
 const Header = ({ classes }) => (
   <AppBar elevation={0}>
     <Toolbar>
-      <Link href='https://u-wave.net/'>
-        <a className={classes.logo}>
-          <img src='/static/logo-white.png' className={classes.logoImg} />
-        </a>
-      </Link>
+      <a href='https://u-wave.net/' className={classes.logo}>
+        <img src='/logo-white.png' className={classes.logoImg} />
+      </a>
       <Link href='/' passHref>
-        <Button variant='flat'>
+        <Button variant='text'>
           Join
         </Button>
       </Link>
-      <Link href='https://u-wave.net/install' passHref>
-        <Button variant='flat'>
-          Install
-        </Button>
-      </Link>
+      <Button href='https://u-wave.net/install' variant='text'>
+        Install
+      </Button>
     </Toolbar>
   </AppBar>
 )

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+const micro = require('micro')
 const hub = require('../')
 
-hub().listen(process.env.PORT || 6451)
+micro(hub).listen(process.env.PORT || 6451)

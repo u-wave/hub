@@ -1,54 +1,16 @@
-const { promisify } = require('util')
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const ms = require('ms')
-const joi = require('joi')
-
+const { router, get, post } = require('micro-fork')
 const controller = require('./controller')
-const validators = require('./validators')
+const { createError } = require('micro')
 
-const joiValidate = promisify(joi.validate)
-
-function validate (validator) {
-  return (req, res, next) => {
-    const opts = {
-      allowUnknown: true,
-      stripUnknown: true
-    }
-    Promise.all([
-      joiValidate(req.params, validator.params, opts),
-      joiValidate(req.body, validator.body, opts)
-    ]).then(([ params, body ]) => {
-      req.originalParams = req.params
-      req.originalBody = req.body
-      req.params = params
-      req.body = body
-      next()
-    }).catch((err) => {
-      next(err)
-    })
-  }
+function fourOhFour () {
+  throw createError(404, 'Not Found')
 }
 
-module.exports = function hub () {
-  const app = express()
-
-  app.set('trust proxy', true)
-
-  app.use(bodyParser.json())
-
-  app.options(cors())
-  app.use(cors())
-
-  app.post('/announce/:publicKey', validate(validators.announce), controller.announce)
-  app.get('/', controller.list)
-  app.get('/events', controller.events)
-
-  // Cleanup
-  setInterval(() => {
-    controller.prune()
-  }, ms('1 minute'))
-
-  return app
-}
+module.exports = router({
+  defaultRoute: fourOhFour
+})(
+  post('/announce/:publicKey', controller.announce),
+  get('/events', controller.events),
+  get('/openapi', controller.openapi),
+  get('/', controller.list)
+)

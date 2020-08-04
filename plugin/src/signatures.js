@@ -1,7 +1,7 @@
 // https://github.com/mafintosh/sodium-signatures/blob/master/index.js
-import sodium from 'sodium-javascript'
+const sodium = require('sodium-javascript')
 
-export function keyPair (seed) {
+function keyPair (seed) {
   const publicKey = Buffer.alloc(sodium.crypto_sign_PUBLICKEYBYTES)
   const secretKey = Buffer.alloc(sodium.crypto_sign_SECRETKEYBYTES)
 
@@ -14,12 +14,18 @@ export function keyPair (seed) {
   return { publicKey, secretKey }
 }
 
-export function sign (message, secretKey) {
+function sign (message, secretKey) {
   const signature = Buffer.alloc(sodium.crypto_sign_BYTES)
   sodium.crypto_sign_detached(signature, message, secretKey)
   return signature
 }
 
-export function verify (message, signature, publicKey) {
+function verify (message, signature, publicKey) {
   return sodium.crypto_sign_verify_detached(signature, message, publicKey)
+}
+
+module.exports = {
+  keyPair,
+  sign,
+  verify
 }
