@@ -80,9 +80,13 @@ function getKeyPair (seed) {
     thunk: true
   })('keypair.json')
   try {
-    const { publicKey, secretKey } = JSON.parse(
+    const { publicKey, secretKey, forSeed } = JSON.parse(
       fs.readFileSync(keyPairPath, 'utf8')
     )
+
+    if (Buffer.compare(Buffer.from(forSeed), Buffer.from(seed)) !== 0) {
+      throw null;
+    }
 
     return {
       publicKey: Buffer.from(publicKey, 'base64'),
@@ -93,6 +97,7 @@ function getKeyPair (seed) {
     fs.writeFileSync(keyPairPath, JSON.stringify({
       publicKey: publicKey.toString('base64'),
       secretKey: secretKey.toString('base64'),
+      forSeed: seed,
     }, null, 2), 'utf8')
     return { publicKey, secretKey }
   }
