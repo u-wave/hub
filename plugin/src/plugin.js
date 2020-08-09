@@ -17,7 +17,7 @@ const optionsSchema = {
       type: 'boolean',
       title: 'Enabled',
       description: 'Whether to announce at all.',
-      default: false,
+      default: false
     },
     name: {
       type: 'string',
@@ -88,7 +88,7 @@ function getKeyPair (seed) {
     )
 
     if (Buffer.compare(Buffer.from(forSeed), Buffer.from(seed)) !== 0) {
-      throw null;
+      throw new Error('this error object is unused')
     }
 
     return {
@@ -100,7 +100,7 @@ function getKeyPair (seed) {
     fs.writeFileSync(keyPairPath, JSON.stringify({
       publicKey: publicKey.toString('base64'),
       secretKey: secretKey.toString('base64'),
-      forSeed: seed,
+      forSeed: seed
     }, null, 2), 'utf8')
     return { publicKey, secretKey }
   }
