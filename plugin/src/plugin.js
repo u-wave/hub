@@ -67,9 +67,14 @@ const optionsSchema = {
       default: 'https://announce.u-wave.net'
     }
   },
-  dependencies: {
-    enabled: ['name', 'subtitle', 'url']
-  }
+  // At least one of these must match. So, if `enabled` is _not_ false, the properties are required.
+  anyOf: [{
+    properties: {
+      enabled: { const: false }
+    }
+  }, {
+    required: ['name', 'subtitle', 'url']
+  }]
 }
 
 function stripSlashes (url) {
