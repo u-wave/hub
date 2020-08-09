@@ -26,6 +26,11 @@ const events = enhance(async (req, res) => {
     servers.on('update', onUpdate);
   }
 
+  function write(event) {
+    stream.event(id, 'data', event);
+    id += 1;
+  }
+
   bus.add(write);
   const remove = once(() => {
     stream.end();
@@ -35,13 +40,10 @@ const events = enhance(async (req, res) => {
       servers.off('update', onUpdate);
     }
   });
+
   req.on('error', remove);
   res.on('error', remove);
   req.connection.on('close', remove);
-
-  function write(event) {
-    stream.event(id++, 'data', event);
-  }
 
   return stream;
 });
