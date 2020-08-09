@@ -1,16 +1,16 @@
-const { router, get, post } = require('micro-fork')
-const controller = require('./controller')
-const { createError } = require('micro')
+const { router, get, post } = require('micro-fork');
+const { createError } = require('micro');
+const controller = require('./controller');
 
-function fourOhFour () {
-  throw createError(404, 'Not Found')
+function fourOhFour() {
+  throw createError(404, 'Not Found');
 }
 
 module.exports = router({
-  defaultRoute: fourOhFour
+  defaultRoute: fourOhFour,
 })(
   post('/announce/:publicKey', controller.announce),
   get('/events', controller.events),
   get('/openapi', controller.openapi),
-  get('/', controller.list)
-)
+  get('/', controller.list),
+);

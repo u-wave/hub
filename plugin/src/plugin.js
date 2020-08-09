@@ -1,11 +1,11 @@
-const fs = require('fs')
-const fetch = require('node-fetch')
-const ms = require('ms')
-const stripIndent = require('strip-indent')
-const findCacheDir = require('find-cache-dir')
-const debug = require('debug')('uwave:announce')
-const sodium = require('./signatures')
-const pkg = require('../package.json')
+const fs = require('fs');
+const fetch = require('node-fetch');
+const ms = require('ms');
+const stripIndent = require('strip-indent');
+const findCacheDir = require('find-cache-dir');
+const debug = require('debug')('uwave:announce');
+const sodium = require('./signatures');
+const pkg = require('../package.json');
 
 const optionsSchema = {
   type: 'object',
@@ -17,11 +17,11 @@ const optionsSchema = {
       type: 'boolean',
       title: 'Enabled',
       description: 'Whether to announce at all.',
-      default: false
+      default: false,
     },
     name: {
       type: 'string',
-      title: 'Server Name'
+      title: 'Server Name',
     },
     subtitle: {
       type: 'string',
@@ -29,109 +29,109 @@ const optionsSchema = {
       description: 'A short description of the server\'s purpose, up to about 30 characters.',
       examples: [
         'EDM and more!',
-        'International K-Pop Community'
-      ]
+        'International K-Pop Community',
+      ],
     },
     description: {
       type: 'string',
       'uw:control': 'textarea',
       title: 'Description',
-      description: 'A long-form description of the server. ' +
-        'The description can contain Markdown, including images and links. ' +
-        'This can be a good place to put rules, links to social media accounts associated ' +
-        'with your server, and whatever else you want visitors to know.'
+      description: 'A long-form description of the server. '
+        + 'The description can contain Markdown, including images and links. '
+        + 'This can be a good place to put rules, links to social media accounts associated '
+        + 'with your server, and whatever else you want visitors to know.',
     },
     url: {
       type: 'string',
       format: 'uri',
       title: 'URL',
-      description: 'A URL to your server. Ideally this should be hosting a web client of some form.'
+      description: 'A URL to your server. Ideally this should be hosting a web client of some form.',
     },
     socketUrl: {
       type: 'string',
       format: 'uri',
       title: 'WebSocket URL',
-      description: 'A WebSocket endpoint URL for your server. This defaults to `url` with the ws:// or wss:// protocol, so this almost never has to be set.'
+      description: 'A WebSocket endpoint URL for your server. This defaults to `url` with the ws:// or wss:// protocol, so this almost never has to be set.',
     },
     apiUrl: {
       type: 'string',
       format: 'uri',
       title: 'API URL',
-      description: 'The base URL for the HTTP API your server. This defaults to `url` + /v1, so this almost never has to be set.'
+      description: 'The base URL for the HTTP API your server. This defaults to `url` + /v1, so this almost never has to be set.',
     },
     hub: {
       type: 'string',
       format: 'uri',
       title: 'Hub URL',
       description: 'The announce server to announce to. Uses https://announce.u-wave.net, the server behind https://hub.u-wave.net, by default.',
-      default: 'https://announce.u-wave.net'
-    }
+      default: 'https://announce.u-wave.net',
+    },
   },
   // At least one of these must match. So, if `enabled` is _not_ false, the properties are required.
   anyOf: [{
     properties: {
-      enabled: { const: false }
-    }
+      enabled: { const: false },
+    },
   }, {
-    required: ['name', 'subtitle', 'url']
-  }]
+    required: ['name', 'subtitle', 'url'],
+  }],
+};
+
+function stripSlashes(url) {
+  return url.replace(/\/+$/, '');
 }
 
-function stripSlashes (url) {
-  return url.replace(/\/+$/, '')
-}
-
-function getKeyPair (seed) {
+function getKeyPair(seed) {
   const keyPairPath = findCacheDir({
     name: pkg.name,
     create: true,
-    thunk: true
-  })('keypair.json')
+    thunk: true,
+  })('keypair.json');
   try {
     const { publicKey, secretKey, forSeed } = JSON.parse(
-      fs.readFileSync(keyPairPath, 'utf8')
-    )
+      fs.readFileSync(keyPairPath, 'utf8'),
+    );
 
     if (Buffer.compare(Buffer.from(forSeed), Buffer.from(seed)) !== 0) {
-      throw new Error('this error object is unused')
+      throw new Error('this error object is unused');
     }
 
     return {
       publicKey: Buffer.from(publicKey, 'base64'),
-      secretKey: Buffer.from(secretKey, 'base64')
-    }
-  } catch {
-    const { publicKey, secretKey } = sodium.keyPair(seed)
+      secretKey: Buffer.from(secretKey, 'base64'),
+    };
+  } catch (error) {
+    const { publicKey, secretKey } = sodium.keyPair(seed);
     fs.writeFileSync(keyPairPath, JSON.stringify({
       publicKey: publicKey.toString('base64'),
       secretKey: secretKey.toString('base64'),
-      forSeed: seed
-    }, null, 2), 'utf8')
-    return { publicKey, secretKey }
+      forSeed: seed,
+    }, null, 2), 'utf8');
+    return { publicKey, secretKey };
   }
 }
 
-async function getAnnounceData (uw, options) {
-  const url = stripSlashes(options.url)
+async function getAnnounceData(uw, options) {
+  const url = stripSlashes(options.url);
 
   // TODO add something to üWave Core so we don't have to manually populate
   // the relationships.
-  const entry = await uw.booth.getCurrentEntry()
+  const entry = await uw.booth.getCurrentEntry();
   if (entry) {
-    entry.populate('user media.media')
-    await entry.execPopulate()
+    entry.populate('user media.media');
+    await entry.execPopulate();
   }
 
   // TODO add something to üWave Core so we don't have to manually ask Redis for
   // this information. Currently üWave Core may register duplicates in this
   // list, too, which is a bit annoying!
   // TODO add guest users here too.
-  const onlineUserIDs = await uw.redis.lrange('users', 0, -1)
-  const onlineUsersMap = {}
+  const onlineUserIDs = await uw.redis.lrange('users', 0, -1);
+  const onlineUsersMap = {};
   onlineUserIDs.forEach((id) => {
-    onlineUsersMap[id] = true
-  })
-  const usersCount = Object.keys(onlineUsersMap).length
+    onlineUsersMap[id] = true;
+  });
+  const usersCount = Object.keys(onlineUsersMap).length;
 
   return {
     name: options.name,
@@ -142,11 +142,11 @@ async function getAnnounceData (uw, options) {
       media: {
         artist: entry.media.artist,
         title: entry.media.title,
-        thumbnail: entry.media.media.thumbnail
+        thumbnail: entry.media.media.thumbnail,
       },
       dj: entry.user ? {
-        username: entry.user.username
-      } : null
+        username: entry.user.username,
+      } : null,
     } : null,
 
     usersCount,
@@ -154,65 +154,65 @@ async function getAnnounceData (uw, options) {
     url,
     // Derive URLs if not given.
     apiUrl: options.apiUrl || `${url}/v1`,
-    socketUrl: options.socketUrl || `${url.replace(/^http/, 'ws')}/`
-  }
+    socketUrl: options.socketUrl || `${url.replace(/^http/, 'ws')}/`,
+  };
 }
 
-function announcePlugin (options) {
-  const { publicKey, secretKey } = getKeyPair(options.seed)
+function announcePlugin(options) {
+  const { publicKey, secretKey } = getKeyPair(options.seed);
 
   return (uw) => {
-    uw.config.register(optionsSchema['uw:key'], optionsSchema)
+    uw.config.register(optionsSchema['uw:key'], optionsSchema);
 
-    async function announce () {
-      const options = await uw.config.get(optionsSchema['uw:key'])
+    async function announce() {
+      const options = await uw.config.get(optionsSchema['uw:key']);
       if (typeof options !== 'object') {
-        debug('announcing not configured, skipping')
-        return
+        debug('announcing not configured, skipping');
+        return;
       }
       if (!options.enabled) {
-        debug('announcing disabled, skipping')
-        return
+        debug('announcing disabled, skipping');
+        return;
       }
 
-      const hubHost = options.hub || 'https://announce.u-wave.net'
-      const announceUrl = `${stripSlashes(hubHost)}/announce/${publicKey.toString('hex')}`
-      debug('announcing to', announceUrl)
+      const hubHost = options.hub || 'https://announce.u-wave.net';
+      const announceUrl = `${stripSlashes(hubHost)}/announce/${publicKey.toString('hex')}`;
+      debug('announcing to', announceUrl);
 
-      const announcement = await getAnnounceData(uw, options)
-      const data = JSON.stringify(announcement)
-      const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex')
+      const announcement = await getAnnounceData(uw, options);
+      const data = JSON.stringify(announcement);
+      const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex');
 
       await fetch(announceUrl, {
         method: 'post',
         headers: {
-          'content-type': 'application/json'
+          'content-type': 'application/json',
         },
-        body: JSON.stringify({ data, signature })
-      })
+        body: JSON.stringify({ data, signature }),
+      });
     }
 
-    function onError (err) {
-      debug(err)
+    function onError(err) {
+      debug(err);
     }
 
     // Announce that we've started up and are now alive.
-    announce().catch(onError)
+    announce().catch(onError);
 
     // Announce again every time the song changes.
     uw.on('advance', () => {
-      announce().catch(onError)
-    })
+      announce().catch(onError);
+    });
 
     // And announce periodically in the mean time to let the Hub server know
     // we're still alive.
     const interval = setInterval(() => {
-      announce().catch(onError)
-    }, ms('1 minute'))
+      announce().catch(onError);
+    }, ms('1 minute'));
     uw.on('stop', () => {
-      clearInterval(interval)
-    })
-  }
+      clearInterval(interval);
+    });
+  };
 }
 
-module.exports = announcePlugin
+module.exports = announcePlugin;

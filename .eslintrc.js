@@ -41,7 +41,7 @@ module.exports = {
         'react/jsx-props-no-spreading': 'off',
         'react/require-default-props': 'off',
         'react/static-property-placement': 'off',
-        'react/jsx-one-expression-per-line': 'off'
+        'react/jsx-one-expression-per-line': 'off',
       },
     },
   ],

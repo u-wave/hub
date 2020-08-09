@@ -1,13 +1,13 @@
-const Ajv = require('ajv')
+const Ajv = require('ajv');
 
 const ajv = new Ajv({
   removeAdditional: true,
   useDefaults: true,
   coerceTypes: true,
-  nullable: true
-})
+  nullable: true,
+});
 
-exports.error = (errors) => new Error(ajv.errorsText(errors))
+exports.error = (errors) => new Error(ajv.errorsText(errors));
 
 exports.announceData = ajv.compile({
   type: 'object',
@@ -18,8 +18,8 @@ exports.announceData = ajv.compile({
       max: 50,
       examples: [
         'WLK',
-        'Fake EDM'
-      ]
+        'Fake EDM',
+      ],
     },
     subtitle: {
       description: 'A (very) short description of what the server is about',
@@ -27,12 +27,12 @@ exports.announceData = ajv.compile({
       max: 50,
       examples: [
         'International Korean music community',
-        'Fake server for the screenshot'
-      ]
+        'Fake server for the screenshot',
+      ],
     },
     description: {
       description: 'A longer description about the server, may be markdown',
-      type: 'string'
+      type: 'string',
     },
     url: {
       description: 'A URL to a hosted web application for the server',
@@ -40,8 +40,8 @@ exports.announceData = ajv.compile({
       format: 'uri',
       examples: [
         'https://wlk.yt',
-        'https://demo.u-wave.net'
-      ]
+        'https://demo.u-wave.net',
+      ],
     },
     apiUrl: {
       description: 'The base URL for the server\'s HTTP API',
@@ -49,8 +49,8 @@ exports.announceData = ajv.compile({
       format: 'uri',
       examples: [
         'https://wlk.yt/api',
-        'https://demo.u-wave.net/api'
-      ]
+        'https://demo.u-wave.net/api',
+      ],
     },
     socketUrl: {
       description: 'The base URL for the server\'s WebSocket API',
@@ -58,8 +58,8 @@ exports.announceData = ajv.compile({
       format: 'uri',
       examples: [
         'wss://wlk.yt',
-        'wss://demo.u-wave.net'
-      ]
+        'wss://demo.u-wave.net',
+      ],
     },
     booth: {
       description: 'The current booth state, or null if no media is being played',
@@ -72,9 +72,9 @@ exports.announceData = ajv.compile({
           properties: {
             artist: { description: 'The media artist or author', type: 'string' },
             title: { description: 'The media title', type: 'string' },
-            thumbnail: { description: 'A URL to a thumbnail image for this media', type: 'string', format: 'uri' }
+            thumbnail: { description: 'A URL to a thumbnail image for this media', type: 'string', format: 'uri' },
           },
-          required: ['artist', 'title']
+          required: ['artist', 'title'],
         },
         dj: {
           description: 'An object describing the user playing the media',
@@ -82,21 +82,21 @@ exports.announceData = ajv.compile({
           properties: {
             username: {
               description: 'The user\'s name',
-              type: 'string'
-            }
+              type: 'string',
+            },
           },
-          required: ['username']
-        }
-      }
+          required: ['username'],
+        },
+      },
     },
     usersCount: {
       description: 'The amount of users that are currently online',
       type: 'number',
-      min: 0
-    }
+      min: 0,
+    },
   },
-  required: ['name', 'subtitle', 'url', 'apiUrl', 'socketUrl']
-})
+  required: ['name', 'subtitle', 'url', 'apiUrl', 'socketUrl'],
+});
 
 exports.announce = {
   params: ajv.compile({
@@ -106,24 +106,24 @@ exports.announce = {
         type: 'string',
         min: 64,
         max: 64,
-        pattern: '^[0-9a-fA-F]{64}$'
-      }
+        pattern: '^[0-9a-fA-F]{64}$',
+      },
     },
-    required: ['publicKey']
+    required: ['publicKey'],
   }),
   body: ajv.compile({
     type: 'object',
     properties: {
       data: {
         description: 'JSON-encoded string containing server data',
-        type: 'string'
+        type: 'string',
       },
       signature: {
         description: 'Sodium signature for the server data signed with the server\'s private key',
         type: 'string',
-        pattern: '^[0-9a-fA-F]+$'
-      }
+        pattern: '^[0-9a-fA-F]+$',
+      },
     },
-    required: ['data', 'signature']
-  })
-}
+    required: ['data', 'signature'],
+  }),
+};
