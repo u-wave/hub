@@ -158,8 +158,8 @@ async function getAnnounceData(uw, options) {
   };
 }
 
-function announcePlugin(options) {
-  const { publicKey, secretKey } = getKeyPair(options.seed);
+function announcePlugin(staticOptions) {
+  const { publicKey, secretKey } = getKeyPair(staticOptions.seed);
 
   return (uw) => {
     uw.config.register(optionsSchema['uw:key'], optionsSchema);
