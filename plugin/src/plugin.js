@@ -11,12 +11,13 @@ const optionsSchema = {
   type: 'object',
   title: 'Announce',
   description: 'Options for publically announcing this server. Announcing allows users to find this server on "Hubs", such as https://hub.u-wave.net.',
+  'uw:key': 'u-wave:announce',
   properties: {
     enabled: {
       type: 'boolean',
       title: 'Enabled',
       description: 'Whether to announce at all.',
-      default: true
+      default: false,
     },
     name: {
       type: 'string',
@@ -66,7 +67,9 @@ const optionsSchema = {
       default: 'https://announce.u-wave.net'
     }
   },
-  required: ['enabled', 'name', 'subtitle', 'url']
+  dependencies: {
+    enabled: ['name', 'subtitle', 'url']
+  }
 }
 
 function stripSlashes (url) {
@@ -154,10 +157,10 @@ function announcePlugin (options) {
   const { publicKey, secretKey } = getKeyPair(options.seed)
 
   return (uw) => {
-    uw.config.register('announce', optionsSchema)
+    uw.config.register(optionsSchema['uw:key'], optionsSchema)
 
     async function announce () {
-      const options = await uw.config.get('announce')
+      const options = await uw.config.get(optionsSchema['uw:key'])
       if (typeof options !== 'object') {
         debug('announcing not configured, skipping')
         return
