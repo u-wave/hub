@@ -32,8 +32,14 @@ module.exports = {
     },
 
     {
+      extends: ['airbnb'],
       files: ['client/**/*.js'],
       parser: '@babel/eslint-parser',
+      parserOptions: {
+        babelOptions: {
+          configFile: './client/.babelrc.js',
+        },
+      },
       rules: {
         'react/jsx-filename-extension': 'off',
         'react/no-unused-prop-types': ['error', { skipShapeProps: true }],
