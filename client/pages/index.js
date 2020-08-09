@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { loadServers, announceEvents, ServerList } from '@u-wave/react-server-list';
 import getUserAgent from '../util/getUserAgent';
 import Layout from '../components/Layout';
@@ -25,11 +26,18 @@ export default class App extends React.Component {
     };
   }
 
+  static propTypes = {
+    servers: PropTypes.object.isRequired,
+    userAgent: PropTypes.string,
+  };
+
   constructor(props) {
     super(props);
 
+    const { servers } = this.props;
+
     this.state = {
-      servers: this.props.servers,
+      servers,
     };
 
     this.update = this.update.bind(this);
@@ -37,7 +45,9 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.state.servers) {
+    const { servers } = this.state;
+
+    if (!servers) {
       this.update();
     }
     this.events = announceEvents(HUB_SERVER, this.handleUpdate);
@@ -60,12 +70,15 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { userAgent } = this.props;
+    const { servers } = this.state;
+
     return (
-      <Layout userAgent={this.props.userAgent}>
-        {this.state.servers == null ? (
+      <Layout userAgent={userAgent}>
+        {servers == null ? (
           <Loading message="Loading available servers..." />
         ) : (
-          <ServerList servers={this.state.servers} />
+          <ServerList servers={servers} />
         )}
       </Layout>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Link from 'next/link';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,7 +14,7 @@ const enhance = withStyles((theme) => ({
     height: 48,
     marginRight: 48,
     [theme.breakpoints.down('md')]: {
-      width: `${LOGO_SQUARE_WIDTH * 48 / LOGO_HEIGHT}px`,
+      width: `${(LOGO_SQUARE_WIDTH * 48) / LOGO_HEIGHT}px`,
       overflow: 'hidden',
       marginRight: 12,
     },
@@ -27,7 +28,7 @@ const Header = ({ classes }) => (
   <AppBar elevation={0}>
     <Toolbar>
       <a href="https://u-wave.net/" className={classes.logo}>
-        <img src="/logo-white.png" className={classes.logoImg} />
+        <img alt="üWave" src="/logo-white.png" className={classes.logoImg} />
       </a>
       <Link href="/" passHref>
         <Button variant="text">
@@ -40,5 +41,12 @@ const Header = ({ classes }) => (
     </Toolbar>
   </AppBar>
 );
+
+Header.propTypes = {
+  classes: PropTypes.shape({
+    logo: PropTypes.string.isRequired,
+    logoImg: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default enhance(Header);

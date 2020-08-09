@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Head from 'next/head';
 import Typography from '@material-ui/core/Typography';
 import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
@@ -68,6 +69,10 @@ function LayoutElements({ children }) {
   );
 }
 
+LayoutElements.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
 function Layout({ children }) {
   return (
     <MuiThemeProvider theme={theme}>
@@ -77,5 +82,9 @@ function Layout({ children }) {
     </MuiThemeProvider>
   );
 }
+
+Layout.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default Layout;

@@ -40,6 +40,9 @@ module.exports = {
           configFile: './client/.babelrc.js',
         },
       },
+      env: {
+        browser: true,
+      },
       rules: {
         'react/jsx-filename-extension': 'off',
         'react/no-unused-prop-types': ['error', { skipShapeProps: true }],
