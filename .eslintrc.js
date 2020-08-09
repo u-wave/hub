@@ -32,7 +32,7 @@ module.exports = {
     },
 
     {
-      extends: ['airbnb'],
+      extends: ['airbnb', 'airbnb/hooks'],
       files: ['client/**/*.js'],
       parser: '@babel/eslint-parser',
       parserOptions: {
