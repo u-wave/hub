@@ -7,6 +7,76 @@ const debug = require('debug')('uwave:announce')
 const sodium = require('./signatures')
 const pkg = require('../package.json')
 
+const optionsSchema = {
+  type: 'object',
+  title: 'Announce',
+  description: 'Options for publically announcing this server. Announcing allows users to find this server on "Hubs", such as https://hub.u-wave.net.',
+  'uw:key': 'u-wave:announce',
+  properties: {
+    enabled: {
+      type: 'boolean',
+      title: 'Enabled',
+      description: 'Whether to announce at all.',
+      default: false
+    },
+    name: {
+      type: 'string',
+      title: 'Server Name'
+    },
+    subtitle: {
+      type: 'string',
+      title: 'Tagline',
+      description: 'A short description of the server\'s purpose, up to about 30 characters.',
+      examples: [
+        'EDM and more!',
+        'International K-Pop Community'
+      ]
+    },
+    description: {
+      type: 'string',
+      'uw:control': 'textarea',
+      title: 'Description',
+      description: 'A long-form description of the server. ' +
+        'The description can contain Markdown, including images and links. ' +
+        'This can be a good place to put rules, links to social media accounts associated ' +
+        'with your server, and whatever else you want visitors to know.'
+    },
+    url: {
+      type: 'string',
+      format: 'uri',
+      title: 'URL',
+      description: 'A URL to your server. Ideally this should be hosting a web client of some form.'
+    },
+    socketUrl: {
+      type: 'string',
+      format: 'uri',
+      title: 'WebSocket URL',
+      description: 'A WebSocket endpoint URL for your server. This defaults to `url` with the ws:// or wss:// protocol, so this almost never has to be set.'
+    },
+    apiUrl: {
+      type: 'string',
+      format: 'uri',
+      title: 'API URL',
+      description: 'The base URL for the HTTP API your server. This defaults to `url` + /v1, so this almost never has to be set.'
+    },
+    hub: {
+      type: 'string',
+      format: 'uri',
+      title: 'Hub URL',
+      description: 'The announce server to announce to. Uses https://announce.u-wave.net, the server behind https://hub.u-wave.net, by default.',
+      default: 'https://announce.u-wave.net'
+    }
+  },
+  // At least one of these must match. So, if `enabled` is _not_ false, the properties are required.
+  anyOf: [{
+    properties: {
+      enabled: { const: false }
+    }
+  }, {
+    required: ['name', 'subtitle', 'url']
+  }]
+}
+
 function stripSlashes (url) {
   return url.replace(/\/+$/, '')
 }
@@ -18,18 +88,24 @@ function getKeyPair (seed) {
     thunk: true
   })('keypair.json')
   try {
-    const { publicKey, secretKey } = JSON.parse(
+    const { publicKey, secretKey, forSeed } = JSON.parse(
       fs.readFileSync(keyPairPath, 'utf8')
     )
+
+    if (Buffer.compare(Buffer.from(forSeed), Buffer.from(seed)) !== 0) {
+      throw new Error('this error object is unused')
+    }
+
     return {
       publicKey: Buffer.from(publicKey, 'base64'),
       secretKey: Buffer.from(secretKey, 'base64')
     }
-  } catch (err) {
+  } catch {
     const { publicKey, secretKey } = sodium.keyPair(seed)
     fs.writeFileSync(keyPairPath, JSON.stringify({
       publicKey: publicKey.toString('base64'),
-      secretKey: secretKey.toString('base64')
+      secretKey: secretKey.toString('base64'),
+      forSeed: seed
     }, null, 2), 'utf8')
     return { publicKey, secretKey }
   }
@@ -83,13 +159,26 @@ async function getAnnounceData (uw, options) {
 }
 
 function announcePlugin (options) {
-  const hubHost = options.hub || 'https://announce.u-wave.net'
   const { publicKey, secretKey } = getKeyPair(options.seed)
 
-  const announceUrl = `${stripSlashes(hubHost)}/announce/${publicKey.toString('hex')}`
-
   return (uw) => {
+    uw.config.register(optionsSchema['uw:key'], optionsSchema)
+
     async function announce () {
+      const options = await uw.config.get(optionsSchema['uw:key'])
+      if (typeof options !== 'object') {
+        debug('announcing not configured, skipping')
+        return
+      }
+      if (!options.enabled) {
+        debug('announcing disabled, skipping')
+        return
+      }
+
+      const hubHost = options.hub || 'https://announce.u-wave.net'
+      const announceUrl = `${stripSlashes(hubHost)}/announce/${publicKey.toString('hex')}`
+      debug('announcing to', announceUrl)
+
       const announcement = await getAnnounceData(uw, options)
       const data = JSON.stringify(announcement)
       const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex')
