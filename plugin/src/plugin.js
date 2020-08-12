@@ -158,61 +158,64 @@ async function getAnnounceData(uw, options) {
   };
 }
 
-function announcePlugin(staticOptions) {
+async function announcePlugin(uw, staticOptions) {
   const { publicKey, secretKey } = getKeyPair(staticOptions.seed);
 
-  return (uw) => {
-    uw.config.register(optionsSchema['uw:key'], optionsSchema);
+  uw.config.register(optionsSchema['uw:key'], optionsSchema);
 
-    async function announce() {
-      const options = await uw.config.get(optionsSchema['uw:key']);
-      if (typeof options !== 'object') {
-        debug('announcing not configured, skipping');
-        return;
-      }
-      if (!options.enabled) {
-        debug('announcing disabled, skipping');
-        return;
-      }
-
-      const hubHost = options.hub || 'https://announce.u-wave.net';
-      const announceUrl = `${stripSlashes(hubHost)}/announce/${publicKey.toString('hex')}`;
-      debug('announcing to', announceUrl);
-
-      const announcement = await getAnnounceData(uw, options);
-      const data = JSON.stringify(announcement);
-      const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex');
-
-      await fetch(announceUrl, {
-        method: 'post',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({ data, signature }),
-      });
+  async function announce() {
+    const options = await uw.config.get(optionsSchema['uw:key']);
+    if (typeof options !== 'object') {
+      debug('announcing not configured, skipping');
+      return;
+    }
+    if (!options.enabled) {
+      debug('announcing disabled, skipping');
+      return;
     }
 
-    function onError(err) {
-      debug(err);
-    }
+    const hubHost = options.hub || 'https://announce.u-wave.net';
+    const announceUrl = `${stripSlashes(hubHost)}/announce/${publicKey.toString('hex')}`;
+    debug('announcing to', announceUrl);
 
+    const announcement = await getAnnounceData(uw, options);
+    const data = JSON.stringify(announcement);
+    const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex');
+
+    await fetch(announceUrl, {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({ data, signature }),
+    });
+  }
+
+  function onError(err) {
+    debug(err);
+  }
+
+  let interval;
+
+  uw.ready().then(() => {
     // Announce that we've started up and are now alive.
     announce().catch(onError);
 
-    // Announce again every time the song changes.
-    uw.on('advance', () => {
-      announce().catch(onError);
-    });
-
     // And announce periodically in the mean time to let the Hub server know
     // we're still alive.
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
       announce().catch(onError);
     }, ms('1 minute'));
-    uw.on('stop', () => {
-      clearInterval(interval);
-    });
-  };
+  });
+
+  // Announce again every time the song changes.
+  uw.on('advance', () => {
+    announce().catch(onError);
+  });
+
+  uw.onClose(() => {
+    clearInterval(interval);
+  });
 }
 
 module.exports = announcePlugin;
