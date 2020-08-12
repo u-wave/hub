@@ -6,24 +6,24 @@
     "u-wave-hub-server": "file:server"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.11.3",
     "babel-eslint": "^10.0.3",
     "cross-env": "^7.0.0",
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-react-hooks": "^4.0.8",
     "lerna": "^3.19.0",
-    "micro-dev": "^3.0.0",
-    "standard": "^14.0.2"
+    "micro-dev": "^3.0.0"
   },
   "private": true,
   "scripts": {
     "build": "lerna run --stream build",
     "start": "cross-env HUB_SERVER=http://localhost:6451 lerna run --no-prefix --stream --scope u-wave-hub-client dev & micro-dev server/src/index.js -p 6451",
-    "test": "standard"
-  },
-  "standard": {
-    "parser": "babel-eslint",
-    "ignore": [
-      "client/out/**",
-      "*/dist/*.js"
-    ]
+    "test": "eslint ."
   },
   "workspaces": [
     "client",

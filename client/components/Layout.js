@@ -1,9 +1,10 @@
-import React from 'react'
-import Head from 'next/head'
-import Typography from '@material-ui/core/Typography'
-import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles'
-import theme from '../muiTheme'
-import AppBar from './AppBar'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
+import Typography from '@material-ui/core/Typography';
+import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
+import theme from '../muiTheme';
+import AppBar from './AppBar';
 
 const useStyles = makeStyles({
   app: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles({
     color: '#fff',
     position: 'absolute',
     height: '100%',
-    width: '100%'
+    width: '100%',
   },
   main: {
     position: 'absolute',
@@ -20,36 +21,36 @@ const useStyles = makeStyles({
     bottom: 0,
     right: 0,
     left: 0,
-    overflowY: 'auto'
+    overflowY: 'auto',
   },
   footer: {
     fontFamily: 'monospace',
     textAlign: 'center',
     marginTop: 50,
-    color: '#777'
+    color: '#777',
   },
   src: {
     textDecoration: 'none',
     color: '#aaa',
-    borderBottom: '1px solid #aaa'
-  }
-}, { name: 'Layout' })
+    borderBottom: '1px solid #aaa',
+  },
+}, { name: 'Layout' });
 
 const globalCss = `
   body {
     margin: 0;
     font-family: 'open sans', arial, sans-serif;
   }
-`
+`;
 
-function LayoutElements ({ children }) {
-  const classes = useStyles()
+function LayoutElements({ children }) {
+  const classes = useStyles();
 
   return (
     <div className={classes.app}>
       <Head>
         <title>üWave</title>
-        <meta name='viewport' content='width=device-width, initial-scale=1' />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <style dangerouslySetInnerHTML={{ __html: globalCss }} />
       </Head>
 
@@ -59,23 +60,31 @@ function LayoutElements ({ children }) {
         {children}
 
         <footer className={classes.footer}>
-          <Typography component='p'>
-            <a className={classes.src} href='https://github.com/u-wave/hub/tree/default/client'>view source</a>
+          <Typography component="p">
+            <a className={classes.src} href="https://github.com/u-wave/hub/tree/default/client">view source</a>
           </Typography>
         </footer>
       </main>
     </div>
-  )
+  );
 }
 
-function Layout ({ children }) {
+LayoutElements.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+function Layout({ children }) {
   return (
     <MuiThemeProvider theme={theme}>
       <LayoutElements>
         {children}
       </LayoutElements>
     </MuiThemeProvider>
-  )
+  );
 }
 
-export default Layout
+Layout.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+export default Layout;
