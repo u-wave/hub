@@ -24,5 +24,10 @@
       "client/out/**",
       "*/dist/*.js"
     ]
-  }
+  },
+  "workspaces": [
+    "client",
+    "plugin",
+    "server"
+  ]
 }
