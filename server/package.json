@@ -12,13 +12,13 @@
     "@google-cloud/firestore": "^3.0.0",
     "ajv": "^6.12.3",
     "debug": "^4.0.0",
+    "libsodium-wrappers": "^0.7.8",
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",
     "micro-fork": "^3.0.0",
     "micro-helmet": "^2.0.0",
     "ms": "^2.0.0",
     "once": "^1.4.0",
-    "sodium-signatures": "^2.0.0",
     "sse-writer": "^3.0.0"
   },
   "scripts": {
