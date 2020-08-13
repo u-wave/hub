@@ -6,8 +6,9 @@
     "u-wave-hub-server": "file:server"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.1",
     "@babel/eslint-parser": "^7.11.3",
-    "babel-eslint": "^10.0.3",
+    "@babel/eslint-plugin": "^7.11.3",
     "cross-env": "^7.0.0",
     "eslint": "^7.6.0",
     "eslint-config-airbnb": "^18.2.0",
