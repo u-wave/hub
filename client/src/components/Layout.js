@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Head from 'next/head';
 import Typography from '@material-ui/core/Typography';
 import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import theme from '../muiTheme';
@@ -37,10 +36,6 @@ const useStyles = makeStyles({
 }, { name: 'Layout' });
 
 const globalCss = `
-  body {
-    margin: 0;
-    font-family: 'open sans', arial, sans-serif;
-  }
 `;
 
 function LayoutElements({ children }) {
@@ -48,12 +43,6 @@ function LayoutElements({ children }) {
 
   return (
     <div className={classes.app}>
-      <Head>
-        <title>üWave</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <style dangerouslySetInnerHTML={{ __html: globalCss }} />
-      </Head>
-
       <AppBar />
 
       <main className={classes.main}>
