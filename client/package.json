@@ -9,7 +9,7 @@
   "dependencies": {
     "@material-ui/core": "next",
     "@material-ui/icons": "next",
-    "@u-wave/react-server-list": "file:../../react-server-list/u-wave-react-server-list-5.0.0-alpha.0.tgz",
+    "@u-wave/react-server-list": "5.0.0-alpha.0",
     "@u-wave/site-layout": "^2.0.0",
     "event-source-polyfill": "^1.0.16",
     "prop-types": "^15.7.2",
