@@ -1,5 +1,6 @@
 const { EnvironmentPlugin, ProvidePlugin } = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
@@ -13,6 +14,10 @@ module.exports = {
       import: './app.js',
       dependOn: 'polyfills',
     },
+  },
+  output: {
+    filename: '[contenthash:7].js',
+    chunkFilename: '[chunkhash:7].js',
   },
   module: {
     rules: [
@@ -28,11 +33,16 @@ module.exports = {
       {
         test: /\.css/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader || 'style-loader',
           'css-loader',
         ],
       }
     ],
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   resolve: {
     alias: {
@@ -45,6 +55,10 @@ module.exports = {
     }),
     new EnvironmentPlugin({
       HUB_SERVER: 'https://announce.u-wave.net/',
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[contenthash:7].css',
+      chunkFilename: '[chunkhash:7].css',
     }),
     new HtmlPlugin({
       template: 'index.html',
