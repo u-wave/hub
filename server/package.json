@@ -20,8 +20,11 @@
     "once": "^1.4.0",
     "sse-writer": "^3.0.0"
   },
+  "devDependencies": {
+    "micro-dev": "^3.0.0"
+  },
   "scripts": {
     "start": "node bin/u-wave-hub.js",
-    "dev": "npm start"
+    "dev": "micro-dev src/index.js -p 6451"
   }
 }
