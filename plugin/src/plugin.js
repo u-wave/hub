@@ -159,13 +159,11 @@ async function getAnnounceData(uw, options) {
 }
 
 async function announcePlugin(uw, staticOptions) {
-  const keyPair = getKeyPair(staticOptions.seed);
+  const { publicKey, secretKey } = await getKeyPair(staticOptions.seed);
 
   uw.config.register(optionsSchema['uw:key'], optionsSchema);
 
   async function announce() {
-    const { publicKey, secretKey } = await keyPair;
-
     const options = await uw.config.get(optionsSchema['uw:key']);
     if (typeof options !== 'object') {
       debug('announcing not configured, skipping');
