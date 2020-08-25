@@ -15,8 +15,8 @@ exports.announceData = ajv.compile({
     name: {
       description: 'Name of the server',
       type: 'string',
-      max: 50,
-      examples: [
+      maximum: 50,
+      example: [
         'WLK',
         'Fake EDM',
       ],
@@ -24,8 +24,8 @@ exports.announceData = ajv.compile({
     subtitle: {
       description: 'A (very) short description of what the server is about',
       type: 'string',
-      max: 50,
-      examples: [
+      maximum: 50,
+      example: [
         'International Korean music community',
         'Fake server for the screenshot',
       ],
@@ -38,7 +38,7 @@ exports.announceData = ajv.compile({
       description: 'A URL to a hosted web application for the server',
       type: 'string',
       format: 'uri',
-      examples: [
+      example: [
         'https://wlk.yt',
         'https://demo.u-wave.net',
       ],
@@ -47,7 +47,7 @@ exports.announceData = ajv.compile({
       description: 'The base URL for the server\'s HTTP API',
       type: 'string',
       format: 'uri',
-      examples: [
+      example: [
         'https://wlk.yt/api',
         'https://demo.u-wave.net/api',
       ],
@@ -56,7 +56,7 @@ exports.announceData = ajv.compile({
       description: 'The base URL for the server\'s WebSocket API',
       type: 'string',
       format: 'uri',
-      examples: [
+      example: [
         'wss://wlk.yt',
         'wss://demo.u-wave.net',
       ],
@@ -92,7 +92,7 @@ exports.announceData = ajv.compile({
     usersCount: {
       description: 'The amount of users that are currently online',
       type: 'number',
-      min: 0,
+      minimum: 0,
     },
   },
   required: ['name', 'subtitle', 'url', 'apiUrl', 'socketUrl'],
@@ -104,8 +104,8 @@ exports.announce = {
     properties: {
       publicKey: {
         type: 'string',
-        min: 64,
-        max: 64,
+        minimum: 64,
+        maximum: 64,
         pattern: '^[0-9a-fA-F]{64}$',
       },
     },
@@ -117,6 +117,8 @@ exports.announce = {
       data: {
         description: 'JSON-encoded string containing server data',
         type: 'string',
+        contentMediaType: 'application/json',
+        contentSchema: exports.announceData.schema,
       },
       signature: {
         description: 'Sodium signature for the server data signed with the server\'s private key',
