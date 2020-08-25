@@ -9,7 +9,7 @@
     "node": ">= 10"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^3.0.0",
+    "@google-cloud/firestore": "^4.2.0",
     "ajv": "^6.12.3",
     "debug": "^4.0.0",
     "libsodium-wrappers": "^0.7.8",

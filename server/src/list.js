@@ -2,6 +2,7 @@ const { send } = require('micro');
 const helmet = require('micro-helmet');
 const cors = require('micro-cors');
 const servers = require('./store');
+const validators = require('./validators');
 
 const enhance = cors({ allowedMethods: ['GET'] });
 
@@ -26,10 +27,17 @@ list.path = '/';
 list.openapi = {
   get: {
     description: 'Show the current state of all known servers',
+    operationId: 'list',
     responses: {
       200: {
+        description: 'List of servers known to this hub.',
         content: {
-          'application/json': {},
+          'application/json': {
+            schema: {
+              type: 'array',
+              items: validators.announceData.schema,
+            },
+          },
         },
       },
     },

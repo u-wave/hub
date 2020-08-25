@@ -70,6 +70,7 @@ announce.path = '/announce/{publicKey}';
 announce.openapi = {
   post: {
     description: 'Announce the existence of a server',
+    operationId: 'announce',
     responses: {
       200: {
         description: 'Announced successfully',

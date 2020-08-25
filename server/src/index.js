@@ -11,6 +11,6 @@ module.exports = router({
 })(
   post('/announce/:publicKey', controller.announce),
   get('/events', controller.events),
-  get('/openapi', controller.openapi),
+  get('/openapi.json', controller.openapi),
   get('/', controller.list),
 );
