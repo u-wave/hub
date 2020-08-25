@@ -5,8 +5,8 @@ async function keyPair(seed) {
   await sodium.ready;
 
   const { publicKey, privateKey } = seed
-    ? sodium.crypto_sign_seed_keypair(publicKey, secretKey, seed)
-    : sodium.crypto_sign_keypair(publicKey, secretKey);
+    ? sodium.crypto_sign_seed_keypair(seed)
+    : sodium.crypto_sign_keypair();
 
   // Rename for consistency with sodium-signatures
   const secretKey = privateKey;
