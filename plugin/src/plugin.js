@@ -187,7 +187,10 @@ async function announcePlugin(uw, staticOptions) {
       headers: {
         'content-type': 'application/json',
       },
-      body: JSON.stringify({ data, signature }),
+      body: JSON.stringify({
+        data,
+        signature: Buffer.from(signature).toString('hex'),
+      }),
     });
   }
 
