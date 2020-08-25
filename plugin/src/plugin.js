@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const fetch = require('node-fetch');
 const ms = require('ms');
 const stripIndent = require('strip-indent');
@@ -81,7 +81,7 @@ function stripSlashes(url) {
   return url.replace(/\/+$/, '');
 }
 
-function getKeyPair(seed) {
+async function getKeyPair(seed) {
   const keyPairPath = findCacheDir({
     name: pkg.name,
     create: true,
@@ -89,7 +89,7 @@ function getKeyPair(seed) {
   })('keypair.json');
   try {
     const { publicKey, secretKey, forSeed } = JSON.parse(
-      fs.readFileSync(keyPairPath, 'utf8'),
+      await fs.readFile(keyPairPath, 'utf8'),
     );
 
     if (Buffer.compare(Buffer.from(forSeed), Buffer.from(seed)) !== 0) {
@@ -101,8 +101,8 @@ function getKeyPair(seed) {
       secretKey: Buffer.from(secretKey, 'base64'),
     };
   } catch (error) {
-    const { publicKey, secretKey } = sodium.keyPair(seed);
-    fs.writeFileSync(keyPairPath, JSON.stringify({
+    const { publicKey, secretKey } = await sodium.keyPair(seed);
+    await fs.writeFile(keyPairPath, JSON.stringify({
       publicKey: publicKey.toString('base64'),
       secretKey: secretKey.toString('base64'),
       forSeed: seed,
@@ -158,12 +158,9 @@ async function getAnnounceData(uw, options) {
   };
 }
 
-async function announcePlugin(uw, staticOptions) {
-  const { publicKey, secretKey } = getKeyPair(staticOptions.seed);
-
-  uw.config.register(optionsSchema['uw:key'], optionsSchema);
-
   async function announce() {
+    const { publicKey, secretKey } = await keyPair;
+
     const options = await uw.config.get(optionsSchema['uw:key']);
     if (typeof options !== 'object') {
       debug('announcing not configured, skipping');
@@ -180,7 +177,7 @@ async function announcePlugin(uw, staticOptions) {
 
     const announcement = await getAnnounceData(uw, options);
     const data = JSON.stringify(announcement);
-    const signature = sodium.sign(Buffer.from(data, 'utf8'), secretKey).toString('hex');
+    const signature = await sodium.sign(Buffer.from(data, 'utf8'), secretKey);
 
     await fetch(announceUrl, {
       method: 'post',

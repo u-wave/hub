@@ -1,9 +1,9 @@
-const { verify } = require('sodium-signatures');
 const debug = require('debug')('u-wave-hub');
 const { json, send } = require('micro');
 const helmet = require('micro-helmet');
 const ms = require('ms');
 const servers = require('./store');
+const { verify } = require('./signatures');
 const validators = require('./validators');
 
 const removeTimeout = ms('1 day');
@@ -33,7 +33,7 @@ async function announce(req, res) {
 
   const serverId = publicKey.toString('hex');
 
-  if (!verify(data, signature, publicKey)) {
+  if (!(await verify(data, signature, publicKey))) {
     debug('invalid signature from', serverId);
     throw new Error('Invalid signature');
   }
@@ -70,6 +70,7 @@ announce.path = '/announce/{publicKey}';
 announce.openapi = {
   post: {
     description: 'Announce the existence of a server',
+    operationId: 'announce',
     responses: {
       200: {
         description: 'Announced successfully',

@@ -52,6 +52,7 @@ events.path = '/events';
 events.openapi = {
   get: {
     description: 'Listen for updates announced by servers',
+    operationId: 'listen',
     responses: {
       200: {
         description: 'A stream of updates',
