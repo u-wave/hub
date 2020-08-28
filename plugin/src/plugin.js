@@ -175,7 +175,7 @@ async function announcePlugin(uw, staticOptions) {
     }
 
     const hubHost = options.hub || 'https://announce.u-wave.net';
-    const announceUrl = `${stripSlashes(hubHost)}/announce/${publicKey.toString('hex')}`;
+    const announceUrl = `${stripSlashes(hubHost)}/announce/${Buffer.from(publicKey).toString('hex')}`;
     debug('announcing to', announceUrl);
 
     const announcement = await getAnnounceData(uw, options);
