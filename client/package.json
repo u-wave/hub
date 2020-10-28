@@ -11,7 +11,7 @@
     "@material-ui/icons": "^4.5.0",
     "@u-wave/react-server-list": "^4.0.0",
     "@u-wave/site-layout": "^2.0.0",
-    "next": "^9.4.0",
+    "next": "^10.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
