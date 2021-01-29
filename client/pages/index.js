@@ -57,16 +57,16 @@ export default class App extends React.Component {
     this.events.remove();
   }
 
-  async update() {
-    this.setState({
-      servers: await loadServers(),
-    });
-  }
-
   handleUpdate(update) {
     this.setState(({ servers }) => ({
       servers: addServer(servers, update),
     }));
+  }
+
+  async update() {
+    this.setState({
+      servers: await loadServers(),
+    });
   }
 
   render() {
