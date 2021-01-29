@@ -1,5 +1,5 @@
 import React from 'react';
-import Document, { Head, Main, NextScript } from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
 export default class SSRDocument extends Document {
@@ -28,13 +28,13 @@ export default class SSRDocument extends Document {
 
   render() {
     return (
-      <html lang="en">
+      <Html lang="en">
         <Head />
         <body>
           <Main />
           <NextScript />
         </body>
-      </html>
+      </Html>
     );
   }
 }
