@@ -1,11 +1,8 @@
 {
   "name": "u-wave-announce",
-  "version": "0.4.0",
   "description": "Announce your üWave server's existence to the world.",
-  "main": "./src/plugin.js",
-  "engines": {
-    "node": ">= 12"
-  },
+  "version": "0.4.0",
+  "author": "Renée Kooi <renee@kooi.me>",
   "dependencies": {
     "debug": "^4.0.0",
     "find-cache-dir": "^3.0.0",
@@ -13,5 +10,14 @@
     "ms": "^2.0.0",
     "node-fetch": "^2.6.0",
     "strip-indent": "^3.0.0"
+  },
+  "engines": {
+    "node": ">= 12"
+  },
+  "license": "MIT",
+  "main": "./src/plugin.js",
+  "repository": {
+    "git": "https://github.com/u-wave/hub.git",
+    "directory": "plugin"
   }
 }
