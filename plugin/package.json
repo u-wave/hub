@@ -1,7 +1,7 @@
 {
   "name": "u-wave-announce",
   "description": "Announce your üWave server's existence to the world.",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": "Renée Kooi <renee@kooi.me>",
   "dependencies": {
     "debug": "^4.0.0",
