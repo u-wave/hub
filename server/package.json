@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "bin": "bin/u-wave-hub.js",
   "engines": {
-    "node": ">= 10"
+    "node": ">= 12"
   },
   "dependencies": {
     "@google-cloud/firestore": "^4.2.0",

@@ -4,7 +4,7 @@
   "description": "Announce your üWave server's existence to the world.",
   "main": "./src/plugin.js",
   "engines": {
-    "node": ">= 10"
+    "node": ">= 12"
   },
   "dependencies": {
     "debug": "^4.0.0",
