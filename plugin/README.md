@@ -6,27 +6,17 @@ server listing at https://hub.u-wave.net.
 ## Usage
 
 ```bash
-npm install --save u-wave-announce
+npm install u-wave-announce
 ```
 
 ```js
 import announce from 'u-wave-announce';
 
-uw.use(announce({
-  name: 'Your server name',
-  subtitle: 'Very short description', // Up to about 30 characters.
-  description: `
-    Longer description about your server, perhaps with a list of rules.
-    May include _markdown_, even!
-  `,
-  url: 'https://my-uwave-server.com',
-}));
+uw.use(announce);
 ```
 
-By default, the plugin sends announce messages to the announce server behind
-https://hub.u-wave.net, namely https://announce.u-wave.net.
-
-## Options
+## Runtime Options
+This plugin can be configured at runtime using the admin panel.
 
 ### `name` (required)
 
@@ -50,18 +40,6 @@ A long-form description of the server. The description can contain markdown,
 including images and links. This can be a good place to put rules, links to
 social media accounts associated with your server, and whatever else you want
 visitors to know.
-
-Indentation is stripped from this option, so template strings can be used like:
-
-```js
-announce({
-  description: `
-    # My Awesome Server
-
-    We play cool stuff, and cool stuff only!
-  `
-});
-```
 
 ### `hub`
 

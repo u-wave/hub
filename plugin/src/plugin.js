@@ -1,4 +1,6 @@
 const fs = require('fs').promises;
+const { promisify } = require('util');
+const randomBytes = promisify(require('crypto').randomBytes);
 const fetch = require('node-fetch');
 const ms = require('ms');
 const stripIndent = require('strip-indent');
@@ -18,6 +20,14 @@ const optionsSchema = {
       title: 'Enabled',
       description: 'Whether to announce at all.',
       default: false,
+    },
+    seed: {
+      type: 'string',
+      pattern: /^[0-9a-f]{64}$/.source,
+      // Should not be edited by users.
+      readOnly: true,
+      // Should not be exposed to users.
+      writeOnly: true,
     },
     name: {
       type: 'string',
@@ -158,10 +168,20 @@ async function getAnnounceData(uw, options) {
   };
 }
 
-async function announcePlugin(uw, staticOptions) {
-  const { publicKey, secretKey } = await getKeyPair(staticOptions.seed);
+async function getOrGenerateSeed(uw) {
+  const options = await uw.config.get(optionsSchema['uw:key']);
+  if (!options.seed) {
+    options.seed = (await randomBytes(32)).toString('hex');
+    await uw.config.set(optionsSchema['uw:key'], options);
+  }
+  return Buffer.from(options.seed, 'hex');
+}
 
+async function announcePlugin(uw, staticOptions) {
   uw.config.register(optionsSchema['uw:key'], optionsSchema);
+
+  const seed = staticOptions.seed || await getOrGenerateSeed(uw);
+  const { publicKey, secretKey } = await getKeyPair(seed);
 
   async function announce() {
     const options = await uw.config.get(optionsSchema['uw:key']);
