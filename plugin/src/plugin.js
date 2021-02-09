@@ -103,8 +103,8 @@ async function getKeyPair(seed) {
   } catch (error) {
     const { publicKey, secretKey } = await sodium.keyPair(seed);
     await fs.writeFile(keyPairPath, JSON.stringify({
-      publicKey: publicKey.toString('base64'),
-      secretKey: secretKey.toString('base64'),
+      publicKey: Buffer.from(publicKey).toString('base64'),
+      secretKey: Buffer.from(secretKey).toString('base64'),
       forSeed: seed,
     }, null, 2), 'utf8');
     return { publicKey, secretKey };
