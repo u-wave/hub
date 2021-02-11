@@ -1,11 +1,12 @@
-const Ajv = require('ajv');
+const Ajv = require('ajv').default;
+const addFormats = require('ajv-formats').default;
 
 const ajv = new Ajv({
   removeAdditional: true,
   useDefaults: true,
   coerceTypes: true,
-  nullable: true,
 });
+addFormats(ajv);
 
 exports.error = (errors) => new Error(ajv.errorsText(errors));
 
@@ -15,8 +16,8 @@ exports.announceData = ajv.compile({
     name: {
       description: 'Name of the server',
       type: 'string',
-      maximum: 50,
-      example: [
+      maxLength: 50,
+      examples: [
         'WLK',
         'Fake EDM',
       ],
@@ -24,8 +25,8 @@ exports.announceData = ajv.compile({
     subtitle: {
       description: 'A (very) short description of what the server is about',
       type: 'string',
-      maximum: 50,
-      example: [
+      maxLength: 50,
+      examples: [
         'International Korean music community',
         'Fake server for the screenshot',
       ],
@@ -38,7 +39,7 @@ exports.announceData = ajv.compile({
       description: 'A URL to a hosted web application for the server',
       type: 'string',
       format: 'uri',
-      example: [
+      examples: [
         'https://wlk.yt',
         'https://demo.u-wave.net',
       ],
@@ -47,7 +48,7 @@ exports.announceData = ajv.compile({
       description: 'The base URL for the server\'s HTTP API',
       type: 'string',
       format: 'uri',
-      example: [
+      examples: [
         'https://wlk.yt/api',
         'https://demo.u-wave.net/api',
       ],
@@ -56,7 +57,7 @@ exports.announceData = ajv.compile({
       description: 'The base URL for the server\'s WebSocket API',
       type: 'string',
       format: 'uri',
-      example: [
+      examples: [
         'wss://wlk.yt',
         'wss://demo.u-wave.net',
       ],
@@ -104,8 +105,8 @@ exports.announce = {
     properties: {
       publicKey: {
         type: 'string',
-        minimum: 64,
-        maximum: 64,
+        minLength: 64,
+        maxLength: 64,
         pattern: '^[0-9a-fA-F]{64}$',
       },
     },
