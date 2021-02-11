@@ -205,6 +205,7 @@ async function announcePlugin(uw, staticOptions) {
     await fetch(announceUrl, {
       method: 'post',
       headers: {
+        'user-agent': `u-wave-announce ${pkg.version}`,
         'content-type': 'application/json',
       },
       body: JSON.stringify({
