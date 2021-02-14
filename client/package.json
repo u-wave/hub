@@ -4,7 +4,7 @@
   "version": "0.5.2",
   "description": "Web client for üWave's server listing.",
   "engines": {
-    "node": ">= 12"
+    "node": ">= 14"
   },
   "dependencies": {
     "@emotion/cache": "^11.1.3",
