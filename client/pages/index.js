@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { loadServers, announceEvents, ServerList } from '@u-wave/react-server-list';
 // lol that's a path.
 import '@u-wave/react-server-list/dist/dist/u-wave-react-server-list.css';
-import getUserAgent from '../util/getUserAgent';
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 
@@ -24,13 +23,11 @@ export default class App extends React.Component {
       // If we're serving a new request, preload the servers.
       // If we're transitioning on the client, show a loading indicator.
       servers: req && !isExporting ? await loadServers(HUB_SERVER) : null,
-      userAgent: getUserAgent(req),
     };
   }
 
   static propTypes = {
     servers: PropTypes.arrayOf(PropTypes.object).isRequired,
-    userAgent: PropTypes.string,
   };
 
   constructor(props) {
@@ -72,11 +69,10 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { userAgent } = this.props;
     const { servers } = this.state;
 
     return (
-      <Layout userAgent={userAgent}>
+      <Layout>
         {servers == null ? (
           <Loading message="Loading available servers..." />
         ) : (
