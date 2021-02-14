@@ -1,3 +1,4 @@
+const { send } = require('micro');
 const helmet = require('micro-helmet');
 const cors = require('micro-cors');
 const SSE = require('sse-writer');
@@ -16,6 +17,11 @@ const enhance = cors({ allowedMethods: ['GET'] });
 
 const events = enhance(async (req, res) => {
   await helmet.addHeaders(req, res);
+
+  if (req.method === 'OPTIONS') {
+    send(res, 200);
+    return null;
+  }
 
   const stream = new SSE()
     .retry(10000);

@@ -28,6 +28,11 @@ definition.paths[announce.path] = announce.openapi;
 async function openapi(req, res) {
   await helmet.addHeaders(req, res);
 
+  if (req.method === 'OPTIONS') {
+    send(res, 200);
+    return;
+  }
+
   send(res, 200, definition);
 }
 

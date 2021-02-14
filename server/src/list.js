@@ -9,6 +9,11 @@ const enhance = cors({ allowedMethods: ['GET'] });
 const list = enhance(async (req, res) => {
   await helmet.addHeaders(req, res);
 
+  if (req.method === 'OPTIONS') {
+    send(res, 200);
+    return;
+  }
+
   const response = [];
   for await (const [publicKey, server] of servers.list()) {
     response.push({
