@@ -1,9 +1,9 @@
 {
   "name": "u-wave-hub",
   "dependencies": {
+    "@u-wave/hub-server": "file:server",
     "u-wave-announce": "file:plugin",
-    "u-wave-hub-client": "file:client",
-    "u-wave-hub-server": "file:server"
+    "u-wave-hub-client": "file:client"
   },
   "#devDependencies": "Installing @babel/types makes sure the correct version is hoisted up for eslint",
   "devDependencies": {

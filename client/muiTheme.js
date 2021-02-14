@@ -2,7 +2,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 export default createMuiTheme({
   palette: {
-    type: 'dark',
+    mode: 'dark',
     primary: {
       light: '#b20062',
       main: '#9d2053',

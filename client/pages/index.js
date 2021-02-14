@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { loadServers, announceEvents, ServerList } from '@u-wave/react-server-list';
+// lol that's a path.
+import '@u-wave/react-server-list/dist/dist/u-wave-react-server-list.css';
 import getUserAgent from '../util/getUserAgent';
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
@@ -27,7 +29,7 @@ export default class App extends React.Component {
   }
 
   static propTypes = {
-    servers: PropTypes.object.isRequired,
+    servers: PropTypes.arrayOf(PropTypes.object).isRequired,
     userAgent: PropTypes.string,
   };
 

@@ -33,11 +33,11 @@ function Header() {
           <img alt="üWave" src="/logo-white.png" className={classes.logoImg} />
         </a>
         <Link href="/" passHref>
-          <Button variant="text">
+          <Button variant="text" color="inherit">
             Join
           </Button>
         </Link>
-        <Button href="https://u-wave.net/install" variant="text">
+        <Button href="https://u-wave.net/install" variant="text" color="inherit">
           Install
         </Button>
       </Toolbar>
