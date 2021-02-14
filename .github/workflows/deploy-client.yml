@@ -1,0 +1,22 @@
+name: Deploy Client
+
+on:
+  push:
+    branches: [default]
+    paths: 'client/**'
+
+jobs:
+  vercel:
+    name: Vercel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - name: Deploy
+        uses: amondnet/vercel-action@v20.0.0
+        with:
+          working-directory: ./client
+          vercel-token: ${{secrets.VERCEL_TOKEN}}
+          vercel-org-id: ${{secrets.VERCEL_ORG_ID}}
+          vercel-project-id: ${{secrets.VERCEL_PROJECT_ID}}
+          vercel-args: '--prod'

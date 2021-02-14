@@ -1,11 +1,10 @@
 {
   "version": 2,
-  "name": "u-wave-hub-client",
   "alias": "hub.u-wave.net",
   "builds": [
     {
       "src": "next.config.js",
-      "use": "@now/next"
+      "use": "@vercel/next"
     }
   ],
   "env": {
