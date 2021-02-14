@@ -3,6 +3,7 @@ name: Deploy Client
 on:
   push:
     branches: [default, vercel]
+    paths: 'client/**'
 
 jobs:
   vercel:
