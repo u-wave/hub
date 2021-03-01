@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { loadServers, announceEvents, ServerList } from '@u-wave/react-server-list';
-// lol that's a path.
-import '@u-wave/react-server-list/dist/dist/u-wave-react-server-list.css';
+import '@u-wave/react-server-list/dist/u-wave-react-server-list.css';
 import Layout from '../components/Layout';
 import Loading from '../components/Loading';
 
