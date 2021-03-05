@@ -25,6 +25,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run --stream build",
+    "start:client": "cross-env HUB_SERVER=https://announce.u-wave.net lerna run --no-prefix --stream --scope u-wave-hub-client dev",
     "start": "cross-env HUB_SERVER=http://localhost:6451 lerna run --no-prefix --stream --scope u-wave-hub-client dev & micro-dev server/src/index.js -p 6451",
     "test": "eslint ."
   },
