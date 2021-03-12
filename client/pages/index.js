@@ -8,7 +8,9 @@ import Loading from '../components/Loading';
 const { HUB_SERVER } = process.env;
 
 function App() {
-  const { data, error } = useSWR(HUB_SERVER, loadServers);
+  const { data, error } = useSWR(HUB_SERVER, loadServers, {
+    refreshInterval: 30_000,
+  });
 
   let component = <Loading message="Loading available servers..." />;
   if (error) {
