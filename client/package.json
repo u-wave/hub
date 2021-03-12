@@ -18,7 +18,8 @@
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "serve": "^11.0.0"
+    "serve": "^11.0.0",
+    "swr": "^0.5.2"
   },
   "scripts": {
     "dev": "next dev",
