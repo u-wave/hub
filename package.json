@@ -5,6 +5,10 @@
     "u-wave-announce": "file:plugin",
     "u-wave-hub-client": "file:client"
   },
+  "engines": {
+    "node": ">= 14",
+    "npm": ">= 7"
+  },
   "#devDependencies": "Installing @babel/types makes sure the correct version is hoisted up for eslint",
   "devDependencies": {
     "@babel/core": "^7.11.4",
@@ -19,14 +23,13 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.0",
-    "lerna": "^4.0.0",
     "micro-dev": "^3.0.0"
   },
   "private": true,
   "scripts": {
-    "build": "lerna run --stream build",
-    "start:client": "cross-env HUB_SERVER=https://announce.u-wave.net lerna run --no-prefix --stream --scope u-wave-hub-client dev",
-    "start": "cross-env HUB_SERVER=http://localhost:6451 lerna run --no-prefix --stream --scope u-wave-hub-client dev & micro-dev server/src/index.js -p 6451",
+    "build": "npm run --prefix client build",
+    "start:client": "cross-env HUB_SERVER=https://announce.u-wave.net npm run --prefix client dev",
+    "start": "cross-env HUB_SERVER=http://localhost:6451 npm run --prefix client dev & micro-dev server/src/index.js -p 6451",
     "test": "eslint ."
   },
   "workspaces": [
