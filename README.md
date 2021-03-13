@@ -8,7 +8,9 @@ A web app indexing available public üWave servers.
 
 ## Adding Your Server
 
-Add the `u-wave-announce` plugin to your üWave server:
+If you are using the üWave Core executables or Dockerfiles, announcing is available by default.
+
+If you are writing your own JS file to run the server, you have to manually add the `u-wave-announce` plugin:
 
 ```js
 import uwave from 'u-wave-core';
@@ -16,40 +18,11 @@ import announce from 'u-wave-announce';
 
 const uw = uwave({ /* Options. */ });
 
-uw.use(announce({
-  name: 'Your server name',
-  subtitle: 'Very short description', // Up to about 30 characters.
-  description: `
-    Longer description about your server, perhaps with a list of rules.
-    May include _markdown_, even!
-  `,
-  url: 'https://my-uwave-server.com',
-}));
+uw.use(announce);
 ```
 
-For example, the [WE ♥ KPOP](https://welovekpop.club) server announces:
-
-```js
-uw.use(announce({
-  name: 'WE ♥ KPOP',
-  subtitle: 'International K-Pop community.',
-  description: `
-    WE ♥ KPOP is a Korean music dedicated community founded in 2014 on plug.dj.
-    It was reborn in 2016 on its own collaborative listening software üWave.
-
-    ## Rules
-
-    1. Play only Korean related songs.
-    2. Songs that are over 7:00 minutes long might be skipped.
-    3. Songs that are heavily downvoted might be skipped.
-    4. Songs that are in the history (previous 25 songs) will be skipped.
-    5. Try to play the best quality versions of songs.
-    6. Chat in English!
-    7. Don't spam the chat.
-  `,
-  url: 'https://welovekpop.club/',
-}));
-```
+The announce plugin must be configured in the admin panel.
+Type `/admin` in chat in the web client, click "Server Configuration", and open the "Announce" section.
 
 ## License
 
