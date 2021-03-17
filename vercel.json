@@ -3,7 +3,7 @@
   "alias": "hub.u-wave.net",
   "builds": [
     {
-      "src": "next.config.js",
+      "src": "client/next.config.js",
       "use": "@vercel/next"
     }
   ],
