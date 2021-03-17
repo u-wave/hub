@@ -1,0 +1,25 @@
+{
+  "extends": ["airbnb", "airbnb/hooks"],
+  "parserOptions": {
+    "ecmaVersion": 2021
+  },
+  "rules": {
+    "react/jsx-filename-extension": "off",
+    "react/require-default-props": "off",
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
+  },
+  "overrides": [
+    {
+      "files": ["src/*.js"],
+      "env": {
+        "browser": true
+      }
+    },
+    {
+      "files": ["test/*.js"],
+      "env": {
+        "mocha": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+node_modules
+/dist
+/example/bundle.js
+.eslintcache
+package-lock.json
