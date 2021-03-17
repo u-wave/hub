@@ -1,0 +1,24 @@
+.usl-ServerThumbnail {
+  width: 360px;
+  margin: 0px 20px 20px 20px;
+  position: relative;
+}
+
+.usl-ServerThumbnail-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.usl-ServerThumbnail-link {
+  text-decoration: none;
+}
+
+.usl-ServerThumbnail-nobodyPlaying {
+  background: black;
+  color: white;
+  text-decoration: none;
+}
+
+.usl-ServerThumbnail-actions {
+  justify-content: end;
+}

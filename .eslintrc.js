@@ -33,14 +33,9 @@ module.exports = {
 
     {
       extends: ['airbnb', 'airbnb/hooks'],
-      files: ['client/**/*.js'],
+      files: ['client/**/*.js', 'react-server-list/src/**/*.js'],
       plugins: ['@babel/eslint-plugin'],
       parser: '@babel/eslint-parser',
-      parserOptions: {
-        babelOptions: {
-          configFile: './client/.babelrc.js',
-        },
-      },
       env: {
         browser: true,
       },
@@ -52,6 +47,36 @@ module.exports = {
         'react/require-default-props': 'off',
         'react/static-property-placement': 'off',
         'react/jsx-one-expression-per-line': 'off',
+      },
+    },
+
+    {
+      files: ['client/**/*.js'],
+      parserOptions: {
+        babelOptions: {
+          configFile: './client/.babelrc.js',
+        },
+      },
+    },
+
+    {
+      files: ['react-server-list/src/**/*.js'],
+      parserOptions: {
+        babelOptions: {
+          configFile: './react-server-list/.babelrc.js',
+        },
+      },
+    },
+
+    {
+      files: ['react-server-list/test/**/*.js'],
+      env: {
+        mocha: true,
+      },
+      rules: {
+        'import/no-extraneous-dependencies': ['error', {
+          devDependencies: true,
+        }],
       },
     },
   ],

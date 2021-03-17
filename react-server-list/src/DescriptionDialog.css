@@ -1,0 +1,17 @@
+.usl-DescriptionDialog-markdown {
+  max-width: 100%;
+}
+
+.usl-DescriptionDialog-markdown a:any-link {
+  /* for non-var() browsers */
+  color: #c72e6c;
+  /* link color may be set by outer app (eg the üWave web client) */
+  color: var(--link-color, #c72e6c);
+}
+
+.usl-DescriptionDialog-loading {
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-y: hidden;
+}
