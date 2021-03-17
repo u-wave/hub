@@ -27,9 +27,9 @@
   },
   "private": true,
   "scripts": {
-    "build": "npm run --prefix client build",
-    "start:client": "cross-env HUB_SERVER=https://announce.u-wave.net npm run --prefix client dev",
-    "start": "cross-env HUB_SERVER=http://localhost:6451 npm run --prefix client dev & micro-dev server/src/index.js -p 6451",
+    "build": "npm run --prefix react-server-list build && npm run --prefix client build",
+    "start:client": "npm run --prefix react-server-list dev & cross-env HUB_SERVER=https://announce.u-wave.net npm run --prefix client dev",
+    "start": "npm run --prefix react-server-list dev & cross-env HUB_SERVER=http://localhost:6451 npm run --prefix client dev & micro-dev server/src/index.js -p 6451",
     "lint": "eslint .",
     "tests-only": "true",
     "test": "npm run tests-only && npm run lint"
@@ -37,6 +37,7 @@
   "workspaces": [
     "client",
     "plugin",
+    "react-server-list",
     "server"
   ]
 }

@@ -9,6 +9,7 @@
     "prepare": "npm run build",
     "tsc": "tsc --build tsconfig.json",
     "build": "rollup -c && npm run tsc",
+    "dev": "rollup -c -w",
     "test:lint": "eslint --cache --fix .",
     "test:mocha": "cross-env NODE_ENV=test mocha",
     "test": "npm run test:lint && npm run test:mocha"
