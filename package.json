@@ -30,7 +30,9 @@
     "build": "npm run --prefix client build",
     "start:client": "cross-env HUB_SERVER=https://announce.u-wave.net npm run --prefix client dev",
     "start": "cross-env HUB_SERVER=http://localhost:6451 npm run --prefix client dev & micro-dev server/src/index.js -p 6451",
-    "test": "eslint ."
+    "lint": "eslint .",
+    "tests-only": "true",
+    "test": "npm run tests-only && npm run lint"
   },
   "workspaces": [
     "client",
