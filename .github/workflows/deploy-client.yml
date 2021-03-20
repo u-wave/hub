@@ -3,7 +3,7 @@ name: Deploy Client
 on:
   push:
     branches: [default]
-    paths: 'client/**'
+    paths: '{client,react-server-list}/**'
 
 jobs:
   vercel:
