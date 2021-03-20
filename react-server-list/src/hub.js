@@ -30,7 +30,7 @@ const downTimeout = ms('10 minutes');
  * @param {string} hubServer
  * @return {Promise<Server[]>}
  */
-export function loadServers(hubServer) {
+export function loadServers(hubServer) { // eslint-disable-line import/prefer-default-export
   return fetch(hubServer)
     .then((response) => response.json())
     .then((state) => (

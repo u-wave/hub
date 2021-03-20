@@ -1,5 +1,5 @@
-import { loadServers } from './hub';
 import useSWR from 'swr';
+import { loadServers } from './hub';
 
 /**
  * @param {string} hub
