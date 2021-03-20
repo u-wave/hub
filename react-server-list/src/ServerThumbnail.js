@@ -98,7 +98,10 @@ function ServerThumbnail({ server, media }) {
               </Typography>
             </div>
             {server.description && (
-              <IconButton onClick={onOpenDescription}>
+              <IconButton
+                aria-label={`View description for ${server.name}`}
+                onClick={onOpenDescription}
+              >
                 <DescriptionIcon />
               </IconButton>
             )}
