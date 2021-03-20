@@ -11,13 +11,16 @@ import useServers from './useServers';
  * @param {ContainerProps} props
  */
 function Container({ hub = 'https://announce.u-wave.net/' }) {
-  const servers = useServers(hub);
+  const { data, error } = useServers(hub);
 
-  return servers == null ? (
-    <Loading message="Loading available servers..." />
-  ) : (
-    <ServerList servers={servers} />
-  );
+  if (error) {
+    return <Loading message={error.message} />;
+  }
+  if (data) {
+    return <ServerList servers={data} />;
+  }
+
+  return <Loading message="Loading available servers..." />;
 }
 
 Container.propTypes = {

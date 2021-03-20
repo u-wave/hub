@@ -1,6 +1,6 @@
 import Container from './Container';
 import ServerList from './ServerList';
-import { loadServers, announceEvents } from './hub';
+import { loadServers } from './hub';
 import useServers from './useServers';
 
 // Type re-exports
@@ -14,6 +14,5 @@ export {
   Container,
   ServerList,
   loadServers,
-  announceEvents,
   useServers,
 };
