@@ -5,6 +5,7 @@ on:
     branches: [default]
     paths:
       - 'vercel.json'
+      - '.github/workflows/deploy-client.yml'
       - 'client/**'
       - 'react-server-list/**'
 
@@ -16,6 +17,7 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v2
       - name: Install Node.js
+        uses: actions/setup-node@v2
         with:
           node-version: 15.x
       - name: Install dependencies
