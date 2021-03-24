@@ -4,6 +4,7 @@ on:
   push:
     branches: [default]
     paths:
+      - 'vercel.json'
       - 'client/**'
       - 'react-server-list/**'
 
@@ -14,9 +15,17 @@ jobs:
     steps:
       - name: Checkout sources
         uses: actions/checkout@v2
+      - name: Install Node.js
+        with:
+          node-version: 15.x
+      - name: Install dependencies
+        run: npm install
+      - name: Export static client build
+        run: npm run export
       - name: Deploy
         uses: amondnet/vercel-action@v20.0.0
         with:
+          working-directory: ./client/out
           vercel-token: ${{secrets.VERCEL_TOKEN}}
           vercel-org-id: ${{secrets.VERCEL_ORG_ID}}
           vercel-project-id: ${{secrets.VERCEL_PROJECT_ID}}
