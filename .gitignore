@@ -1,6 +1,4 @@
 .eslintcache
 node_modules
-package-lock.json
 react-server-list/dist
-
 .vercel
