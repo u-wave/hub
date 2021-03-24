@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Export static client build
-        run: npm run export
+        run: npm run --prefix client export
       - name: Deploy
         uses: amondnet/vercel-action@v20.0.0
         with:
