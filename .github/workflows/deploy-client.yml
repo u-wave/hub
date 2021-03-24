@@ -4,8 +4,15 @@ on:
   push:
     branches: [default]
     paths:
-      - 'vercel.json'
       - '.github/workflows/deploy-client.yml'
+      - 'package.json'
+      - 'client/**'
+      - 'react-server-list/**'
+  pull_request:
+    branches: [default]
+    paths:
+      - '.github/workflows/deploy-client.yml'
+      - 'package.json'
       - 'client/**'
       - 'react-server-list/**'
 
@@ -24,11 +31,16 @@ jobs:
         run: npm ci
       - name: Export static client build
         run: npm run --prefix client export
-      - name: Deploy
-        uses: amondnet/vercel-action@v20.0.0
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.1
         with:
-          working-directory: ./client/out
-          vercel-token: ${{secrets.VERCEL_TOKEN}}
-          vercel-org-id: ${{secrets.VERCEL_ORG_ID}}
-          vercel-project-id: ${{secrets.VERCEL_PROJECT_ID}}
-          vercel-args: '--prod'
+          publish-dir: './client/out'
+          production-branch: 'default'
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{secrets.NETLIFY_AUTH_TOKEN}}
+          NETLIFY_SITE_ID: ${{secrets.NETLIFY_SITE_ID}}
+        timeout-minutes: 1
