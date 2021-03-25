@@ -17,8 +17,8 @@ on:
       - 'react-server-list/**'
 
 jobs:
-  vercel:
-    name: Vercel
+  netlify:
+    name: Netlify
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
