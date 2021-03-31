@@ -42,7 +42,7 @@
     "prop-types": "^15.7.2",
     "react-markdown": "^5.0.2",
     "strip-indent": "^3.0.0",
-    "swr": "^0.5.4"
+    "swr": "^0.5.5"
   },
   "peerDependencies": {
     "react": "^16.14.0 || >= 17.0.0"
