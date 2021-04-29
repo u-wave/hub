@@ -1,37 +1,33 @@
 import React from 'react';
 import Link from 'next/link';
+import styled from '@emotion/styled';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 
 const LOGO_HEIGHT = 114;
 const LOGO_SQUARE_WIDTH = 104;
 
-const useStyles = makeStyles((theme) => ({
-  logo: {
-    height: 48,
-    marginRight: 48,
-    [theme.breakpoints.down('md')]: {
-      width: `${(LOGO_SQUARE_WIDTH * 48) / LOGO_HEIGHT}px`,
-      overflow: 'hidden',
-      marginRight: 12,
-    },
+const Logo = styled.a(props => ({
+  height: 48,
+  marginRight: 48,
+  [props.theme.breakpoints.down('md')]: {
+    width: `${(LOGO_SQUARE_WIDTH * 48) / LOGO_HEIGHT}px`,
+    overflow: 'hidden',
+    marginRight: 12,
   },
-  logoImg: {
+  '& > img': {
     maxHeight: '100%',
   },
-}));
+}))
 
 function Header() {
-  const classes = useStyles();
-
   return (
     <AppBar elevation={0}>
       <Toolbar>
-        <a href="https://u-wave.net/" className={classes.logo}>
-          <img alt="üWave" src="/logo-white.png" className={classes.logoImg} />
-        </a>
+        <Logo href="https://u-wave.net/">
+          <img alt="üWave" src="/logo-white.png" />
+        </Logo>
         <Link href="/" passHref>
           <Button variant="text" color="inherit">
             Join

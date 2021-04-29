@@ -1,40 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
+import styled from '@emotion/styled';
 import Typography from '@material-ui/core/Typography';
-import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from '../muiTheme';
 import AppBar from './AppBar';
 
-const useStyles = makeStyles({
-  app: {
-    background: '#1b1b1b',
-    color: '#fff',
-    position: 'absolute',
-    height: '100%',
-    width: '100%',
-  },
-  main: {
-    position: 'absolute',
-    paddingTop: 20,
-    top: 64,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    overflowY: 'auto',
-  },
-  footer: {
-    fontFamily: 'monospace',
-    textAlign: 'center',
-    marginTop: 50,
-    color: '#777',
-  },
-  src: {
-    textDecoration: 'none',
-    color: '#aaa',
-    borderBottom: '1px solid #aaa',
-  },
-}, { name: 'Layout' });
+const AppWrapper = styled.div({
+  background: '#1b1b1b',
+  color: '#fff',
+  position: 'absolute',
+  height: '100%',
+  width: '100%',
+});
+
+const Main = styled.main({
+  position: 'absolute',
+  paddingTop: 20,
+  top: 64,
+  bottom: 0,
+  right: 0,
+  left: 0,
+  overflowY: 'auto',
+});
+
+const Footer = styled.footer({
+  fontFamily: 'monospace',
+  textAlign: 'center',
+  marginTop: 50,
+  color: '#777',
+});
+
+const SourceLink = styled.a({
+  textDecoration: 'none',
+  color: '#aaa',
+  borderBottom: '1px solid #aaa',
+});
 
 const globalCss = `
   body {
@@ -44,10 +46,8 @@ const globalCss = `
 `;
 
 function LayoutElements({ children }) {
-  const classes = useStyles();
-
   return (
-    <div className={classes.app}>
+    <AppWrapper>
       <Head>
         <title>üWave</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -56,16 +56,16 @@ function LayoutElements({ children }) {
 
       <AppBar />
 
-      <main className={classes.main}>
+      <Main>
         {children}
 
-        <footer className={classes.footer}>
+        <Footer>
           <Typography component="p">
-            <a className={classes.src} href="https://github.com/u-wave/hub/tree/default/client">view source</a>
+            <SourceLink href="https://github.com/u-wave/hub/tree/default/client">view source</SourceLink>
           </Typography>
-        </footer>
-      </main>
-    </div>
+        </Footer>
+      </Main>
+    </AppWrapper>
   );
 }
 

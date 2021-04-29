@@ -2,7 +2,6 @@ import React from 'react';
 import Document, {
   Html, Head, Main, NextScript,
 } from 'next/document';
-import { ServerStyleSheets } from '@material-ui/core/styles';
 import createEmotionServer from '@emotion/server/create-instance';
 import { cache } from './_app';
 
@@ -10,15 +9,7 @@ const { extractCritical } = createEmotionServer(cache);
 
 export default class SSRDocument extends Document {
   static async getInitialProps(ctx) {
-    // Render app and page and get the context of the page with collected side effects.
-    const sheets = new ServerStyleSheets();
-
-    const initialProps = await Document.getInitialProps({
-      ...ctx,
-      renderPage: () => ctx.renderPage({
-        enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
-      }),
-    });
+    const initialProps = await Document.getInitialProps(ctx);
 
     const emotionStyles = extractCritical(initialProps.html);
 
@@ -28,7 +19,6 @@ export default class SSRDocument extends Document {
       styles: [
         <React.Fragment key="styles">
           {initialProps.styles}
-          {sheets.getStyleElement()}
           <style id="emotion-server-side">{emotionStyles.css}</style>
         </React.Fragment>,
       ],

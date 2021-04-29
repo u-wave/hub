@@ -25,7 +25,7 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }) {
   const theme = useTheme();
   const isFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const contentStyle = {
-    width: `${theme.breakpoints.width('sm')}px`,
+    width: `${theme.breakpoints.values.sm}px`,
   };
 
   const loading = (
