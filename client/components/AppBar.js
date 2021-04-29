@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 const LOGO_HEIGHT = 114;
 const LOGO_SQUARE_WIDTH = 104;
 
-const Logo = styled.a(props => ({
+const Logo = styled.a((props) => ({
   height: 48,
   marginRight: 48,
   [props.theme.breakpoints.down('md')]: {
@@ -19,7 +19,7 @@ const Logo = styled.a(props => ({
   '& > img': {
     maxHeight: '100%',
   },
-}))
+}));
 
 function Header() {
   return (
