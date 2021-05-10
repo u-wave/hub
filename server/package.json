@@ -8,7 +8,7 @@
     "node": ">= 12"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^4.10.1",
+    "@google-cloud/firestore": "^4.11.0",
     "ajv": "^8.2.0",
     "ajv-formats": "^2.0.2",
     "debug": "^4.3.1",
