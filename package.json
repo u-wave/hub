@@ -11,7 +11,7 @@
   },
   "#devDependencies": "Installing @babel/types makes sure the correct version is hoisted up for eslint",
   "devDependencies": {
-    "@babel/core": "^7.11.4",
+    "@babel/core": "^7.14.3",
     "@babel/eslint-parser": "^7.11.4",
     "@babel/eslint-plugin": "^7.11.3",
     "@babel/types": "^7.11.0",
