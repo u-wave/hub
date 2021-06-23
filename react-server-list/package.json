@@ -33,7 +33,7 @@
   "homepage": "https://github.com/u-wave/react-server-list#readme",
   "dependencies": {
     "@babel/runtime": "^7.13.10",
-    "@material-ui/core": "5.0.0-alpha.32",
+    "@material-ui/core": "5.0.0-alpha.37",
     "@material-ui/icons": "5.0.0-alpha.29",
     "@material-ui/styles": "5.0.0-alpha.32",
     "@types/react": "^17.0.6",
