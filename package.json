@@ -14,7 +14,7 @@
     "@babel/core": "^7.11.4",
     "@babel/eslint-parser": "^7.11.4",
     "@babel/eslint-plugin": "^7.11.3",
-    "@babel/types": "^7.11.0",
+    "@babel/types": "^7.14.5",
     "cross-env": "^7.0.2",
     "eslint": "^7.26.0",
     "eslint-config-airbnb": "^18.2.0",
