@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container } from '@u-wave/react-server-list';
 import Layout from '../components/Layout';
 

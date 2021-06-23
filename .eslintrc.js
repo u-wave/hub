@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   extends: 'airbnb-base',
 
@@ -52,9 +54,10 @@ module.exports = {
 
     {
       files: ['client/**/*.js'],
+      extends: ['next'],
       parserOptions: {
         babelOptions: {
-          configFile: './client/.babelrc.js',
+          configFile: path.join(__dirname, './client/.babelrc'),
         },
       },
     },
@@ -63,7 +66,7 @@ module.exports = {
       files: ['react-server-list/src/**/*.js'],
       parserOptions: {
         babelOptions: {
-          configFile: './react-server-list/.babelrc.js',
+          configFile: path.join(__dirname, './react-server-list/.babelrc.js'),
         },
       },
     },
