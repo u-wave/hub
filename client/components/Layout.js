@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import styled from '@emotion/styled';
 import Typography from '@material-ui/core/Typography';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import theme from '../muiTheme';
 import AppBar from './AppBar';
 
@@ -75,11 +75,11 @@ LayoutElements.propTypes = {
 
 function Layout({ children }) {
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <LayoutElements>
         {children}
       </LayoutElements>
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 }
 

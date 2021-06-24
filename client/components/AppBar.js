@@ -23,7 +23,7 @@ const Logo = styled.a((props) => ({
 
 function Header() {
   return (
-    <AppBar elevation={0}>
+    <AppBar enableColorOnDark elevation={0}>
       <Toolbar>
         <Logo href="https://u-wave.net/">
           <img alt="üWave" src="/logo-white.png" />
