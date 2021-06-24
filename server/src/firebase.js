@@ -64,4 +64,4 @@ export default class FirebaseStore extends EventEmitter {
     }
     /* eslint-enable no-await-in-loop */
   }
-};
+}

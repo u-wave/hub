@@ -30,4 +30,4 @@ export default class InMemoryStore extends EventEmitter {
       }
     });
   }
-};
+}
