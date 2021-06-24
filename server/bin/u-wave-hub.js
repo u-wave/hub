@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const micro = require('micro');
-const hub = require('..');
+import micro from 'micro';
+import hub from '@u-wave/hub-server';
 
 micro(hub).listen(process.env.PORT || 6451);

@@ -1,8 +1,8 @@
-const { send } = require('micro');
-const helmet = require('micro-helmet');
-const cors = require('micro-cors');
-const servers = require('./store');
-const validators = require('./validators');
+import { send } from 'micro';
+import helmet from 'micro-helmet';
+import cors from 'micro-cors';
+import servers from './store.js';
+import * as validators from './validators.js';
 
 const enhance = cors({ allowedMethods: ['GET'] });
 
@@ -49,4 +49,4 @@ list.openapi = {
   },
 };
 
-module.exports = list;
+export default list;

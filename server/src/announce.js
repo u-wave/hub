@@ -1,11 +1,12 @@
-const debug = require('debug')('u-wave-hub');
-const { json, send } = require('micro');
-const helmet = require('micro-helmet');
-const ms = require('ms');
-const servers = require('./store');
-const { verify } = require('./signatures');
-const validators = require('./validators');
+import createDebug from 'debug';
+import { json, send } from 'micro';
+import helmet from 'micro-helmet';
+import ms from 'ms';
+import servers from './store.js';
+import { verify } from './signatures.js';
+import * as validators from './validators.js';
 
+const debug = createDebug('u-wave-hub');
 const removeTimeout = ms('1 day');
 
 function prune() {
@@ -104,4 +105,4 @@ announce.openapi = {
   },
 };
 
-module.exports = announce;
+export default announce;

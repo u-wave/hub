@@ -1,11 +1,11 @@
-const Firestore = require('@google-cloud/firestore');
-const { PassThrough } = require('stream');
-const EventEmitter = require('events');
-const createDebug = require('debug');
+import Firestore from '@google-cloud/firestore';
+import { PassThrough } from 'stream';
+import EventEmitter from 'events';
+import createDebug from 'debug';
 
 const debug = createDebug('u-wave-hub');
 
-module.exports = class FirebaseStore extends EventEmitter {
+export default class FirebaseStore extends EventEmitter {
   constructor() {
     super();
 

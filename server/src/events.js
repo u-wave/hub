@@ -1,9 +1,9 @@
-const { send } = require('micro');
-const helmet = require('micro-helmet');
-const cors = require('micro-cors');
-const SSE = require('sse-writer');
-const once = require('once');
-const servers = require('./store');
+import { send } from 'micro';
+import helmet from 'micro-helmet';
+import cors from 'micro-cors';
+import SSE from 'sse-writer';
+import once from 'once';
+import servers from './store.js';
 
 const bus = new Set();
 
@@ -70,4 +70,4 @@ events.openapi = {
   },
 };
 
-module.exports = events;
+export default events;

@@ -1,3 +1,7 @@
-const Store = process.env.FIRESTORE_PROJECT ? require('./firebase') : require('./memory');
+import { env } from 'process';
 
-module.exports = new Store();
+const { default: Store } = await (
+  env.FIRESTORE_PROJECT ? import('./firebase.js') : import('./memory.js')
+);
+
+export default new Store();

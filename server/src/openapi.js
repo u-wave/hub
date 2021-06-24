@@ -1,11 +1,12 @@
-const { send } = require('micro');
-const helmet = require('micro-helmet');
-const cors = require('micro-cors');
-const announce = require('./announce');
-const events = require('./events');
-const list = require('./list');
-const pkg = require('../package.json');
+import { send } from 'micro';
+import helmet from 'micro-helmet';
+import cors from 'micro-cors';
+import fs from 'fs/promises';
+import announce from './announce.js';
+import events from './events.js';
+import list from './list.js';
 
+const pkg = JSON.parse(await fs.readFile(new URL('../package.json', import.meta.url)));
 const enhance = cors({ allowedMethods: ['GET'] });
 
 const definition = {
@@ -36,4 +37,4 @@ async function openapi(req, res) {
   send(res, 200, definition);
 }
 
-module.exports = enhance(openapi);
+export default enhance(openapi);

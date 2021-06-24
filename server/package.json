@@ -3,9 +3,11 @@
   "version": "0.5.2",
   "description": "üWave server listing.",
   "main": "src/index.js",
+  "exports": "./src/index.js",
   "bin": "bin/u-wave-hub.js",
+  "type": "module",
   "engines": {
-    "node": ">= 12"
+    "node": ">= 14"
   },
   "dependencies": {
     "@google-cloud/firestore": "^4.11.0",
@@ -26,6 +28,6 @@
   },
   "scripts": {
     "start": "node bin/u-wave-hub.js",
-    "dev": "micro-dev src/index.js"
+    "dev": "micro-dev src/index.cjs"
   }
 }

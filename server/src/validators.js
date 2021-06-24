@@ -1,5 +1,5 @@
-const Ajv = require('ajv').default;
-const addFormats = require('ajv-formats').default;
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
 
 const ajv = new Ajv({
   removeAdditional: true,
@@ -8,9 +8,9 @@ const ajv = new Ajv({
 });
 addFormats(ajv);
 
-exports.error = (errors) => new Error(ajv.errorsText(errors));
+export const error = (errors) => new Error(ajv.errorsText(errors));
 
-exports.announceData = ajv.compile({
+export const announceData = ajv.compile({
   type: 'object',
   properties: {
     name: {
@@ -99,7 +99,7 @@ exports.announceData = ajv.compile({
   required: ['name', 'subtitle', 'url', 'apiUrl', 'socketUrl'],
 });
 
-exports.announce = {
+export const announce = {
   params: ajv.compile({
     type: 'object',
     properties: {
@@ -119,7 +119,7 @@ exports.announce = {
         description: 'JSON-encoded string containing server data',
         type: 'string',
         contentMediaType: 'application/json',
-        contentSchema: exports.announceData.schema,
+        contentSchema: announceData.schema,
       },
       signature: {
         description: 'Sodium signature for the server data signed with the server\'s private key',

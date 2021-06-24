@@ -1,9 +1,9 @@
-const EventEmitter = require('events');
-const createDebug = require('debug');
+import EventEmitter from 'events';
+import createDebug from 'debug';
 
 const debug = createDebug('u-wave-hub');
 
-module.exports = class InMemoryStore extends EventEmitter {
+export default class InMemoryStore extends EventEmitter {
   constructor() {
     super();
     this.backend = new Map();
