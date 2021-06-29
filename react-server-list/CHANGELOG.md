@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 5.0.0-alpha.10
+* Update for latest material-ui 5.x alpha.
+* Use react-markdown v6.
+* Use emotion instead of JSS.
+
 ## 5.0.0-alpha.9
 * Update for latest material-ui 5.x alpha.
 
