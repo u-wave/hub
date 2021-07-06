@@ -19,5 +19,8 @@
   "repository": {
     "git": "https://github.com/u-wave/hub.git",
     "directory": "plugin"
+  },
+  "scripts": {
+    "test": "node test"
   }
 }
