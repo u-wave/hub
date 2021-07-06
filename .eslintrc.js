@@ -13,6 +13,9 @@ module.exports = {
   overrides: [
     {
       files: ['server/src/*.js', 'plugin/src/*.js'],
+      env: {
+        node: true,
+      },
       rules: {
         // Allow `for..of` in server-side code
         'no-restricted-syntax': [
@@ -30,6 +33,21 @@ module.exports = {
             message: '`with` is disallowed in strict mode because it makes code impossible to predict and optimize.',
           },
         ],
+      },
+    },
+
+    {
+      files: ['server/src/*.js'],
+      parser: '@babel/eslint-parser',
+      parserOptions: {
+        requireConfigFile: false,
+        ecmaVersion: 2021,
+        babelOptions: {
+          plugins: ['@babel/plugin-syntax-top-level-await'],
+        },
+      },
+      rules: {
+        'import/extensions': ['error', 'ignorePackages'],
       },
     },
 
