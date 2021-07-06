@@ -1,6 +1,7 @@
 import babel from '@rollup/plugin-babel';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import css from 'rollup-plugin-css-only';
+import dts from 'rollup-plugin-dts';
 
 const pkg = require('./package.json');
 
@@ -14,7 +15,7 @@ function isExternalModule(m) {
   return external.some((ex) => ex === m.split('/')[0]);
 }
 
-export default {
+export default [{
   input: 'src/index.js',
   output: [{
     file: pkg.main,
@@ -32,4 +33,8 @@ export default {
     nodeResolve(),
     css({ output: 'u-wave-react-server-list.css' }),
   ],
-};
+}, {
+  input: './types/index.d.ts',
+  output: [{ file: 'dist/u-wave-react-server-list.d.ts', format: 'es' }],
+  plugins: [dts()],
+}];

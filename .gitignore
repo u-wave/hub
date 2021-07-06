@@ -1,4 +1,5 @@
 .eslintcache
 node_modules
 react-server-list/dist
+react-server-list/types
 .vercel
