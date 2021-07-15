@@ -58,7 +58,7 @@
     "@emotion/styled": "^11.3.0",
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-node-resolve": "^13.0.0",
-    "@types/react": "^17.0.13",
+    "@types/react": "^17.0.14",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "cross-env": "^7.0.2",
     "eslint": "^7.30.0",
