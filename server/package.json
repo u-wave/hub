@@ -10,7 +10,7 @@
     "node": ">= 14"
   },
   "dependencies": {
-    "@google-cloud/firestore": "^4.13.1",
+    "@google-cloud/firestore": "^4.13.2",
     "ajv": "^8.6.2",
     "ajv-formats": "^2.1.0",
     "debug": "^4.3.2",
