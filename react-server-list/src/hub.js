@@ -4,35 +4,38 @@ import ms from 'ms';
 const downTimeout = ms('10 minutes');
 
 /**
+ *
+ *
  * @typedef {object} Media
- * @prop {string} title
- * @prop {string} artist
- * @prop {string} thumbnail
+ * @prop {string} title - Title of the media.
+ * @prop {string} artist - Artist, creator, or uploader of the media.
+ * @prop {string} thumbnail - A full HTTP(S) URL to a thumbnail for the media.
  */
 
 /**
  * @typedef {object} Booth
- * @prop {string} dj
- * @prop {Media} media
+ * @prop {string} dj - Username of the current DJ.
+ * @prop {Media} media - The currently playing media.
  */
 
 /**
  * @typedef {object} Server
- * @prop {string} name
- * @prop {string} subtitle
- * @prop {string} [description]
- * @prop {string} url
- * @prop {number} timeSincePing
+ * @prop {string} name - Name of the server.
+ * @prop {string} subtitle - A short description for the server.
+ * @prop {string} [description] - Long-form description for the server. May contain Markdown.
+ * @prop {string} url - Web-accessible URL to this server,
+ *     hosting eg. the web client or a home page.
+ * @prop {number} timeSincePing - Time in milliseconds since the most recent update from this server.
  * @prop {Booth} [booth]
  */
 
 /**
- * @param {string} hubServer
+ * @param {string} hubServer - URL of the announce server.
  * @return {Promise<Server[]>}
  */
 export function loadServers(hubServer) { // eslint-disable-line import/prefer-default-export
   return fetch(hubServer)
-    .then((response) => response.json())
+    .then((response) => (/** @type {Promise<{ servers: Server[] }>} */ (response.json())))
     .then((state) => (
       state.servers.sort((a, b) => {
         if (a.timeSincePing >= downTimeout) {

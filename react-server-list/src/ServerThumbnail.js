@@ -54,9 +54,10 @@ WarningText.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const timedOutMessage = (since) => (
-  ` This server may be down. It has not responded for ${since}.`
-);
+/** @param {string} since */
+function timedOutMessage(since) {
+  return ` This server may be down. It has not responded for ${since}.`;
+}
 
 /**
  * @param {import('./hub').Server} server

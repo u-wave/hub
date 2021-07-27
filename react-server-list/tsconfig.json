@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "strict": true,
     "lib": ["es2018", "dom"],
     "target": "es2018",
     "module": "esnext",
@@ -10,7 +11,7 @@
     "emitDeclarationOnly": true,
     "allowJs": true,
     "checkJs": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "esModuleInterop": true
   },
   "include": ["src/*.js"]
