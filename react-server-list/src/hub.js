@@ -25,7 +25,8 @@ const downTimeout = ms('10 minutes');
  * @prop {string} [description] - Long-form description for the server. May contain Markdown.
  * @prop {string} url - Web-accessible URL to this server,
  *     hosting eg. the web client or a home page.
- * @prop {number} timeSincePing - Time in milliseconds since the most recent update from this server.
+ * @prop {number} timeSincePing - Time in milliseconds since the most recent update from this
+ *     server.
  * @prop {Booth} [booth]
  */
 
