@@ -59,7 +59,7 @@
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@types/ms": "^0.7.31",
     "@types/node-fetch": "^2.5.12",
-    "@types/react": "^17.0.14",
+    "@types/react": "^17.0.18",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "cross-env": "^7.0.2",
     "eslint": "^7.31.0",
