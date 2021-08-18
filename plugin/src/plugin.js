@@ -2,7 +2,6 @@ const fs = require('fs').promises;
 const { promisify } = require('util');
 const randomBytes = promisify(require('crypto').randomBytes);
 const fetch = require('node-fetch');
-const ms = require('ms');
 const stripIndent = require('strip-indent');
 const findCacheDir = require('find-cache-dir');
 const debug = require('debug')('uwave:announce');
@@ -229,7 +228,7 @@ async function announcePlugin(uw, staticOptions) {
     // we're still alive.
     interval = setInterval(() => {
       announce().catch(onError);
-    }, ms('1 minute'));
+    }, 60_000);
   });
 
   // Announce again every time the song changes.
