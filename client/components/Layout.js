@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import styled from '@emotion/styled';
-import Typography from '@material-ui/core/Typography';
-import { ThemeProvider } from '@material-ui/core/styles';
+import Typography from '@mui/material/Typography';
+import { ThemeProvider } from '@mui/material/styles';
 import theme from '../muiTheme';
 import AppBar from './AppBar';
 

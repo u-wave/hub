@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import '@u-wave/react-server-list/dist/u-wave-react-server-list.css';
