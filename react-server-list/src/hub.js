@@ -1,5 +1,7 @@
-import fetch from 'node-fetch';
+import nodeFetch from 'node-fetch';
 import ms from 'ms';
+
+const fetch = global.fetch || nodeFetch;
 
 const downTimeout = ms('10 minutes');
 
