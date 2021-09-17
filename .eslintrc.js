@@ -73,9 +73,9 @@ module.exports = {
     {
       files: ['client/**/*.js'],
       extends: ['next'],
-      parserOptions: {
-        babelOptions: {
-          configFile: path.join(__dirname, './client/.babelrc'),
+      settings: {
+        next: {
+          rootDir: '/client/',
         },
       },
     },

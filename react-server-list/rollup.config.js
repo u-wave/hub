@@ -17,16 +17,11 @@ function isExternalModule(m) {
 
 export default [{
   input: 'src/index.js',
-  output: [{
+  output: {
     file: pkg.main,
-    exports: 'named',
-    format: 'cjs',
+    format: 'esm',
     sourcemap: true,
-  }, {
-    file: pkg.module,
-    format: 'es',
-    sourcemap: true,
-  }],
+  },
   external: isExternalModule,
   plugins: [
     babel({ babelHelpers: 'runtime' }),
