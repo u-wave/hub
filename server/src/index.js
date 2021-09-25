@@ -1,24 +1,72 @@
-import {
-  router, get, options, post,
-} from 'micro-fork';
-import { createError } from 'micro';
-import * as controller from './controller.js';
+import { env } from 'process';
+import { readFile } from 'fs/promises';
+import Fastify from 'fastify';
+import plugin from 'fastify-plugin';
+import AjvCompiler from '@fastify/ajv-compiler';
+import ajvFormats from 'ajv-formats';
+import CORS from 'fastify-cors';
+import Helmet from 'fastify-helmet';
+import { FastifySSEPlugin } from 'fastify-sse-v2';
+import Swagger from 'fastify-swagger';
+import announce from './announce.js';
+import list from './list.js';
+import events from './events.js';
 
-function fourOhFour() {
-  throw createError(404, 'Not Found');
-}
+const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url)));
 
-export default router({
-  defaultRoute: fourOhFour,
-})(
-  post('/announce/:publicKey', controller.announce),
+const app = Fastify({
+  logger: true,
+  ajv: {
+    customOptions: {
+      validateFormats: true,
+      removeAdditional: true,
+      useDefaults: true,
+      coerceTypes: true,
+    },
+    plugins: [ajvFormats]
+  },
+  schemaController: {
+    compilersFactory: {
+      buildValidator: AjvCompiler()
+    }
+  }
+});
 
-  options('/events', controller.events),
-  get('/events', controller.events),
+app.register(CORS);
+app.register(Helmet);
+app.register(FastifySSEPlugin);
+app.register(Swagger, {
+  openapi: {
+    info: {
+      title: 'üWave Announce',
+      version: pkg.version,
+      license: {
+        name: 'MIT',
+        url: 'https://github.com/u-wave/hub/blob/default/LICENSE',
+      },
+    },
+    consumes: ['application/json'],
+    produces: ['application/json'],
+  },
+  exposeRoute: true,
+  staticCSP: true,
+});
 
-  options('/openapi.json', controller.openapi),
-  get('/openapi.json', controller.openapi),
+app.register(plugin(async (fastify) => {
+  const { default: Store } = await (
+    env.FIRESTORE_PROJECT ? import('./firebase.js') : import('./memory.js')
+  );
 
-  options('/', controller.list),
-  get('/', controller.list),
-);
+  fastify.decorate('store', new Store());
+}));
+
+app.register(announce);
+app.register(events);
+app.register(list);
+app.get('/openapi.json', {
+  schema: { hide: true },
+}, async (request, reply) => {
+  reply.redirect('/documentation/json');
+});
+
+export default app;

@@ -1,52 +1,37 @@
-import { send } from 'micro';
-import helmet from 'micro-helmet';
-import cors from 'micro-cors';
-import servers from './store.js';
 import * as validators from './validators.js';
 
-const enhance = cors({ allowedMethods: ['GET'] });
-
-const list = enhance(async (req, res) => {
-  await helmet.addHeaders(req, res);
-
-  if (req.method === 'OPTIONS') {
-    send(res, 200);
-    return;
-  }
-
-  const response = [];
-  for await (const [publicKey, server] of servers.list()) {
-    response.push({
-      ...server.data,
-      publicKey,
-      timeSincePing: Date.now() - server.ping,
-    });
-  }
-
-  send(res, 200, {
-    servers: response,
-  });
-});
-
-list.path = '/';
-list.openapi = {
-  get: {
-    description: 'Show the current state of all known servers',
-    operationId: 'list',
-    responses: {
-      200: {
-        description: 'List of servers known to this hub.',
-        content: {
-          'application/json': {
-            schema: {
+/**
+ * @param {import('fastify').Fastify} fastify
+ */
+export default async function listPlugin(fastify) {
+  fastify.get('/', {
+    schema: {
+      response: {
+        200: {
+          type: 'object',
+          properties: {
+            servers: {
+              description: 'List of servers known to this hub.',
               type: 'array',
-              items: validators.announceData.schema,
+              items: validators.announceData,
             },
           },
+          required: ['servers'],
         },
       },
     },
-  },
-};
+  }, async () => {
+    const response = [];
+    for await (const [publicKey, server] of fastify.store.list()) {
+      response.push({
+        ...server.data,
+        publicKey,
+        timeSincePing: Date.now() - server.ping,
+      });
+    }
 
-export default list;
+    return {
+      servers: response,
+    };
+  });
+}

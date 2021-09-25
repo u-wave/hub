@@ -9,13 +9,11 @@
     "node": ">= 14",
     "npm": ">= 7"
   },
-  "#devDependencies": "Installing @babel/types makes sure the correct version is hoisted up for eslint",
   "devDependencies": {
     "@babel/core": "^7.11.4",
     "@babel/eslint-parser": "^7.11.4",
     "@babel/eslint-plugin": "^7.11.3",
     "@babel/plugin-syntax-top-level-await": "^7.14.5",
-    "@babel/types": "^7.11.0",
     "cross-env": "^7.0.2",
     "eslint": "^8.18.0",
     "eslint-config-airbnb": "^19.0.2",
@@ -31,7 +29,7 @@
     "build": "npm run -w react-server-list build && npm run -w client build",
     "prepare": "npm run build",
     "start:client": "npm run -w react-server-list dev & cross-env HUB_SERVER=https://announce.u-wave.net npm run -w client dev",
-    "start": "npm run -w react-server-list dev & cross-env HUB_SERVER=http://localhost:6451 npm run -w client dev & npm run -w server dev -- -p 6451",
+    "start": "npm run -w react-server-list dev & cross-env HUB_SERVER=http://localhost:6451 npm run -w client dev & cross-env PORT=6451 npm run -w server start",
     "lint": "eslint .",
     "tests-only": "npm run -w plugin test",
     "test": "npm run tests-only && npm run lint"
