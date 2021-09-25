@@ -19,7 +19,7 @@
     "micro-cors": "^0.1.1",
     "micro-fork": "^3.0.0",
     "micro-helmet": "^2.0.0",
-    "ms": "^2.1.3",
+    "ms": "3.0.0-canary.1",
     "once": "^1.4.0",
     "sse-writer": "^3.0.0"
   },
