@@ -18,7 +18,6 @@ const app = Fastify({
   logger: true,
   ajv: {
     customOptions: {
-      validateFormats: true,
       removeAdditional: true,
       useDefaults: true,
       coerceTypes: true,

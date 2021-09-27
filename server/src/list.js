@@ -1,7 +1,7 @@
 import * as validators from './validators.js';
 
 /**
- * @param {import('fastify').Fastify} fastify
+ * @param {import('fastify').FastifyInstance} fastify
  */
 export default async function listPlugin(fastify) {
   fastify.get('/', {

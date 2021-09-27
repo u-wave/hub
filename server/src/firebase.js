@@ -1,17 +1,19 @@
-import Firestore from '@google-cloud/firestore';
+import { Firestore } from '@google-cloud/firestore';
 import { PassThrough } from 'stream';
 import EventEmitter from 'events';
 import createDebug from 'debug';
 
 const debug = createDebug('u-wave-hub');
 
+/** @typedef {import('./store').Store} Store */
+/** @implements {Store} */
 export default class FirebaseStore extends EventEmitter {
   constructor() {
     super();
 
     this.backend = new Firestore({
       projectId: process.env.FIRESTORE_PROJECT,
-      credentials: JSON.parse(process.env.FIRESTORE_CREDENTIALS),
+      credentials: JSON.parse(process.env.FIRESTORE_CREDENTIALS ?? 'null'),
     });
     this.collection = this.backend.collection('u-wave-servers');
 
@@ -31,10 +33,17 @@ export default class FirebaseStore extends EventEmitter {
     });
   }
 
+  /**
+   * @param {string} id
+   * @param {import('./store').StoreEntry} entry
+   */
   async update(id, { ping, data }) {
     await this.collection.doc(id).set({ ping, data });
   }
 
+  /**
+   * @param {string} id
+   */
   async get(id) {
     const doc = await this.collection.doc(id).get();
     return doc.data();
@@ -48,6 +57,9 @@ export default class FirebaseStore extends EventEmitter {
     }
   }
 
+  /**
+   * @param {number} staleTimestamp
+   */
   async deleteBefore(staleTimestamp) {
     const query = () => this.collection.where('ping', '<', staleTimestamp).limit(100).get();
     /* eslint-disable no-await-in-loop */

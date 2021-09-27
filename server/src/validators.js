@@ -10,6 +10,7 @@ addFormats(ajv);
 
 export const error = (errors) => new Error(ajv.errorsText(errors));
 
+/** @type {import('ajv').JSONSchemaType<import('./store').Server>} */
 export const announceData = {
   $id: 'https://ns.u-wave.net/schemas/AnnounceData.json',
   type: 'object',
@@ -35,6 +36,7 @@ export const announceData = {
     description: {
       description: 'A longer description about the server, may be markdown',
       type: 'string',
+      nullable: true,
     },
     url: {
       description: 'A URL to a hosted web application for the server',
@@ -90,6 +92,7 @@ export const announceData = {
           required: ['username'],
         },
       },
+      required: ['media', 'dj'],
     },
     usersCount: {
       description: 'The amount of users that are currently online',

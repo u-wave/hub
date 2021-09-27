@@ -15,6 +15,9 @@ ajvFormats(ajv);
 const debug = createDebug('u-wave-hub');
 const removeTimeout = ms('1 day');
 
+/**
+ * @param {import('./store').Store} store
+ */
 function prune(store) {
   debug('prune');
   store.deleteBefore(Date.now() - removeTimeout).catch((err) => {
@@ -23,7 +26,7 @@ function prune(store) {
 }
 
 /**
- * @param {import('fastify').Fastify} fastify
+ * @param {import('fastify').FastifyInstance} fastify
  */
 export default async function announce(fastify) {
   fastify.post('/announce/:publicKey', {

@@ -26,5 +26,9 @@
   },
   "scripts": {
     "start": "node bin/u-wave-hub.js"
+  },
+  "devDependencies": {
+    "@tsconfig/node12": "^1.0.9",
+    "typescript": "^4.4.3"
   }
 }

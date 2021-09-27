@@ -1,7 +1,7 @@
 import { on } from 'events';
 
 /**
- * @param {import('fastify').Fastify} fastify
+ * @param {import('fastify').FastifyInstance} fastify
  */
 export default async function eventsPlugin(fastify) {
   async function* events() {
@@ -9,7 +9,7 @@ export default async function eventsPlugin(fastify) {
 
     for await (const [serverId, server] of on(fastify.store, 'update')) {
       yield {
-        id,
+        id: `${id}`,
         data: JSON.stringify({
           publicKey: serverId,
           ...server
