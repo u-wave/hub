@@ -1,3 +1,4 @@
+import { URL } from 'url';
 import { env } from 'process';
 import { readFile } from 'fs/promises';
 import Fastify from 'fastify';
@@ -12,7 +13,7 @@ import announce from './announce.js';
 import list from './list.js';
 import events from './events.js';
 
-const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url)));
+const pkg = JSON.parse((await readFile(new URL('../package.json', import.meta.url))).toString());
 
 const app = Fastify({
   logger: true,
@@ -22,13 +23,13 @@ const app = Fastify({
       useDefaults: true,
       coerceTypes: true,
     },
-    plugins: [ajvFormats]
+    plugins: [ajvFormats],
   },
   schemaController: {
     compilersFactory: {
-      buildValidator: AjvCompiler()
-    }
-  }
+      buildValidator: AjvCompiler(),
+    },
+  },
 });
 
 app.register(CORS);
@@ -44,8 +45,6 @@ app.register(Swagger, {
         url: 'https://github.com/u-wave/hub/blob/default/LICENSE',
       },
     },
-    consumes: ['application/json'],
-    produces: ['application/json'],
   },
   exposeRoute: true,
   staticCSP: true,
