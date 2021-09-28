@@ -6,6 +6,7 @@ import createDebug from 'debug';
 const debug = createDebug('u-wave-hub');
 
 /** @typedef {import('./store').Store} Store */
+/** @typedef {import('./store').StoreEntry} StoreEntry */
 /** @implements {Store} */
 export default class FirebaseStore extends EventEmitter {
   constructor() {
@@ -15,6 +16,7 @@ export default class FirebaseStore extends EventEmitter {
       projectId: process.env.FIRESTORE_PROJECT,
       credentials: JSON.parse(process.env.FIRESTORE_CREDENTIALS ?? 'null'),
     });
+    /** @type {import('@google-cloud/firestore').CollectionReference<StoreEntry>} */
     this.collection = this.backend.collection('u-wave-servers');
 
     let isFirst = true;
@@ -35,7 +37,7 @@ export default class FirebaseStore extends EventEmitter {
 
   /**
    * @param {string} id
-   * @param {import('./store').StoreEntry} entry
+   * @param {StoreEntry} entry
    */
   async update(id, { ping, data }) {
     await this.collection.doc(id).set({ ping, data });
@@ -53,7 +55,9 @@ export default class FirebaseStore extends EventEmitter {
     const newStream = this.collection.stream()
       .pipe(new PassThrough({ objectMode: true }));
     for await (const doc of newStream) {
-      yield [doc.id, doc.data()];
+      /** @type {[string, StoreEntry]} */
+      const pair = [doc.id, doc.data()];
+      yield pair;
     }
   }
 

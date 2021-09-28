@@ -26,6 +26,13 @@ function prune(store) {
 }
 
 /**
+ * @typedef {{ publicKey: string }} AnnounceParams
+ * @typedef {{ data: string, signature: string }} AnnounceBody
+ * @typedef {{ Params: AnnounceParams, Body: AnnounceBody }} AnnounceInterface
+ * @typedef {import('fastify').FastifyRequest<AnnounceInterface>} AnnounceRequest
+ */
+
+/**
  * @param {import('fastify').FastifyInstance} fastify
  */
 export default async function announce(fastify) {
@@ -71,7 +78,7 @@ export default async function announce(fastify) {
         },
       },
     },
-  }, async (request) => {
+  }, /** @param {AnnounceRequest} request */ async (request) => {
     const publicKey = Buffer.from(request.params.publicKey, 'hex');
     const data = Buffer.from(request.body.data, 'utf8');
     const signature = Buffer.from(request.body.signature, 'hex');

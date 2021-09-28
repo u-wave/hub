@@ -23,7 +23,7 @@ export type StoreEntry = { ping: number, data: Server };
 export interface Store {
   update(id: string, entry: StoreEntry): Promise<void>;
   get(id: string): Promise<StoreEntry|undefined>;
-  list(): AsyncIterator<[string, StoreEntry]>;
+  list(): AsyncIterable<[string, StoreEntry]>;
   deleteBefore(staleTimestamp: number): Promise<void>;
 }
 
