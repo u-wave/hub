@@ -12,7 +12,7 @@ export default async function eventsPlugin(fastify) {
         id: `${id}`,
         data: JSON.stringify({
           publicKey: serverId,
-          ...server
+          ...server,
         }),
       };
       id += 1;
