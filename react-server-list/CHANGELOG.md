@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 5.0.0-beta.1
+* Update to MUI 5.x.
+* Remove CommonJS build.
+
 ## 5.0.0-alpha.11
 * Update for material-ui 5.x beta.
 * Bundle typings into a single file.
