@@ -95,8 +95,12 @@ async function getAnnounceData(uw, options) {
   // the relationships.
   const entry = await uw.booth.getCurrentEntry();
   if (entry) {
-    entry.populate('user media.media');
-    await entry.execPopulate();
+    if (entry.execPopulate) {
+      entry.populate('user media.media');
+      await entry.execPopulate();
+    } else {
+      await entry.populate('user media.media');
+    }
   }
 
   // TODO add something to üWave Core so we don't have to manually ask Redis for
