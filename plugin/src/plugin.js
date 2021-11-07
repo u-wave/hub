@@ -1,9 +1,7 @@
-const fs = require('fs').promises;
 const { promisify } = require('util');
 const randomBytes = promisify(require('crypto').randomBytes);
 const fetch = require('node-fetch');
 const stripIndent = require('strip-indent');
-const findCacheDir = require('find-cache-dir');
 const debug = require('debug')('uwave:announce');
 const sodium = require('./signatures');
 const pkg = require('../package.json');
@@ -90,36 +88,6 @@ function stripSlashes(url) {
   return url.replace(/\/+$/, '');
 }
 
-async function getKeyPair(seed) {
-  const keyPairPath = findCacheDir({
-    name: pkg.name,
-    create: true,
-    thunk: true,
-  })('keypair.json');
-  try {
-    const { publicKey, secretKey, forSeed } = JSON.parse(
-      await fs.readFile(keyPairPath, 'utf8'),
-    );
-
-    if (Buffer.compare(Buffer.from(forSeed), Buffer.from(seed)) !== 0) {
-      throw new Error('this error object is unused');
-    }
-
-    return {
-      publicKey: Buffer.from(publicKey, 'base64'),
-      secretKey: Buffer.from(secretKey, 'base64'),
-    };
-  } catch (error) {
-    const { publicKey, secretKey } = await sodium.keyPair(seed);
-    await fs.writeFile(keyPairPath, JSON.stringify({
-      publicKey: Buffer.from(publicKey).toString('base64'),
-      secretKey: Buffer.from(secretKey).toString('base64'),
-      forSeed: seed,
-    }, null, 2), 'utf8');
-    return { publicKey, secretKey };
-  }
-}
-
 async function getAnnounceData(uw, options) {
   const url = stripSlashes(options.url);
 
@@ -180,7 +148,10 @@ async function announcePlugin(uw, staticOptions) {
   uw.config.register(optionsSchema['uw:key'], optionsSchema);
 
   const seed = staticOptions.seed || await getOrGenerateSeed(uw);
-  const { publicKey, secretKey } = await getKeyPair(seed);
+  // This takes up to a few 100 ms but it is a one-time startup cost…
+  // Maybe it makes sense to cache this, or to not block the rest of
+  // the startup work. For now, we just do the easy thing.
+  const { publicKey, secretKey } = await sodium.keyPair(seed);
 
   async function announce() {
     const options = await uw.config.get(optionsSchema['uw:key']);
