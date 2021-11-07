@@ -5,6 +5,10 @@ server listing at https://hub.u-wave.net.
 
 ## Usage
 
+The announce plugin is added by default if you use the executable provided
+with üWave Core. If you are using the üWave Core Node.js API, install and
+add it manually:
+
 ```bash
 npm install u-wave-announce
 ```
