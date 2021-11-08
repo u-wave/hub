@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^4.14.2",
-    "ajv": "^8.6.2",
+    "ajv": "^8.7.0",
     "ajv-formats": "^2.1.0",
     "debug": "^4.3.2",
     "libsodium-wrappers": "^0.7.8",
