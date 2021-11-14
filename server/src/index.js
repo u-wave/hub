@@ -15,56 +15,58 @@ import events from './events.js';
 
 const pkg = JSON.parse((await readFile(new URL('../package.json', import.meta.url))).toString());
 
-const app = Fastify({
-  logger: true,
-  ajv: {
-    customOptions: {
-      removeAdditional: true,
-      useDefaults: true,
-      coerceTypes: true,
+export default () => {
+  const app = Fastify({
+    logger: true,
+    ajv: {
+      customOptions: {
+        removeAdditional: true,
+        useDefaults: true,
+        coerceTypes: true,
+      },
+      plugins: [ajvFormats],
     },
-    plugins: [ajvFormats],
-  },
-  schemaController: {
-    compilersFactory: {
-      buildValidator: AjvCompiler(),
-    },
-  },
-});
-
-app.register(CORS);
-app.register(Helmet);
-app.register(FastifySSEPlugin);
-app.register(Swagger, {
-  openapi: {
-    info: {
-      title: 'üWave Announce',
-      version: pkg.version,
-      license: {
-        name: 'MIT',
-        url: 'https://github.com/u-wave/hub/blob/default/LICENSE',
+    schemaController: {
+      compilersFactory: {
+        buildValidator: AjvCompiler(),
       },
     },
-  },
-  exposeRoute: true,
-  staticCSP: true,
-});
+  });
 
-app.register(plugin(async (fastify) => {
-  const { default: Store } = await (
-    env.FIRESTORE_PROJECT ? import('./firebase.js') : import('./memory.js')
-  );
+  app.register(CORS);
+  app.register(Helmet);
+  app.register(FastifySSEPlugin);
+  app.register(Swagger, {
+    openapi: {
+      info: {
+        title: 'üWave Announce',
+        version: pkg.version,
+        license: {
+          name: 'MIT',
+          url: 'https://github.com/u-wave/hub/blob/default/LICENSE',
+        },
+      },
+    },
+    exposeRoute: true,
+    staticCSP: true,
+  });
 
-  fastify.decorate('store', new Store());
-}));
+  app.register(plugin(async (fastify) => {
+    const { default: Store } = await (
+      env.FIRESTORE_PROJECT ? import('./firebase.js') : import('./memory.js')
+    );
 
-app.register(announce);
-app.register(events);
-app.register(list);
-app.get('/openapi.json', {
-  schema: { hide: true },
-}, async (request, reply) => {
-  reply.redirect('/documentation/json');
-});
+    fastify.decorate('store', new Store());
+  }));
 
-export default app;
+  app.register(announce);
+  app.register(events);
+  app.register(list);
+  app.get('/openapi.json', {
+    schema: { hide: true },
+  }, async (request, reply) => {
+    reply.redirect('/documentation/json');
+  });
+
+  return app;
+}

@@ -85,9 +85,13 @@ export default async function announce(fastify) {
 
     const serverId = publicKey.toString('hex');
 
-    if (!(await verify(data, signature, publicKey))) {
-      debug('invalid signature from', serverId);
-      throw new Error('Invalid signature');
+    try {
+      if (!(await verify(data, signature, publicKey))) {
+        debug('invalid signature from', serverId);
+        throw new Error('Invalid signature');
+      }
+    } catch (err) {
+      throw Object.assign(err, { statusCode: 400 });
     }
 
     let object;
