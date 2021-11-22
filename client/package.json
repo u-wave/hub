@@ -12,7 +12,7 @@
     "@emotion/server": "^11.0.0",
     "@emotion/styled": "^11.3.0",
     "@mui/material": "^5.0.0",
-    "@mui/icons-material": "^5.0.0",
+    "@mui/icons-material": "^5.1.1",
     "@u-wave/react-server-list": "file:../react-server-list",
     "next": "^12.0.1",
     "prop-types": "^15.7.2",
