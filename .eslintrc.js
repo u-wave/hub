@@ -2,6 +2,9 @@ const path = require('path');
 
 module.exports = {
   extends: 'airbnb-base',
+  parserOptions: {
+    ecmaVersion: 2021,
+  },
 
   rules: {
     // MongoDB IDs
@@ -67,6 +70,10 @@ module.exports = {
         'react/require-default-props': 'off',
         'react/static-property-placement': 'off',
         'react/jsx-one-expression-per-line': 'off',
+        'react/function-component-definition': ['error', {
+          namedComponents: 'function-declaration',
+          unnamedComponents: 'arrow-function',
+        }],
       },
     },
 
