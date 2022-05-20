@@ -76,11 +76,15 @@ function hasDescription(server) {
  */
 function ServerThumbnail({ server, media }) {
   const [isOpen, setDescriptionOpen] = useState(false);
-  const onOpenDescription = useCallback((event) => {
-    event.preventDefault();
-    event.stopPropagation();
-    setDescriptionOpen(true);
-  }, []);
+  const onOpenDescription = useCallback(
+    /** @param {React.MouseEvent<HTMLButtonElement>} event */
+    (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      setDescriptionOpen(true);
+    },
+    [],
+  );
   const onCloseDescription = useCallback(() => {
     setDescriptionOpen(false);
   }, []);
