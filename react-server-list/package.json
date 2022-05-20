@@ -8,9 +8,7 @@
     "prepare": "npm run build",
     "tsc": "tsc --build tsconfig.json",
     "build": "npm run tsc && rollup -c",
-    "dev": "rollup -c -w",
-    "test:mocha": "cross-env NODE_ENV=test mocha",
-    "test": "npm run test:lint && npm run test:mocha"
+    "dev": "rollup -c -w"
   },
   "repository": {
     "type": "git",
@@ -60,8 +58,6 @@
     "@rollup/plugin-node-resolve": "^13.0.4",
     "@types/react": "^18.0.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "cross-env": "^7.0.2",
-    "mocha": "^9.1.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "rollup": "^2.56.3",
