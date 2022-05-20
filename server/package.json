@@ -23,11 +23,11 @@
     "once": "^1.4.0",
     "sse-writer": "^3.0.0"
   },
-  "devDependencies": {
-    "micro-dev": "^3.0.0"
-  },
   "scripts": {
     "start": "node bin/u-wave-hub.js",
-    "dev": "micro-dev src/index.cjs"
+    "dev": "nodemon bin/u-wave-hub.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }
