@@ -25,8 +25,8 @@ A server object looks like:
      - `username` - The user's name.
  - `usersCount` - The amount of users that are currently online.
  - `url` - A URL to a hosted web application for the server.
- - `apiUrl` - The base URL for the server's [api-v1](https://github.com/u-wave/api-v1) endpoint.
- - `socketUrl` - The URL to the server's [api-v1](https://github.com/u-wave/api-v1) WebSocket endpoint.
+ - `apiUrl` - The base URL for the server's HTTP API endpoint.
+ - `socketUrl` - The URL to the server's WebSocket API endpoint.
  - `timeSincePing` - Time in milliseconds since the last time the server announced itself.
 
 ### `POST /announce/:publicKey` - Announce your server

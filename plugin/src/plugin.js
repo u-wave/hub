@@ -151,6 +151,11 @@ async function getOrGenerateSeed(uw) {
 async function announcePlugin(uw, staticOptions) {
   uw.config.register(optionsSchema['uw:key'], optionsSchema);
 
+  // üWave Core 0.5.0 and up have a `pino` logger
+  const logger = uw.logger
+    ? uw.logger.child({ ns: 'uwave:announce' })
+    : { debug, info: debug };
+
   const seed = staticOptions.seed || await getOrGenerateSeed(uw);
   // This takes up to a few 100 ms but it is a one-time startup cost…
   // Maybe it makes sense to cache this, or to not block the rest of
@@ -160,17 +165,17 @@ async function announcePlugin(uw, staticOptions) {
   async function announce() {
     const options = await uw.config.get(optionsSchema['uw:key']);
     if (typeof options !== 'object') {
-      debug('announcing not configured, skipping');
+      logger.debug('announcing not configured, skipping');
       return;
     }
     if (!options.enabled) {
-      debug('announcing disabled, skipping');
+      logger.debug('announcing disabled, skipping');
       return;
     }
 
     const hubHost = options.hub || 'https://announce.u-wave.net';
     const announceUrl = `${stripSlashes(hubHost)}/announce/${Buffer.from(publicKey).toString('hex')}`;
-    debug('announcing to', announceUrl);
+    logger.info('announcing to', announceUrl);
 
     const announcement = await getAnnounceData(uw, options);
     const data = JSON.stringify(announcement);
@@ -189,8 +194,8 @@ async function announcePlugin(uw, staticOptions) {
     });
   }
 
-  function onError(err) {
-    debug(err);
+  function onError(error) {
+    logger.error({ error });
   }
 
   let interval;
