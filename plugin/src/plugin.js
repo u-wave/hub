@@ -8,6 +8,16 @@ const debug = require('debug')('uwave:announce');
 const sodium = require('./signatures');
 const pkg = require('../package.json');
 
+/**
+ * Fallback logger implementation for üWave Core versions that do
+ * not come with a logger yet.
+ */
+const debugLogger = {
+  debug,
+  info: debug,
+  error: debug,
+};
+
 const optionsSchema = {
   type: 'object',
   title: 'Announce',
@@ -156,7 +166,7 @@ async function announcePlugin(uw, staticOptions) {
   // üWave Core 0.5.0 and up have a `pino` logger
   const logger = uw.logger
     ? uw.logger.child({ ns: 'uwave:announce' })
-    : { debug, info: debug };
+    : debugLogger;
 
   const seed = staticOptions.seed || await getOrGenerateSeed(uw);
   // This takes up to a few 100 ms but it is a one-time startup cost…
@@ -197,7 +207,7 @@ async function announcePlugin(uw, staticOptions) {
   }
 
   function onError(error) {
-    logger.error({ error });
+    logger.error({ err: error });
   }
 
   let interval;
