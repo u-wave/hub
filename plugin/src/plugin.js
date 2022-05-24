@@ -1,3 +1,5 @@
+'use strict';
+
 const { promisify } = require('util');
 const randomBytes = promisify(require('crypto').randomBytes);
 const fetch = require('node-fetch');

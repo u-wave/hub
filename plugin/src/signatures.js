@@ -1,3 +1,5 @@
+'use strict';
+
 // Based on https://github.com/mafintosh/sodium-signatures/blob/master/index.js
 const sodium = require('libsodium-wrappers');
 

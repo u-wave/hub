@@ -88,6 +88,16 @@ module.exports = {
     },
 
     {
+      files: ['plugin/**/*.js'],
+      parserOptions: {
+        sourceType: 'script',
+      },
+      rules: {
+        strict: ['error', 'global'],
+      },
+    },
+
+    {
       files: ['react-server-list/src/**/*.js'],
       parserOptions: {
         babelOptions: {
