@@ -35,7 +35,7 @@
     "@mui/icons-material": "^5.0.0",
     "@mui/material": "^5.0.0",
     "ms": "3.0.0-canary.1",
-    "node-fetch": "^3.0.0",
+    "node-fetch": "^3.2.4",
     "prop-types": "^15.7.2",
     "react-markdown": "^8.0.2",
     "strip-indent": "^4.0.0",
