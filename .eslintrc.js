@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   extends: 'airbnb-base',
   parserOptions: {
-    ecmaVersion: 2021,
+    ecmaVersion: 2022,
   },
 
   rules: {
