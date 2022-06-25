@@ -40,15 +40,7 @@ module.exports = {
     },
 
     {
-      files: ['server/src/*.js'],
-      parser: '@babel/eslint-parser',
-      parserOptions: {
-        requireConfigFile: false,
-        ecmaVersion: 2021,
-        babelOptions: {
-          plugins: ['@babel/plugin-syntax-top-level-await'],
-        },
-      },
+      files: ['server/src/*.js', 'server/test/*.js'],
       rules: {
         'import/extensions': ['error', 'ignorePackages'],
       },
