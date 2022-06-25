@@ -5,9 +5,10 @@ import Fastify from 'fastify';
 import plugin from 'fastify-plugin';
 import AjvCompiler from '@fastify/ajv-compiler';
 import ajvFormats from 'ajv-formats';
-import CORS from '@fastify/cors';
-import Helmet from '@fastify/helmet';
-import Swagger from '@fastify/swagger';
+import cors from '@fastify/cors';
+import helmet from '@fastify/helmet';
+import swagger from '@fastify/swagger';
+import rateLimit from '@fastify/rate-limit';
 import { FastifySSEPlugin } from 'fastify-sse-v2';
 import announce from './announce.js';
 import list from './list.js';
@@ -33,10 +34,11 @@ export default function hubServer() {
     },
   });
 
-  app.register(CORS);
-  app.register(Helmet);
+  app.register(cors);
+  app.register(helmet);
+  app.register(rateLimit, { max: 100, timeWindow: '1 minute' });
   app.register(FastifySSEPlugin);
-  app.register(Swagger, {
+  app.register(swagger, {
     openapi: {
       info: {
         title: 'üWave Announce',
@@ -64,7 +66,7 @@ export default function hubServer() {
   app.register(list);
   app.get('/openapi.json', {
     schema: { hide: true },
-  }, async (request, reply) => {
+  }, async (_request, reply) => {
     reply.redirect('/documentation/json');
   });
 
