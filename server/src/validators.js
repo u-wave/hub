@@ -1,14 +1,4 @@
-import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
-
-const ajv = new Ajv({
-  removeAdditional: true,
-  useDefaults: true,
-  coerceTypes: true,
-});
-addFormats(ajv);
-
-export const error = (errors) => new Error(ajv.errorsText(errors));
+/* eslint-disable import/prefer-default-export */
 
 /** @type {import('ajv').JSONSchemaType<import('./store').Server>} */
 export const announceData = {

@@ -103,7 +103,7 @@ export default async function announce(fastify) {
     }
 
     if (!ajv.validate(validators.announceData, object)) {
-      throw validators.error(ajv.errors);
+      throw Object.assign(new Error(ajv.errorsText(ajv.errors)), { statusCode: 400 });
     }
 
     await fastify.store.update(serverId, {
