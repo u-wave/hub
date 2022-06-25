@@ -13,7 +13,14 @@ export default async function listPlugin(fastify) {
             servers: {
               description: 'List of servers known to this hub.',
               type: 'array',
-              items: validators.announceData,
+              items: {
+                allOf: [validators.announceData, {
+                  properties: {
+                    publicKey: { type: 'string' },
+                    timeSincePing: { type: 'number' },
+                  },
+                }],
+              },
             },
           },
           required: ['servers'],
