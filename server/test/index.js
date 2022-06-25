@@ -35,6 +35,6 @@ describe('/announce', () => {
       },
     });
     assert.equal(wrongSignatureLength.statusCode, 400);
-    assert.equal(wrongShape.json().message, 'wrong signature length');
+    assert.equal(wrongSignatureLength.json().message, 'invalid signature length');
   });
 });

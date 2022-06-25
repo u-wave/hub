@@ -111,12 +111,15 @@ export default async function announce(fastify) {
       ping: Date.now(),
       data: object,
     });
-
     debug('announce', serverId);
+
+    const server = await fastify.store.get(serverId);
+    if (!server) {
+      throw Object.assign(new Error('Unknown error while saving announce data.'), { statusCode: 500 });
+    }
 
     prune(fastify.store);
 
-    const server = await fastify.store.get(serverId);
     return {
       received: server.data,
     };
