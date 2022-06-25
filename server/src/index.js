@@ -15,7 +15,7 @@ import events from './events.js';
 
 const pkg = JSON.parse((await readFile(new URL('../package.json', import.meta.url))).toString());
 
-export default () => {
+export default function hubServer() {
   const app = Fastify({
     logger: true,
     ajv: {
