@@ -31,7 +31,7 @@
     "start:client": "npm run -w react-server-list dev & cross-env HUB_SERVER=https://announce.u-wave.net npm run -w client dev",
     "start": "npm run -w react-server-list dev & cross-env HUB_SERVER=http://localhost:6451 npm run -w client dev & cross-env PORT=6451 npm run -w server start",
     "lint": "eslint .",
-    "tests-only": "npm run -w plugin test",
+    "tests-only": "npm run -w plugin -w server test",
     "test": "npm run tests-only && npm run lint"
   },
   "workspaces": [
