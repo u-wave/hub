@@ -1,73 +1,27 @@
-import { send } from 'micro';
-import helmet from 'micro-helmet';
-import cors from 'micro-cors';
-import SSE from 'sse-writer';
-import once from 'once';
-import servers from './store.js';
+import { on } from 'events';
 
-const bus = new Set();
+/**
+ * @param {import('fastify').FastifyInstance} fastify
+ */
+export default async function eventsPlugin(fastify) {
+  async function* events() {
+    let id = 0;
 
-function onUpdate(serverId, server) {
-  bus.forEach((notify) => {
-    notify({ publicKey: serverId, ...server });
+    for await (const [serverId, server] of on(fastify.store, 'update')) {
+      yield {
+        id: `${id}`,
+        data: JSON.stringify({
+          publicKey: serverId,
+          ...server,
+        }),
+      };
+      id += 1;
+    }
+  }
+
+  fastify.get('/events', {
+    description: 'Listen for updates announced by servers',
+  }, (request, reply) => {
+    reply.sse(events());
   });
 }
-
-const enhance = cors({ allowedMethods: ['GET'] });
-
-const events = enhance(async (req, res) => {
-  await helmet.addHeaders(req, res);
-
-  if (req.method === 'OPTIONS') {
-    send(res, 200);
-    return null;
-  }
-
-  const stream = new SSE()
-    .retry(10000);
-
-  let id = 0;
-
-  if (bus.size === 0) {
-    servers.on('update', onUpdate);
-  }
-
-  function write(event) {
-    stream.event(id, 'data', event);
-    id += 1;
-  }
-
-  bus.add(write);
-  const remove = once(() => {
-    stream.end();
-    bus.delete(write);
-
-    if (bus.size === 0) {
-      servers.off('update', onUpdate);
-    }
-  });
-
-  req.on('error', remove);
-  res.on('error', remove);
-  req.connection.on('close', remove);
-
-  return stream;
-});
-
-events.path = '/events';
-events.openapi = {
-  get: {
-    description: 'Listen for updates announced by servers',
-    operationId: 'listen',
-    responses: {
-      200: {
-        description: 'A stream of updates',
-        content: {
-          'text/event-stream': {},
-        },
-      },
-    },
-  },
-};
-
-export default events;

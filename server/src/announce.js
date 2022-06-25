@@ -1,108 +1,126 @@
-import createDebug from 'debug';
-import { json, send } from 'micro';
-import helmet from 'micro-helmet';
+import Ajv from 'ajv';
+import ajvFormats from 'ajv-formats';
 import ms from 'ms';
-import servers from './store.js';
 import { verify } from './signatures.js';
 import * as validators from './validators.js';
 
-const debug = createDebug('u-wave-hub');
+const ajv = new Ajv({
+  removeAdditional: true,
+  useDefaults: true,
+  coerceTypes: true,
+});
+ajvFormats(ajv);
+
 const removeTimeout = ms('1 day');
 
-function prune() {
-  debug('prune');
-  servers.deleteBefore(Date.now() - removeTimeout).catch((err) => {
-    debug('error while pruning', err);
+/**
+ * @param {import('fastify').FastifyRequest<unknown>} request
+ * @param {import('./store').Store} store
+ */
+function prune(request, store) {
+  request.log.info('prune');
+  store.deleteBefore(Date.now() - removeTimeout).catch((err) => {
+    request.log.warn({ err }, 'error while pruning');
   });
 }
 
-async function announce(req, res) {
-  await helmet.addHeaders(req, res);
+/**
+ * @typedef {{ publicKey: string }} AnnounceParams
+ * @typedef {{ data: string, signature: string }} AnnounceBody
+ * @typedef {{ Params: AnnounceParams, Body: AnnounceBody }} AnnounceInterface
+ * @typedef {import('fastify').FastifyRequest<AnnounceInterface>} AnnounceRequest
+ */
 
-  const { params } = req;
-  if (!validators.announce.params(params)) {
-    throw validators.error(validators.announce.params.errors);
-  }
-  const body = await json(req);
-  if (!validators.announce.body(body)) {
-    throw validators.error(validators.announce.body.errors);
-  }
-
-  const publicKey = Buffer.from(params.publicKey, 'hex');
-  const data = Buffer.from(body.data, 'utf8');
-  const signature = Buffer.from(body.signature, 'hex');
-
-  const serverId = publicKey.toString('hex');
-
-  if (!(await verify(data, signature, publicKey))) {
-    debug('invalid signature from', serverId);
-    throw new Error('Invalid signature');
-  }
-
-  let object;
-  try {
-    object = JSON.parse(data.toString('utf8'));
-  } catch (err) {
-    debug('invalid json from', serverId);
-    err.message = `Invalid JSON: ${err.message}`;
-    throw err;
-  }
-
-  if (!validators.announceData(object)) {
-    throw validators.error(validators.announceData.errors);
-  }
-
-  await servers.update(serverId, {
-    ping: Date.now(),
-    data: object,
-  });
-
-  debug('announce', serverId);
-
-  prune();
-
-  const server = await servers.get(serverId);
-  send(res, 200, {
-    received: server.data,
-  });
-}
-
-announce.path = '/announce/{publicKey}';
-announce.openapi = {
-  post: {
-    description: 'Announce the existence of a server',
-    operationId: 'announce',
-    responses: {
-      200: {
-        description: 'Announced successfully',
-        content: {
-          'application/json': {
-            schema: {
-              type: 'object',
-              properties: {
-                received: validators.announceData.schema,
-              },
-            },
+/**
+ * @param {import('fastify').FastifyInstance} fastify
+ */
+export default async function announce(fastify) {
+  fastify.post('/announce/:publicKey', {
+    schema: {
+      params: {
+        type: 'object',
+        properties: {
+          publicKey: {
+            description: 'The public key of the server',
+            type: 'string',
+            minLength: 64,
+            maxLength: 64,
+            pattern: '^[0-9a-fA-F]{64}$',
+          },
+        },
+        required: ['publicKey'],
+      },
+      body: {
+        type: 'object',
+        properties: {
+          data: {
+            description: 'JSON-encoded string containing server data',
+            type: 'string',
+            contentMediaType: 'application/json',
+            contentSchema: validators.announceData,
+          },
+          signature: {
+            description: 'Sodium signature for the server data signed with the server\'s private key',
+            type: 'string',
+            pattern: '^[0-9a-fA-F]+$',
+          },
+        },
+        required: ['data', 'signature'],
+      },
+      response: {
+        200: {
+          description: 'Announced successfully',
+          type: 'object',
+          properties: {
+            received: validators.announceData,
           },
         },
       },
     },
-    parameters: [{
-      name: 'publicKey',
-      in: 'path',
-      description: 'The public key of the server',
-      required: true,
-      schema: validators.announce.params.schema.properties.publicKey,
-    }],
-    requestBody: {
-      description: 'Server state data',
-      content: {
-        'application/json': {
-          schema: validators.announce.body.schema,
-        },
-      },
-    },
-  },
-};
+  }, /** @param {AnnounceRequest} request */ async (request) => {
+    const publicKey = Buffer.from(request.params.publicKey, 'hex');
+    const data = Buffer.from(request.body.data, 'utf8');
+    const signature = Buffer.from(request.body.signature, 'hex');
 
-export default announce;
+    const serverId = publicKey.toString('hex');
+
+    try {
+      if (!(await verify(data, signature, publicKey))) {
+        request.log.info({ serverId }, 'invalid signature');
+        throw new Error('Invalid signature');
+      }
+    } catch (err) {
+      throw Object.assign(err, { statusCode: 400 });
+    }
+
+    let object;
+    try {
+      object = JSON.parse(data.toString('utf8'));
+    } catch (err) {
+      request.log.info({ serverId }, 'invalid json');
+      err.message = `Invalid JSON: ${err.message}`;
+      throw err;
+    }
+
+    if (!ajv.validate(validators.announceData, object)) {
+      throw Object.assign(new Error(ajv.errorsText(ajv.errors)), { statusCode: 400 });
+    }
+
+    await fastify.store.update(serverId, {
+      ping: Date.now(),
+      data: object,
+    });
+    request.log.info({ serverId }, 'announced');
+
+    const server = await fastify.store.get(serverId);
+    if (!server) {
+      throw Object.assign(new Error('Unknown error while saving announce data.'), { statusCode: 500 });
+    }
+
+    prune(request, fastify.store);
+
+    return {
+      received: server.data,
+    };
+  });
+}

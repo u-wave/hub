@@ -1,6 +1,9 @@
 // Based on https://github.com/mafintosh/sodium-signatures/blob/master/index.js
 import sodium from 'libsodium-wrappers';
 
+/**
+ * @param {Buffer} seed
+ */
 async function keyPair(seed) {
   await sodium.ready;
 
@@ -14,11 +17,20 @@ async function keyPair(seed) {
   return { publicKey, secretKey };
 }
 
+/**
+ * @param {Buffer} message
+ * @param {Buffer} secretKey
+ */
 async function sign(message, secretKey) {
   await sodium.ready;
   return sodium.crypto_sign_detached(message, secretKey);
 }
 
+/**
+ * @param {Buffer} message
+ * @param {Buffer} signature
+ * @param {Buffer} publicKey
+ */
 async function verify(message, signature, publicKey) {
   await sodium.ready;
   return sodium.crypto_sign_verify_detached(signature, message, publicKey);

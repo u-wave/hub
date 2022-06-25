@@ -1,16 +1,8 @@
-import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
+/* eslint-disable import/prefer-default-export */
 
-const ajv = new Ajv({
-  removeAdditional: true,
-  useDefaults: true,
-  coerceTypes: true,
-});
-addFormats(ajv);
-
-export const error = (errors) => new Error(ajv.errorsText(errors));
-
-export const announceData = ajv.compile({
+/** @type {import('ajv').JSONSchemaType<import('./store').Server>} */
+export const announceData = {
+  $id: 'https://ns.u-wave.net/schemas/AnnounceData.json',
   type: 'object',
   properties: {
     name: {
@@ -34,6 +26,7 @@ export const announceData = ajv.compile({
     description: {
       description: 'A longer description about the server, may be markdown',
       type: 'string',
+      nullable: true,
     },
     url: {
       description: 'A URL to a hosted web application for the server',
@@ -89,6 +82,7 @@ export const announceData = ajv.compile({
           required: ['username'],
         },
       },
+      required: ['media', 'dj'],
     },
     usersCount: {
       description: 'The amount of users that are currently online',
@@ -97,36 +91,4 @@ export const announceData = ajv.compile({
     },
   },
   required: ['name', 'subtitle', 'url', 'apiUrl', 'socketUrl'],
-});
-
-export const announce = {
-  params: ajv.compile({
-    type: 'object',
-    properties: {
-      publicKey: {
-        type: 'string',
-        minLength: 64,
-        maxLength: 64,
-        pattern: '^[0-9a-fA-F]{64}$',
-      },
-    },
-    required: ['publicKey'],
-  }),
-  body: ajv.compile({
-    type: 'object',
-    properties: {
-      data: {
-        description: 'JSON-encoded string containing server data',
-        type: 'string',
-        contentMediaType: 'application/json',
-        contentSchema: announceData.schema,
-      },
-      signature: {
-        description: 'Sodium signature for the server data signed with the server\'s private key',
-        type: 'string',
-        pattern: '^[0-9a-fA-F]+$',
-      },
-    },
-    required: ['data', 'signature'],
-  }),
 };
