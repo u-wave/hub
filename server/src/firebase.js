@@ -1,9 +1,6 @@
 import { Firestore } from '@google-cloud/firestore';
 import { PassThrough } from 'stream';
 import EventEmitter from 'events';
-import createDebug from 'debug';
-
-const debug = createDebug('u-wave-hub');
 
 /** @typedef {import('./store').Store} Store */
 /** @typedef {import('./store').StoreEntry} StoreEntry */
@@ -21,7 +18,6 @@ export default class FirebaseStore extends EventEmitter {
 
     let isFirst = true;
     this.collection.onSnapshot((snapshot) => {
-      debug('query snapshot', snapshot.size);
       if (isFirst) {
         isFirst = false;
         return;

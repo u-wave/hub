@@ -1,4 +1,3 @@
-import createDebug from 'debug';
 import Ajv from 'ajv';
 import ajvFormats from 'ajv-formats';
 import ms from 'ms';
@@ -12,16 +11,16 @@ const ajv = new Ajv({
 });
 ajvFormats(ajv);
 
-const debug = createDebug('u-wave-hub');
 const removeTimeout = ms('1 day');
 
 /**
+ * @param {import('fastify').FastifyRequest<unknown>} request
  * @param {import('./store').Store} store
  */
-function prune(store) {
-  debug('prune');
+function prune(request, store) {
+  request.log.info('prune');
   store.deleteBefore(Date.now() - removeTimeout).catch((err) => {
-    debug('error while pruning', err);
+    request.log.warn({ err }, 'error while pruning');
   });
 }
 
@@ -87,7 +86,7 @@ export default async function announce(fastify) {
 
     try {
       if (!(await verify(data, signature, publicKey))) {
-        debug('invalid signature from', serverId);
+        request.log.info({ serverId }, 'invalid signature');
         throw new Error('Invalid signature');
       }
     } catch (err) {
@@ -98,7 +97,7 @@ export default async function announce(fastify) {
     try {
       object = JSON.parse(data.toString('utf8'));
     } catch (err) {
-      debug('invalid json from', serverId);
+      request.log.info({ serverId }, 'invalid json');
       err.message = `Invalid JSON: ${err.message}`;
       throw err;
     }
@@ -111,14 +110,14 @@ export default async function announce(fastify) {
       ping: Date.now(),
       data: object,
     });
-    debug('announce', serverId);
+    request.log.info({ serverId }, 'announced');
 
     const server = await fastify.store.get(serverId);
     if (!server) {
       throw Object.assign(new Error('Unknown error while saving announce data.'), { statusCode: 500 });
     }
 
-    prune(fastify.store);
+    prune(request, fastify.store);
 
     return {
       received: server.data,

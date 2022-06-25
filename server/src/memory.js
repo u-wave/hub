@@ -1,7 +1,4 @@
 import EventEmitter from 'events';
-import createDebug from 'debug';
-
-const debug = createDebug('u-wave-hub');
 
 /** @typedef {import('./store').Store} Store */
 /** @implements {Store} */
@@ -38,7 +35,6 @@ export default class InMemoryStore extends EventEmitter {
   async deleteBefore(staleTimestamp) {
     for (const [publicKey, server] of this.backend) {
       if (server.ping < staleTimestamp) {
-        debug('prune', publicKey);
         this.backend.delete(publicKey);
       }
     }
