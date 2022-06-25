@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 import assert from 'assert/strict';
 import crypto from 'crypto';
-import build from '@u-wave/hub-server';
+import build from '@u-wave/hub-server'; // eslint-disable-line import/no-extraneous-dependencies
 
 describe('/announce', () => {
   it('validates inputs', async () => {
