@@ -8,6 +8,7 @@ import ajvFormats from 'ajv-formats';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import swagger from '@fastify/swagger';
+import swaggerUi from '@fastify/swagger-ui';
 import rateLimit from '@fastify/rate-limit';
 import { FastifySSEPlugin } from 'fastify-sse-v2';
 import announce from './announce.js';
@@ -49,7 +50,8 @@ export default function hubServer() {
         },
       },
     },
-    exposeRoute: true,
+  });
+  app.register(swaggerUi, {
     staticCSP: true,
   });
 

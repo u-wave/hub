@@ -12,14 +12,15 @@
   "dependencies": {
     "@fastify/ajv-compiler": "^3.1.0",
     "@fastify/cors": "^8.0.0",
-    "@fastify/helmet": "^9.1.0",
+    "@fastify/helmet": "^10.0.0",
     "@fastify/rate-limit": "^7.0.0",
-    "@fastify/swagger": "^7.4.0",
+    "@fastify/swagger": "^8.0.0",
+    "@fastify/swagger-ui": "^1.0.3",
     "@google-cloud/firestore": "^5.0.0",
     "ajv": "^8.6.2",
     "ajv-formats": "^2.1.0",
     "fastify": "^4.8.1",
-    "fastify-plugin": "^3.0.0",
+    "fastify-plugin": "^4.0.0",
     "fastify-sse-v2": "^2.0.6",
     "libsodium-wrappers": "^0.7.8",
     "ms": "3.0.0-canary.1"
