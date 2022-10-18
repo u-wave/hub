@@ -15,11 +15,8 @@
     "url": "git+https://github.com/u-wave/react-server-list.git"
   },
   "keywords": [
-    "youtube",
     "react",
-    "player",
-    "react-component",
-    "video"
+    "u-wave"
   ],
   "author": "Renée Kooi <renee@kooi.me>",
   "license": "MIT",
