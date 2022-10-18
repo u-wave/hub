@@ -1,9 +1,10 @@
+import fs from 'fs';
 import babel from '@rollup/plugin-babel';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import css from 'rollup-plugin-css-only';
 import dts from 'rollup-plugin-dts';
 
-const pkg = require('./package.json');
+const pkg = JSON.parse(fs.readFileSync(new URL('./package.json', import.meta.url), 'utf8'));
 
 const external = Object.keys(pkg.dependencies)
   .concat(Object.keys(pkg.peerDependencies));
