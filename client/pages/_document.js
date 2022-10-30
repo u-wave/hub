@@ -2,6 +2,7 @@ import React from 'react';
 import Document, {
   Html, Head, Main, NextScript,
 } from 'next/document';
+// eslint-disable-next-line import/no-unresolved
 import createEmotionServer from '@emotion/server/create-instance';
 import { cache } from './_app';
 
