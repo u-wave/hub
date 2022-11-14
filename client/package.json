@@ -14,7 +14,7 @@
     "@mui/icons-material": "^5.0.0",
     "@mui/material": "^5.0.0",
     "@u-wave/react-server-list": "file:../react-server-list",
-    "next": "^13.0.0",
+    "next": "^13.0.3",
     "prop-types": "^15.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.0.0",
