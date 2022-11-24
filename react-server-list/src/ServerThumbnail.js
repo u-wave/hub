@@ -6,12 +6,14 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import DescriptionIcon from '@mui/icons-material/Menu';
-import MuiWarningIcon from '@mui/icons-material/Warning';
+import SvgIcon from '@mui/material/SvgIcon';
 import ms from 'ms';
 import DescriptionDialog from './DescriptionDialog';
 import CurrentMedia from './CurrentMedia';
 import './ServerThumbnail.css';
+
+const mdiAlert = 'M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z';
+const mdiMenu = 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z';
 
 const {
   useCallback,
@@ -25,14 +27,16 @@ const downTimeout = ms('10 minutes');
  */
 function WarningIcon(props) {
   return (
-    <MuiWarningIcon
+    <SvgIcon
       {...props} // eslint-disable-line react/jsx-props-no-spreading
       style={{
         height: 16,
         width: 16,
         verticalAlign: 'sub',
       }}
-    />
+    >
+      <path d={mdiAlert} />
+    </SvgIcon>
   );
 }
 
@@ -107,7 +111,9 @@ function ServerThumbnail({ server, media }) {
                 aria-label={`View description for ${server.name}`}
                 onClick={onOpenDescription}
               >
-                <DescriptionIcon />
+                <SvgIcon>
+                  <path d={mdiMenu} />
+                </SvgIcon>
               </IconButton>
             )}
           </div>
