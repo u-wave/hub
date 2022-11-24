@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## 5.0.0-beta.3
+* This package now targets evergreen browsers.
+* Remove dependency on the `@mui/icons-material` package.
+
 ## 5.0.0-beta.1
 * Update to MUI 5.x.
 * Remove CommonJS build.
