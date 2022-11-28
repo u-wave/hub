@@ -50,7 +50,7 @@
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.3.0",
-    "@rollup/plugin-babel": "^6.0.0",
+    "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-node-resolve": "^15.0.0",
     "@types/react": "^18.0.14",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
