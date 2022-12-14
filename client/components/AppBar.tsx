@@ -1,11 +1,8 @@
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import styled from '@emotion/styled';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import logo from '../public/logo-white.png';
+import logo from '../assets/logo-white.png';
 
 const LOGO_HEIGHT = 114;
 const LOGO_SQUARE_WIDTH = 104;
@@ -28,13 +25,11 @@ function Header() {
     <AppBar enableColorOnDark elevation={0}>
       <Toolbar>
         <Logo href="https://u-wave.net/">
-          <Image alt="üWave" src={logo} height={48} />
+          <img alt="üWave" src={logo} height={48} />
         </Logo>
-        <Link href="/" passHref legacyBehavior>
-          <Button variant="text" color="inherit">
-            Join
-          </Button>
-        </Link>
+        <Button href="/" variant="text" color="inherit">
+          Join
+        </Button>
         <Button href="https://u-wave.net/install" variant="text" color="inherit">
           Install
         </Button>
