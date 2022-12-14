@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { lazy, Suspense } from 'react';
 import stripIndent from 'strip-indent';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -8,20 +7,18 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import type { Server } from './hub';
 import Loading from './Loading';
 import './DescriptionDialog.css';
 
-const Markdown = React.lazy(() => import('react-markdown'));
+const Markdown = lazy(() => import('react-markdown'));
 
-/**
- * @typedef {object} DescriptionDialogProps
- * @prop {import('./hub').Server & { description: string }} server
- * @prop {boolean} isOpen
- * @prop {() => void} onCloseDescription
- *
- * @param {DescriptionDialogProps} props
- */
-function DescriptionDialog({ server, isOpen, onCloseDescription }) {
+type DescriptionDialogProps = {
+  server: Server & { description: String },
+  isOpen: boolean,
+  onCloseDescription: () => void,
+};
+function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDialogProps) {
   const theme = useTheme();
   const isFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const contentStyle = {
@@ -45,11 +42,11 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }) {
         {server.name}
       </DialogTitle>
       <DialogContent>
-        <React.Suspense fallback={loading}>
+        <Suspense fallback={loading}>
           <div className="usl-DescriptionDialog-markdown" style={contentStyle}>
             <Markdown>{stripIndent(server.description)}</Markdown>
           </div>
-        </React.Suspense>
+        </Suspense>
       </DialogContent>
       <DialogActions>
         <Button
@@ -69,15 +66,5 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }) {
     </Dialog>
   );
 }
-
-DescriptionDialog.propTypes = {
-  server: PropTypes.shape({
-    name: PropTypes.string,
-    description: PropTypes.string,
-    url: PropTypes.string,
-  }).isRequired,
-  isOpen: PropTypes.bool,
-  onCloseDescription: PropTypes.func.isRequired,
-};
 
 export default DescriptionDialog;

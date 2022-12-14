@@ -1,16 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import './Loading.css';
 
-/**
- * @typedef {object} LoadingProps
- * @prop {string} message
- *
- * @param {LoadingProps} props
- */
-function Loading({ message }) {
+type LoadingProps = {
+  message: string,
+};
+function Loading({ message }: LoadingProps) {
   return (
     <div className="usl-Loading">
       <CircularProgress size={300} variant="indeterminate" />
@@ -20,9 +15,5 @@ function Loading({ message }) {
     </div>
   );
 }
-
-Loading.propTypes = {
-  message: PropTypes.string,
-};
 
 export default Loading;
