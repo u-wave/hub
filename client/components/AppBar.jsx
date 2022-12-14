@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import logo from '../public/logo-white.png';
+import logo from '../assets/logo-white.png';
 
 const LOGO_HEIGHT = 114;
 const LOGO_SQUARE_WIDTH = 104;
