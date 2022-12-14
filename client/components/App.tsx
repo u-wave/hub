@@ -6,6 +6,14 @@ import { Container } from '@u-wave/react-server-list';
 import theme from '../muiTheme';
 import AppBar from './AppBar';
 
+declare global {
+  interface ImportMeta {
+    env: {
+      VITE_HUB_SERVER: string,
+    },
+  }
+}
+
 const { VITE_HUB_SERVER } = import.meta.env;
 
 const AppWrapper = styled.div({
@@ -40,6 +48,7 @@ const SourceLink = styled.a({
 });
 
 function App() {
+  // Would be nice for the frame to be a server component in the future
   return (
     <ThemeProvider theme={theme}>
       <AppWrapper>
