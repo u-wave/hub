@@ -1,8 +1,8 @@
-import '@u-wave/react-server-list/dist/u-wave-react-server-list.css';
+import '@u-wave/react-server-list/dist/index.css';
 import { ThemeProvider } from '@mui/material/styles';
 import styled from '@emotion/styled';
 import Typography from '@mui/material/Typography';
-import Container from '@u-wave/react-server-list/src/Container';
+import { Container } from '@u-wave/react-server-list';
 import theme from '../muiTheme';
 import AppBar from './AppBar';
 
