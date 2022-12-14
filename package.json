@@ -27,8 +27,8 @@
   "scripts": {
     "build": "npm run -w react-server-list build && npm run -w client build",
     "prepare": "npm run build",
-    "start:client": "npm run -w react-server-list dev & cross-env HUB_SERVER=https://announce.u-wave.net npm run -w client dev",
-    "start": "npm run -w react-server-list dev & cross-env HUB_SERVER=http://localhost:6451 npm run -w client dev & cross-env PORT=6451 npm run -w server start",
+    "start:client": "npm run -w react-server-list dev & npm run -w client dev",
+    "start": "npm run -w react-server-list dev & cross-env VITE_HUB_SERVER=http://localhost:6451 npm run -w client dev & cross-env PORT=6451 npm run -w server start",
     "lint": "eslint .",
     "tests-only": "npm run -w plugin -w server test",
     "test": "npm run tests-only && npm run lint"

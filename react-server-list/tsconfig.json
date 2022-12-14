@@ -1,18 +1,12 @@
 {
   "compilerOptions": {
     "strict": true,
-    "lib": ["es2018", "dom"],
-    "target": "es2018",
-    "module": "esnext",
+    "lib": ["es2022", "dom"],
+    "target": "es2022",
+    "module": "es2022",
     "moduleResolution": "node",
-    "outDir": "types",
-    "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
-    "allowJs": true,
-    "checkJs": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "esModuleInterop": true
   },
-  "include": ["src/*.js"]
+  "include": ["src/*.ts", "src/*.tsx"]
 }

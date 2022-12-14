@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { useCallback, useState } from 'react';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-import SvgIcon from '@mui/material/SvgIcon';
+import SvgIcon, { type SvgIconProps } from '@mui/material/SvgIcon';
 import ms from 'ms';
+import type { Media, Server } from './hub';
 import DescriptionDialog from './DescriptionDialog';
 import CurrentMedia from './CurrentMedia';
 import './ServerThumbnail.css';
@@ -15,17 +15,9 @@ import './ServerThumbnail.css';
 const mdiAlert = 'M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z';
 const mdiMenu = 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z';
 
-const {
-  useCallback,
-  useState,
-} = React;
-
 const downTimeout = ms('10 minutes');
 
-/**
- * @param {import('@mui/material/SvgIcon').SvgIconProps} props
- */
-function WarningIcon(props) {
+function WarningIcon(props: SvgIconProps) {
   return (
     <SvgIcon
       {...props} // eslint-disable-line react/jsx-props-no-spreading
@@ -40,13 +32,10 @@ function WarningIcon(props) {
   );
 }
 
-/**
- * @typedef {object} WarningTextProps
- * @prop {import('react').ReactNode} children
- *
- * @param {WarningTextProps} props
- */
-function WarningText({ children }) {
+type WarningTextProps = {
+  children: React.ReactNode,
+};
+function WarningText({ children }: WarningTextProps) {
   return (
     <Typography variant="body1" style={{ color: '#ed404f' }}>
       {children}
@@ -54,35 +43,22 @@ function WarningText({ children }) {
   );
 }
 
-WarningText.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-/** @param {string} since */
-function timedOutMessage(since) {
+function timedOutMessage(since: string) {
   return ` This server may be down. It has not responded for ${since}.`;
 }
 
-/**
- * @param {import('./hub').Server} server
- * @return {server is { description: string }}
- */
-function hasDescription(server) {
+function hasDescription(server: Server): server is { description: string } {
   return typeof server.description === 'string';
 }
 
-/**
- * @typedef {object} ServerThumbnailProps
- * @prop {import('./hub').Server} server
- * @prop {import('./hub').Media} [media]
- *
- * @param {ServerThumbnailProps} props
- */
-function ServerThumbnail({ server, media }) {
+type ServerThumbnailProps = {
+  server: Server,
+  media?: Media,
+};
+function ServerThumbnail({ server, media }: ServerThumbnailProps) {
   const [isOpen, setDescriptionOpen] = useState(false);
   const onOpenDescription = useCallback(
-    /** @param {React.MouseEvent<HTMLButtonElement>} event */
-    (event) => {
+    (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
       event.stopPropagation();
       setDescriptionOpen(true);
@@ -162,16 +138,5 @@ function ServerThumbnail({ server, media }) {
     </div>
   );
 }
-
-ServerThumbnail.propTypes = {
-  server: PropTypes.shape({
-    name: PropTypes.string,
-    subtitle: PropTypes.string,
-    description: PropTypes.string,
-    timeSincePing: PropTypes.number,
-    url: PropTypes.string,
-  }).isRequired,
-  media: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-};
 
 export default ServerThumbnail;

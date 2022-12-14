@@ -1,16 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
+import type { Server } from './hub';
 import ServerThumbnail from './ServerThumbnail';
 import './ServerList.css';
 
-/**
- * @typedef {object} ServerListProps
- * @prop {import('./hub').Server[]} servers
- *
- * @param {ServerListProps} props
- */
-function ServerList({ servers }) {
+export type ServerListProps = {
+  servers: Server[],
+};
+function ServerList({ servers }: ServerListProps) {
   return (
     <div className="usl-ServerList">
       {servers.length === 0 ? (
@@ -21,15 +17,11 @@ function ServerList({ servers }) {
         <ServerThumbnail
           key={server.url}
           server={server}
-          media={server.booth && server.booth.media}
+          media={server.booth?.media}
         />
       ))}
     </div>
   );
 }
-
-ServerList.propTypes = {
-  servers: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
 
 export default ServerList;
