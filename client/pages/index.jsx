@@ -1,9 +1,9 @@
 import { Container } from '@u-wave/react-server-list';
 
-const { HUB_SERVER } = process.env;
+const { VITE_HUB_SERVER } = import.meta.env;
 
 function App() {
-  return <Container hub={HUB_SERVER} />;
+  return <Container hub={VITE_HUB_SERVER} />;
 }
 
 export default App;

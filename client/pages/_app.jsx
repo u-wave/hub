@@ -4,7 +4,6 @@ import { ThemeProvider } from '@mui/material/styles';
 import { CacheProvider } from '@emotion/react';
 import styled from '@emotion/styled';
 import createCache from '@emotion/cache';
-import Head from 'next/head';
 import Typography from '@mui/material/Typography';
 import theme from '../muiTheme';
 import AppBar from '../components/AppBar';
@@ -42,24 +41,11 @@ const SourceLink = styled.a({
   borderBottom: '1px solid #aaa',
 });
 
-const globalCss = `
-  body {
-    margin: 0;
-    font-family: 'open sans', arial, sans-serif;
-  }
-`;
-
 export default function App({ Component, pageProps }) {
   return (
     <CacheProvider value={cache}>
       <ThemeProvider theme={theme}>
         <AppWrapper>
-          <Head>
-            <title>üWave</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <style dangerouslySetInnerHTML={{ __html: globalCss }} />
-          </Head>
-
           <AppBar />
 
           <Main>

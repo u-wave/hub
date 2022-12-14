@@ -13,17 +13,16 @@
     "@emotion/styled": "^11.3.0",
     "@mui/material": "^5.0.0",
     "@u-wave/react-server-list": "file:../react-server-list",
-    "next": "^13.0.0",
-    "prop-types": "^15.7.2",
     "react": "^18.2.0",
-    "react-dom": "^18.0.0",
-    "serve": "^14.0.1"
+    "react-dom": "^18.0.0"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "export": "next build && next export -o out",
-    "static": "serve out"
+    "dev": "vite",
+    "build": "vite build",
+    "start": "vite preview"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^3.0.0",
+    "vite": "^4.0.1"
   }
 }

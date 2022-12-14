@@ -32,9 +32,9 @@ jobs:
       - name: Export static client build
         run: npm run --prefix client export
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.1
+        uses: nwtgck/actions-netlify@v1.2
         with:
-          publish-dir: './client/out'
+          publish-dir: './client/dist'
           production-branch: 'default'
           github-token: ${{secrets.GITHUB_TOKEN}}
           deploy-message: "Deploy from GitHub Actions"
