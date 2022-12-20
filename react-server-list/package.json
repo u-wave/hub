@@ -28,7 +28,7 @@
     "node-fetch": false
   },
   "dependencies": {
-    "@babel/runtime": "^7.13.10",
+    "@babel/runtime": "^7.20.6",
     "@mui/material": "^5.0.0",
     "ms": "3.0.0-canary.1",
     "node-fetch": "^3.0.0",
