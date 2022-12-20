@@ -70,16 +70,6 @@ module.exports = {
     },
 
     {
-      files: ['client/**/*.js'],
-      extends: ['next'],
-      settings: {
-        next: {
-          rootDir: './client/',
-        },
-      },
-    },
-
-    {
       files: ['plugin/**/*.js'],
       parserOptions: {
         sourceType: 'script',
