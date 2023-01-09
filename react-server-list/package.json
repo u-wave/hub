@@ -58,7 +58,7 @@
     "react-dom": "^18.0.0",
     "rollup": "^3.7.3",
     "rollup-plugin-css-only": "^4.2.0",
-    "rollup-plugin-dts": "^5.0.0",
+    "rollup-plugin-dts": "^5.1.1",
     "typescript": "^4.9.4"
   }
 }
