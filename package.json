@@ -10,7 +10,7 @@
     "npm": ">= 7"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.4",
+    "@babel/core": "^7.21.3",
     "@babel/eslint-parser": "^7.11.4",
     "@babel/eslint-plugin": "^7.11.3",
     "cross-env": "^7.0.2",
