@@ -1,6 +1,6 @@
 import { expect, describe, it } from 'vitest';
 import build from '@u-wave/hub-server'; // eslint-disable-line import/no-extraneous-dependencies
-import { keyPair, sign } from '../src/signatures.js';
+import { keyPair, sign } from './signatures.js';
 
 describe('/announce', () => {
   it('validates inputs', async () => {
