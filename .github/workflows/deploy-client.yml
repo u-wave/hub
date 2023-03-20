@@ -32,7 +32,7 @@ jobs:
       - name: Build client
         run: npm run -w client build
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.2
+        uses: nwtgck/actions-netlify@v2.0
         with:
           publish-dir: './client/dist'
           production-branch: 'default'
