@@ -1,5 +1,4 @@
-/* eslint-env mocha */
-import assert from 'assert/strict';
+import { expect, describe, it } from 'vitest';
 import build from '@u-wave/hub-server'; // eslint-disable-line import/no-extraneous-dependencies
 import { keyPair, sign } from '../src/signatures.js';
 
@@ -8,10 +7,10 @@ describe('/announce', () => {
     const app = build();
 
     const noPublicKey = await app.inject({ method: 'POST', url: '/announce/' });
-    assert.equal(noPublicKey.statusCode, 400);
+    expect(noPublicKey.statusCode).toBe(400);
 
     const wrongPublicKey = await app.inject({ method: 'POST', url: '/announce/some-nonsense-that-is-not-a-key' });
-    assert.equal(wrongPublicKey.statusCode, 400);
+    expect(wrongPublicKey.statusCode).toBe(400);
 
     const kp = await keyPair();
     const publicKey = Buffer.from(kp.publicKey).toString('hex');
@@ -25,8 +24,8 @@ describe('/announce', () => {
         notSignature: 'abcdef1234567890',
       },
     });
-    assert.equal(wrongShape.statusCode, 400);
-    assert.equal(wrongShape.json().message, "body must have required property 'signature'");
+    expect(wrongShape.statusCode).toBe(400);
+    expect(wrongShape.json().message).toBe("body must have required property 'signature'");
 
     const wrongSignatureLength = await app.inject({
       method: 'POST',
@@ -36,8 +35,8 @@ describe('/announce', () => {
         signature: 'abcdef1234567890',
       },
     });
-    assert.equal(wrongSignatureLength.statusCode, 400);
-    assert.equal(wrongSignatureLength.json().message, 'invalid signature length');
+    expect(wrongSignatureLength.statusCode).toBe(400);
+    expect(wrongSignatureLength.json().message).toBe('invalid signature length');
 
     const wrongSignature = await app.inject({
       method: 'POST',
@@ -47,8 +46,8 @@ describe('/announce', () => {
         signature: Buffer.from(await sign(` ${data}`, kp.secretKey)).toString('hex'),
       },
     });
-    assert.equal(wrongSignature.statusCode, 400);
-    assert.equal(wrongSignature.json().message, 'Invalid signature');
+    expect(wrongSignature.statusCode).toBe(400);
+    expect(wrongSignature.json().message).toBe('Invalid signature');
 
     const wrongDataShape = await app.inject({
       method: 'POST',
@@ -58,7 +57,7 @@ describe('/announce', () => {
         signature: Buffer.from(await sign(data, kp.secretKey)).toString('hex'),
       },
     });
-    assert.equal(wrongDataShape.statusCode, 400);
-    assert.equal(wrongDataShape.json().message, "data must have required property 'name'");
+    expect(wrongDataShape.statusCode).toBe(400);
+    expect(wrongDataShape.json().message).toBe("data must have required property 'name'");
   });
 });

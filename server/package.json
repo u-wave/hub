@@ -27,12 +27,12 @@
   },
   "scripts": {
     "start": "node bin/u-wave-hub.js",
-    "test": "mocha"
+    "test": "vitest run"
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.2",
     "@types/libsodium-wrappers": "^0.7.9",
-    "mocha": "^10.2.0",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "vitest": "^0.29.3"
   }
 }
