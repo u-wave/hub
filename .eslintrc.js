@@ -40,7 +40,7 @@ module.exports = {
     },
 
     {
-      files: ['server/src/*.js', 'server/test/*.js'],
+      files: ['server/src/*.js', 'server/test/*.js', 'plugin/**/*.js'],
       rules: {
         'import/extensions': ['error', 'ignorePackages'],
       },
@@ -66,16 +66,6 @@ module.exports = {
           namedComponents: 'function-declaration',
           unnamedComponents: 'arrow-function',
         }],
-      },
-    },
-
-    {
-      files: ['plugin/**/*.js'],
-      parserOptions: {
-        sourceType: 'script',
-      },
-      rules: {
-        strict: ['error', 'global'],
       },
     },
 

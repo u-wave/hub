@@ -1,9 +1,7 @@
-'use strict';
-
 // Based on https://github.com/mafintosh/sodium-signatures/blob/master/index.js
-const sodium = require('libsodium-wrappers');
+import sodium from 'libsodium-wrappers';
 
-async function keyPair(seed) {
+export async function keyPair(seed) {
   await sodium.ready;
 
   const { publicKey, privateKey } = seed
@@ -16,18 +14,12 @@ async function keyPair(seed) {
   return { publicKey, secretKey };
 }
 
-async function sign(message, secretKey) {
+export async function sign(message, secretKey) {
   await sodium.ready;
   return sodium.crypto_sign_detached(message, secretKey);
 }
 
-async function verify(message, signature, publicKey) {
+export async function verify(message, signature, publicKey) {
   await sodium.ready;
   return sodium.crypto_sign_verify_detached(signature, message, publicKey);
 }
-
-module.exports = {
-  keyPair,
-  sign,
-  verify,
-};
