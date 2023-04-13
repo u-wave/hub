@@ -6,7 +6,7 @@
   "type": "module",
   "dependencies": {
     "libsodium-wrappers": "^0.7.8",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.3.1",
     "strip-indent": "^3.0.0"
   },
   "engines": {
