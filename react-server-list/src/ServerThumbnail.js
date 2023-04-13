@@ -7,7 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
-import ms from 'ms';
+import { intlFormatDistance } from 'date-fns';
 import DescriptionDialog from './DescriptionDialog';
 import CurrentMedia from './CurrentMedia';
 import './ServerThumbnail.css';
@@ -20,7 +20,7 @@ const {
   useState,
 } = React;
 
-const downTimeout = ms('10 minutes');
+const downTimeout = 600_000; // 10 minutes
 
 /**
  * @param {import('@mui/material/SvgIcon').SvgIconProps} props
@@ -60,7 +60,7 @@ WarningText.propTypes = {
 
 /** @param {string} since */
 function timedOutMessage(since) {
-  return ` This server may be down. It has not responded for ${since}.`;
+  return ` This server may be down. It has not responded since ${since}.`;
 }
 
 /**
@@ -146,7 +146,10 @@ function ServerThumbnail({ server, media }) {
           <CardContent>
             <WarningText>
               <WarningIcon />
-              {timedOutMessage(ms(server.timeSincePing, { long: true }))}
+              {timedOutMessage(intlFormatDistance(
+                new Date(Date.now() - server.timeSincePing),
+                new Date(),
+              ))}
             </WarningText>
           </CardContent>
         ) : null}

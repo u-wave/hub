@@ -1,6 +1,5 @@
 import Ajv from 'ajv';
 import ajvFormats from 'ajv-formats';
-import ms from 'ms';
 import { verify } from './signatures.js';
 import * as validators from './validators.js';
 
@@ -11,7 +10,7 @@ const ajv = new Ajv({
 });
 ajvFormats(ajv);
 
-const removeTimeout = ms('1 day');
+const removeTimeout = 86_400_000; // 1 day
 
 /**
  * @param {import('fastify').FastifyRequest<unknown>} request

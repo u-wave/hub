@@ -1,10 +1,9 @@
 /* global globalThis */
 import nodeFetch from 'node-fetch';
-import ms from 'ms';
 
 const fetch = globalThis.fetch || nodeFetch;
 
-const downTimeout = ms('10 minutes');
+const downTimeout = 600_000; // 10 minutes
 
 /**
  *
