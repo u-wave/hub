@@ -3,17 +3,21 @@
   "description": "Announce your üWave server's existence to the world.",
   "version": "0.5.3",
   "author": "Renée Kooi <renee@kooi.me>",
+  "type": "module",
   "dependencies": {
-    "debug": "^4.3.2",
     "libsodium-wrappers": "^0.7.8",
     "node-fetch": "^3.3.1",
     "strip-indent": "^3.0.0"
   },
   "engines": {
-    "node": ">= 12"
+    "node": ">= 14.18.0"
   },
   "license": "MIT",
   "main": "./src/plugin.js",
+  "exports": {
+    ".": "./src/plugin.js",
+    "./package.json": "./package.json"
+  },
   "repository": {
     "git": "https://github.com/u-wave/hub.git",
     "directory": "plugin"
