@@ -1,22 +1,12 @@
-'use strict';
+import fs from 'node:fs';
+import randomBytes from 'node:crypto';
+import fetch from 'node-fetch';
+import stripIndent from 'strip-indent';
+import * as sodium from './signatures.js';
 
-const { promisify } = require('util');
-const randomBytes = promisify(require('crypto').randomBytes);
-const fetch = require('node-fetch');
-const stripIndent = require('strip-indent');
-const debug = require('debug')('uwave:announce');
-const sodium = require('./signatures');
-const pkg = require('../package.json');
-
-/**
- * Fallback logger implementation for üWave Core versions that do
- * not come with a logger yet.
- */
-const debugLogger = {
-  debug,
-  info: debug,
-  error: debug,
-};
+const pkg = JSON.parse(
+  fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
+);
 
 const optionsSchema = {
   type: 'object',
@@ -120,11 +110,7 @@ async function getAnnounceData(uw, options) {
   // list, too, which is a bit annoying!
   // TODO add guest users here too.
   const onlineUserIDs = await uw.redis.lrange('users', 0, -1);
-  const onlineUsersMap = {};
-  onlineUserIDs.forEach((id) => {
-    onlineUsersMap[id] = true;
-  });
-  const usersCount = Object.keys(onlineUsersMap).length;
+  const usersCount = new Set(onlineUserIDs).size;
 
   return {
     name: options.name,
@@ -163,10 +149,7 @@ async function getOrGenerateSeed(uw) {
 async function announcePlugin(uw, staticOptions) {
   uw.config.register(optionsSchema['uw:key'], optionsSchema);
 
-  // üWave Core 0.5.0 and up have a `pino` logger
-  const logger = uw.logger
-    ? uw.logger.child({ ns: 'uwave:announce' })
-    : debugLogger;
+  const logger = uw.logger.child({ ns: 'uwave:announce' });
 
   const seed = staticOptions.seed || await getOrGenerateSeed(uw);
   // This takes up to a few 100 ms but it is a one-time startup cost…
@@ -233,4 +216,4 @@ async function announcePlugin(uw, staticOptions) {
   });
 }
 
-module.exports = announcePlugin;
+export default announcePlugin;
