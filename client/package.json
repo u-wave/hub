@@ -7,7 +7,7 @@
     "node": ">= 14"
   },
   "dependencies": {
-    "@emotion/styled": "^11.1.5",
+    "@emotion/styled": "^11.10.8",
     "@mui/material": "^5.11.16",
     "@u-wave/react-server-list": "file:../react-server-list",
     "react": "^18.2.0",
