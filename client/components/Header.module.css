@@ -1,0 +1,40 @@
+:root {
+  --color-primary: #9d2053;
+  --color-text: #fff;
+}
+
+.appBar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  padding-inline: 24px;
+  background-color: var(--color-primary);
+  color: var(--color-text);
+}
+
+.logo {
+  --logo-height: 114px;
+  --logo-square-width: 104px;
+
+  height: 48px;
+  margin-inline-end: 48px;
+}
+.logo > img {
+  max-height: 100%;
+}
+
+@media (max-width: 800px) {
+  .logo {
+    width: calc(var(--logo-square-width) * 48px / var(--logo-height));
+    overflow: hidden;
+    margin-inline-end: 12px;
+  }
+}

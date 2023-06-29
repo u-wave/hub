@@ -1,10 +1,10 @@
 import '@u-wave/react-server-list/dist/u-wave-react-server-list.css';
 import { ThemeProvider } from '@mui/material/styles';
-import styled from '@emotion/styled';
 import Typography from '@mui/material/Typography';
 import { Container } from '@u-wave/react-server-list';
 import theme from '../muiTheme';
-import AppBar from './AppBar';
+import Header from './Header';
+import * as styles from './App.module.css';
 
 declare global {
   interface ImportMeta {
@@ -16,54 +16,23 @@ declare global {
 
 const { VITE_HUB_SERVER } = import.meta.env;
 
-const AppWrapper = styled.div({
-  background: '#1b1b1b',
-  color: '#fff',
-  position: 'absolute',
-  height: '100%',
-  width: '100%',
-});
-
-const Main = styled.main({
-  position: 'absolute',
-  paddingTop: 20,
-  top: 64,
-  bottom: 0,
-  right: 0,
-  left: 0,
-  overflowY: 'auto',
-});
-
-const Footer = styled.footer({
-  fontFamily: 'monospace',
-  textAlign: 'center',
-  marginTop: 50,
-  color: '#777',
-});
-
-const SourceLink = styled.a({
-  textDecoration: 'none',
-  color: '#aaa',
-  borderBottom: '1px solid #aaa',
-});
-
 function App() {
   // Would be nice for the frame to be a server component in the future
   return (
-    <ThemeProvider theme={theme}>
-      <AppWrapper>
-        <AppBar />
+    <div className={styles.appWrapper}>
+      <Header />
 
-        <Main>
+      <ThemeProvider theme={theme}>
+        <main className={styles.main}>
           <Container hub={VITE_HUB_SERVER} />
-          <Footer>
+          <footer className={styles.footer}>
             <Typography component="p">
-              <SourceLink href="https://github.com/u-wave/hub/tree/default/client">view source</SourceLink>
+              <a href="https://github.com/u-wave/hub/tree/default/client" className={styles.sourceLink}>view source</a>
             </Typography>
-          </Footer>
-        </Main>
-      </AppWrapper>
-    </ThemeProvider>
+          </footer>
+        </main>
+      </ThemeProvider>
+    </div>
   );
 }
 
