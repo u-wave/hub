@@ -28,7 +28,7 @@
     "node-fetch": false
   },
   "dependencies": {
-    "@babel/runtime": "^7.21.0",
+    "@babel/runtime": "^7.22.6",
     "@mui/material": "^5.11.16",
     "date-fns": "^2.29.3",
     "node-fetch": "^3.3.1",
