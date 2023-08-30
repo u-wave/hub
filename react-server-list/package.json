@@ -28,7 +28,7 @@
     "node-fetch": false
   },
   "dependencies": {
-    "@babel/runtime": "^7.21.0",
+    "@babel/runtime": "^7.22.11",
     "@mui/material": "^5.14.1",
     "date-fns": "^2.29.3",
     "node-fetch": "^3.3.1",
@@ -41,10 +41,10 @@
     "react": "^16.14.0 || >= 17.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.3",
+    "@babel/core": "^7.22.11",
     "@babel/plugin-transform-react-constant-elements": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.22.10",
+    "@babel/preset-env": "^7.22.10",
     "@babel/preset-react": "^7.12.5",
     "@babel/register": "^7.12.1",
     "@emotion/core": "^11.0.0",
