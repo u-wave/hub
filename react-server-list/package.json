@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.22.15",
-    "@mui/material": "^5.14.8",
+    "@mui/material": "^5.14.11",
     "date-fns": "^2.29.3",
     "node-fetch": "^3.3.1",
     "prop-types": "^15.7.2",
