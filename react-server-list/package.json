@@ -31,7 +31,7 @@
     "@babel/runtime": "^7.22.15",
     "@mui/material": "^5.14.8",
     "date-fns": "^2.29.3",
-    "node-fetch": "^3.3.1",
+    "node-fetch": "^3.3.2",
     "prop-types": "^15.7.2",
     "react-markdown": "^8.0.4",
     "strip-indent": "^4.0.0",
