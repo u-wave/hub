@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.1.5",
-    "@mui/material": "^5.14.8",
+    "@mui/material": "^5.14.17",
     "@u-wave/react-server-list": "file:../react-server-list",
     "react": "^18.2.0",
     "react-dom": "^18.0.0"
