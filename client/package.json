@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@emotion/styled": "^11.1.5",
-    "@mui/material": "^5.14.8",
+    "@mui/material": "^5.14.18",
     "@u-wave/react-server-list": "file:../react-server-list",
     "react": "^18.2.0",
     "react-dom": "^18.0.0"
@@ -19,7 +19,7 @@
     "start": "vite preview"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.0.3",
-    "vite": "^4.4.4"
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^5.0.0"
   }
 }

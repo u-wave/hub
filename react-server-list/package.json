@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.22.15",
-    "@mui/material": "^5.14.8",
+    "@mui/material": "^5.14.18",
     "date-fns": "^2.29.3",
     "node-fetch": "^3.3.1",
     "prop-types": "^15.7.2",
@@ -42,10 +42,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.22.17",
-    "@babel/plugin-transform-react-constant-elements": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.22.15",
-    "@babel/preset-env": "^7.22.15",
-    "@babel/preset-react": "^7.22.15",
+    "@babel/plugin-transform-react-constant-elements": "^7.23.3",
+    "@babel/plugin-transform-runtime": "^7.23.4",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-react": "^7.23.3",
     "@babel/register": "^7.22.15",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.1.2",
