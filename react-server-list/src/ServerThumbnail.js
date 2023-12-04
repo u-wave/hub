@@ -120,7 +120,7 @@ function ServerThumbnail({ server, media }) {
         </CardContent>
 
         {media ? (
-          <a href={server.url} className="usl-ServerThumbnail-link">
+          <a href={server.url} className="usl-ServerThumbnail-link" aria-label="Join">
             <CurrentMedia media={media} />
           </a>
         ) : (
