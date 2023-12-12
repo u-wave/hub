@@ -59,6 +59,6 @@
     "rollup": "^3.26.3",
     "rollup-plugin-css-only": "^4.2.0",
     "rollup-plugin-dts": "^6.1.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.3"
   }
 }
