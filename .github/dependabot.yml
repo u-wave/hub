@@ -13,10 +13,19 @@ updates:
     interval: weekly
   open-pull-requests-limit: 10
   groups:
+    vite:
+      patterns:
+      - "@vitejs/*"
+      - "vite"
     vitest:
       patterns:
       - "@vitest/*"
       - "vitest"
+    fastify:
+      patterns:
+      - "fastify"
+      - "fastify-*"
+      - "@fastify/*"
     react:
       patterns:
       - "react"
@@ -29,6 +38,12 @@ updates:
     babel:
       patterns:
       - "@babel/*"
+    eslint:
+      patterns:
+      - "eslint"
+      - "eslint-plugin-*"
+      - "eslint-config-*"
+      - "@typescript-eslint/*"
     stylelint:
       patterns:
       - "stylelint"
