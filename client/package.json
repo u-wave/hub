@@ -10,8 +10,8 @@
     "@emotion/styled": "^11.1.5",
     "@mui/material": "^5.15.5",
     "@u-wave/react-server-list": "file:../react-server-list",
-    "react": "^18.2.0",
-    "react-dom": "^18.0.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "scripts": {
     "dev": "vite",
