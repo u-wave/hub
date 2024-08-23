@@ -1,11 +1,7 @@
 import useSWR from 'swr';
 import { loadServers } from './hub';
 
-/**
- * @param {string} hub
- * @return {{ data?: import('./hub').Server[], error?: Error }}
- */
-export default function useServers(hub) {
+export default function useServers(hub: string) {
   return useSWR(hub, loadServers, {
     refreshInterval: 30_000,
   });

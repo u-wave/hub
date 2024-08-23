@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import stripIndent from 'strip-indent';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -10,18 +9,16 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Loading from './Loading';
 import './DescriptionDialog.css';
+import type { Server } from './hub';
 
 const Markdown = React.lazy(() => import('react-markdown'));
 
-/**
- * @typedef {object} DescriptionDialogProps
- * @prop {import('./hub').Server & { description: string }} server
- * @prop {boolean} isOpen
- * @prop {() => void} onCloseDescription
- *
- * @param {DescriptionDialogProps} props
- */
-function DescriptionDialog({ server, isOpen, onCloseDescription }) {
+type DescriptionDialogProps = {
+  server: Server & { description: string },
+  isOpen: boolean,
+  onCloseDescription: () => void,
+};
+function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDialogProps) {
   const theme = useTheme();
   const isFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const contentStyle = {
@@ -69,15 +66,5 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }) {
     </Dialog>
   );
 }
-
-DescriptionDialog.propTypes = {
-  server: PropTypes.shape({
-    name: PropTypes.string,
-    description: PropTypes.string,
-    url: PropTypes.string,
-  }).isRequired,
-  isOpen: PropTypes.bool,
-  onCloseDescription: PropTypes.func.isRequired,
-};
 
 export default DescriptionDialog;

@@ -1,14 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import './CurrentMedia.css';
+import type { Media } from './hub';
 
-/**
- * @typedef {object} CurrentMediaProps
- * @prop {import('./hub').Media} media
- *
- * @param {CurrentMediaProps} props
- */
-function CurrentMedia({ media }) {
+type CurrentMediaProps = {
+  media: Media,
+};
+function CurrentMedia({ media }: CurrentMediaProps) {
   return (
     <div className="usl-CurrentMedia">
       <div
@@ -27,13 +23,5 @@ function CurrentMedia({ media }) {
     </div>
   );
 }
-
-CurrentMedia.propTypes = {
-  media: PropTypes.shape({
-    thumbnail: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    artist: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default CurrentMedia;
