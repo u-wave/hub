@@ -1,6 +1,6 @@
 import Typography from '@mui/material/Typography';
 import ServerThumbnail from './ServerThumbnail';
-import type { Server } from './hub';
+import type { Server } from '../utils/hub';
 import * as styles from './ServerList.module.css';
 
 type ServerListProps = {

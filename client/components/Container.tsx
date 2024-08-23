@@ -1,6 +1,6 @@
 import Loading from './Loading';
 import ServerList from './ServerList';
-import useServers from './useServers';
+import useServers from '../utils/useServers';
 
 type ContainerProps = {
   /** URL of the announce server to use to discover üWave servers. */

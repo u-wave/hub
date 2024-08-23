@@ -9,7 +9,7 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Loading from './Loading';
 import * as styles from './DescriptionDialog.module.css';
-import type { Server } from './hub';
+import type { Server } from '../utils/hub';
 
 const Markdown = React.lazy(() => import('react-markdown'));
 

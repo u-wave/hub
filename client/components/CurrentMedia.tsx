@@ -1,5 +1,5 @@
 import * as styles from './CurrentMedia.module.css';
-import type { Media } from './hub';
+import type { Media } from '../utils/hub';
 
 type CurrentMediaProps = {
   media: Media,
