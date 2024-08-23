@@ -1,7 +1,6 @@
-import '@u-wave/react-server-list/dist/u-wave-react-server-list.css';
 import { ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import { Container } from '@u-wave/react-server-list';
+import Container from './Container';
 import theme from '../muiTheme';
 import Header from './Header';
 import * as styles from './App.module.css';

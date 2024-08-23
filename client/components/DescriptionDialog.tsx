@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import stripIndent from 'strip-indent';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -9,19 +8,17 @@ import DialogActions from '@mui/material/DialogActions';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Loading from './Loading';
-import './DescriptionDialog.css';
+import * as styles from './DescriptionDialog.module.css';
+import type { Server } from './hub';
 
 const Markdown = React.lazy(() => import('react-markdown'));
 
-/**
- * @typedef {object} DescriptionDialogProps
- * @prop {import('./hub').Server & { description: string }} server
- * @prop {boolean} isOpen
- * @prop {() => void} onCloseDescription
- *
- * @param {DescriptionDialogProps} props
- */
-function DescriptionDialog({ server, isOpen, onCloseDescription }) {
+type DescriptionDialogProps = {
+  server: Server & { description: string },
+  isOpen: boolean,
+  onCloseDescription: () => void,
+};
+function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDialogProps) {
   const theme = useTheme();
   const isFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const contentStyle = {
@@ -29,24 +26,19 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }) {
   };
 
   const loading = (
-    <div className="usl-DescriptionDialog-loading" style={contentStyle}>
+    <div className={styles.loading} style={contentStyle}>
       <Loading message="Loading description..." />
     </div>
   );
 
   return (
-    <Dialog
-      className="usl-DescriptionDialog"
-      open={isOpen}
-      fullScreen={isFullScreen}
-      onClose={onCloseDescription}
-    >
+    <Dialog open={isOpen} fullScreen={isFullScreen} onClose={onCloseDescription}>
       <DialogTitle>
         {server.name}
       </DialogTitle>
       <DialogContent>
         <React.Suspense fallback={loading}>
-          <div className="usl-DescriptionDialog-markdown" style={contentStyle}>
+          <div className={styles.markdown} style={contentStyle}>
             <Markdown>{stripIndent(server.description)}</Markdown>
           </div>
         </React.Suspense>
@@ -69,15 +61,5 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }) {
     </Dialog>
   );
 }
-
-DescriptionDialog.propTypes = {
-  server: PropTypes.shape({
-    name: PropTypes.string,
-    description: PropTypes.string,
-    url: PropTypes.string,
-  }).isRequired,
-  isOpen: PropTypes.bool,
-  onCloseDescription: PropTypes.func.isRequired,
-};
 
 export default DescriptionDialog;
