@@ -8,7 +8,7 @@ import DialogActions from '@mui/material/DialogActions';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Loading from './Loading';
-import './DescriptionDialog.css';
+import * as styles from './DescriptionDialog.module.css';
 import type { Server } from './hub';
 
 const Markdown = React.lazy(() => import('react-markdown'));
@@ -26,24 +26,19 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDi
   };
 
   const loading = (
-    <div className="usl-DescriptionDialog-loading" style={contentStyle}>
+    <div className={styles.loading} style={contentStyle}>
       <Loading message="Loading description..." />
     </div>
   );
 
   return (
-    <Dialog
-      className="usl-DescriptionDialog"
-      open={isOpen}
-      fullScreen={isFullScreen}
-      onClose={onCloseDescription}
-    >
+    <Dialog open={isOpen} fullScreen={isFullScreen} onClose={onCloseDescription}>
       <DialogTitle>
         {server.name}
       </DialogTitle>
       <DialogContent>
         <React.Suspense fallback={loading}>
-          <div className="usl-DescriptionDialog-markdown" style={contentStyle}>
+          <div className={styles.markdown} style={contentStyle}>
             <Markdown>{stripIndent(server.description)}</Markdown>
           </div>
         </React.Suspense>

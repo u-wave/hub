@@ -1,13 +1,13 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
-import './Loading.css';
+import * as styles from './Loading.module.css';
 
 type LoadingProps = {
   message: string,
 };
 function Loading({ message }: LoadingProps) {
   return (
-    <div className="usl-Loading">
+    <div className={styles.root}>
       <CircularProgress size={300} variant="indeterminate" />
       <Typography>
         {message}

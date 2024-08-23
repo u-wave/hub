@@ -1,18 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import ServerThumbnail from './ServerThumbnail';
-import './ServerList.css';
+import type { Server } from './hub';
+import * as styles from './ServerList.module.css';
 
-/**
- * @typedef {object} ServerListProps
- * @prop {import('./hub').Server[]} servers
- *
- * @param {ServerListProps} props
- */
-function ServerList({ servers }) {
+type ServerListProps = {
+  servers: Server[],
+};
+function ServerList({ servers }: ServerListProps) {
   return (
-    <div className="usl-ServerList">
+    <div className={styles.root}>
       {servers.length === 0 ? (
         <Typography>
           No servers are currently available.
@@ -27,9 +23,5 @@ function ServerList({ servers }) {
     </div>
   );
 }
-
-ServerList.propTypes = {
-  servers: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
 
 export default ServerList;

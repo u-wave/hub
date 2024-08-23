@@ -9,8 +9,8 @@ import SvgIcon from '@mui/material/SvgIcon';
 import { intlFormatDistance } from 'date-fns';
 import DescriptionDialog from './DescriptionDialog';
 import CurrentMedia from './CurrentMedia';
-import './ServerThumbnail.css';
-import { Media, Server } from './hub';
+import * as styles from './ServerThumbnail.module.css';
+import type { Media, Server } from './hub';
 
 const mdiAlert = 'M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z';
 const mdiMenu = 'M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z';
@@ -69,10 +69,10 @@ function ServerThumbnail({ server, media }: ServerThumbnailProps) {
   }, []);
 
   return (
-    <div className="usl-ServerThumbnail">
+    <div className={styles.root}>
       <Card>
         <CardContent>
-          <div className="usl-ServerThumbnail-header">
+          <div className={styles.header}>
             <div>
               <Typography variant="h5">
                 {server.name}
@@ -95,17 +95,17 @@ function ServerThumbnail({ server, media }: ServerThumbnailProps) {
         </CardContent>
 
         {media ? (
-          <a href={server.url} className="usl-ServerThumbnail-link" aria-label="Join">
+          <a href={server.url} className={styles.link} aria-label="Join">
             <CurrentMedia media={media} />
           </a>
         ) : (
           <>
-            <a href={server.url} className="usl-ServerThumbnail-link">
-              <CardContent className="usl-ServerThumbnail-nobodyPlaying">
+            <a href={server.url} className={styles.link}>
+              <CardContent className={styles.nobodyPlaying}>
                 <Typography>Nobody is playing!</Typography>
               </CardContent>
             </a>
-            <CardActions className="usl-ServerThumbnail-actions">
+            <CardActions className={styles.actions}>
               <Button
                 variant="contained"
                 color="primary"

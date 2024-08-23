@@ -1,4 +1,4 @@
-import './CurrentMedia.css';
+import * as styles from './CurrentMedia.module.css';
 import type { Media } from './hub';
 
 type CurrentMediaProps = {
@@ -6,17 +6,17 @@ type CurrentMediaProps = {
 };
 function CurrentMedia({ media }: CurrentMediaProps) {
   return (
-    <div className="usl-CurrentMedia">
+    <div className={styles.root}>
       <div
-        className="usl-CurrentMedia-image"
+        className={styles.image}
         style={{ backgroundImage: `url(${JSON.stringify(media.thumbnail)})` }}
       />
 
-      <div className="usl-CurrentMedia-nowPlaying">
-        <p className="usl-CurrentMedia-title">
+      <div className={styles.nowPlaying}>
+        <p className={styles.title}>
           {media.title}
         </p>
-        <p className="usl-CurrentMedia-artist">
+        <p className={styles.artist}>
           {media.artist}
         </p>
       </div>
