@@ -2,6 +2,7 @@
   "name": "u-wave-hub",
   "dependencies": {
     "@u-wave/hub-server": "file:server",
+    "eslint-plugin-react-compiler": "^0.0.0-experimental-72f06b2-20240822",
     "u-wave-announce": "file:plugin",
     "u-wave-hub-client": "file:client"
   },

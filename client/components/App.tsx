@@ -16,7 +16,6 @@ declare global {
 const { VITE_HUB_SERVER } = import.meta.env;
 
 function App() {
-  // Would be nice for the frame to be a server component in the future
   return (
     <div className={styles.appWrapper}>
       <Header />
