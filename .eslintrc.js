@@ -1,5 +1,3 @@
-const path = require('path');
-
 module.exports = {
   extends: 'airbnb-base',
   parserOptions: {
@@ -48,8 +46,8 @@ module.exports = {
 
     {
       extends: ['airbnb', 'airbnb/hooks'],
-      files: ['client/**/*.js', 'react-server-list/src/**/*.js'],
-      plugins: ['@babel/eslint-plugin'],
+      files: ['client/**/*.js'],
+      plugins: ['@babel/eslint-plugin', 'eslint-plugin-react-compiler'],
       parser: '@babel/eslint-parser',
       env: {
         browser: true,
@@ -66,27 +64,7 @@ module.exports = {
           namedComponents: 'function-declaration',
           unnamedComponents: 'arrow-function',
         }],
-      },
-    },
-
-    {
-      files: ['react-server-list/src/**/*.js'],
-      parserOptions: {
-        babelOptions: {
-          configFile: path.join(__dirname, './react-server-list/.babelrc.js'),
-        },
-      },
-    },
-
-    {
-      files: ['react-server-list/test/**/*.js'],
-      env: {
-        mocha: true,
-      },
-      rules: {
-        'import/no-extraneous-dependencies': ['error', {
-          devDependencies: true,
-        }],
+        'react-compiler/react-compiler': 'error',
       },
     },
   ],

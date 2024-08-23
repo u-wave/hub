@@ -56,17 +56,6 @@ type ServerThumbnailProps = {
 };
 function ServerThumbnail({ server, media }: ServerThumbnailProps) {
   const [isOpen, setDescriptionOpen] = useState(false);
-  const onOpenDescription = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement>) => {
-      event.preventDefault();
-      event.stopPropagation();
-      setDescriptionOpen(true);
-    },
-    [],
-  );
-  const onCloseDescription = useCallback(() => {
-    setDescriptionOpen(false);
-  }, []);
 
   return (
     <div className={styles.root}>
@@ -84,7 +73,11 @@ function ServerThumbnail({ server, media }: ServerThumbnailProps) {
             {server.description && (
               <IconButton
                 aria-label={`View description for ${server.name}`}
-                onClick={onOpenDescription}
+                onClick={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  setDescriptionOpen(true);
+                }}
               >
                 <SvgIcon>
                   <path d={mdiMenu} />
@@ -133,7 +126,7 @@ function ServerThumbnail({ server, media }: ServerThumbnailProps) {
           <DescriptionDialog
             server={server}
             isOpen={isOpen}
-            onCloseDescription={onCloseDescription}
+            onCloseDescription={() => setDescriptionOpen(false)}
           />
         ) : null}
       </Card>
