@@ -38,3 +38,7 @@
     margin-inline-end: 12px;
   }
 }
+
+.link {
+  composes: textButton from './base.module.css';
+}

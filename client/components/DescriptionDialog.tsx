@@ -1,6 +1,5 @@
 import React from 'react';
 import stripIndent from 'strip-indent';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -44,19 +43,12 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDi
         </React.Suspense>
       </DialogContent>
       <DialogActions>
-        <Button
-          color="inherit"
-          onClick={onCloseDescription}
-        >
+        <button onClick={onCloseDescription} className={styles.closeButton}>
           Close
-        </Button>
-        <Button
-          color="primary"
-          variant="contained"
-          href={server.url}
-        >
+        </button>
+        <a href={server.url} className={styles.joinButton}>
           Join
-        </Button>
+        </a>
       </DialogActions>
     </Dialog>
   );

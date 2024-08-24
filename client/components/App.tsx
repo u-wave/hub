@@ -1,5 +1,4 @@
 import { ThemeProvider } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 import Container from './Container';
 import theme from '../muiTheme';
 import Header from './Header';
@@ -24,9 +23,9 @@ function App() {
         <main className={styles.main}>
           <Container hub={VITE_HUB_SERVER} />
           <footer className={styles.footer}>
-            <Typography component="p">
+            <p className={styles.typography}>
               <a href="https://github.com/u-wave/hub/tree/default/client" className={styles.sourceLink}>view source</a>
-            </Typography>
+            </p>
           </footer>
         </main>
       </ThemeProvider>

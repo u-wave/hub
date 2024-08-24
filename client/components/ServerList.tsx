@@ -1,4 +1,3 @@
-import Typography from '@mui/material/Typography';
 import ServerThumbnail from './ServerThumbnail';
 import type { Server } from '../utils/hub';
 import * as styles from './ServerList.module.css';
@@ -10,9 +9,9 @@ function ServerList({ servers }: ServerListProps) {
   return (
     <div className={styles.root}>
       {servers.length === 0 ? (
-        <Typography>
+        <p className={styles.typography}>
           No servers are currently available.
-        </Typography>
+        </p>
       ) : servers.map((server) => (
         <ServerThumbnail
           key={server.url}

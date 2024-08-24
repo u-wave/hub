@@ -3,3 +3,7 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
+.typography {
+  composes: typography from './base.module.css';
+}

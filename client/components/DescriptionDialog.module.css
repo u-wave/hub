@@ -16,3 +16,18 @@
   justify-content: center;
   overflow-y: hidden;
 }
+
+.closeButton {
+  composes: textButton from './base.module.css';
+}
+
+.joinButton {
+  composes: containedButton from './base.module.css';
+
+  color: #fff;
+  background-color: #9d2053;
+}
+
+.joinButton:hover {
+  background-color: rgb(109, 22, 58);
+}
