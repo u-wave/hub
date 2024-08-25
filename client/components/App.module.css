@@ -28,3 +28,7 @@
   color: #aaa;
   border-bottom: 1px solid #aaa;
 }
+
+.typography {
+  composes: typography from './base.module.css';
+}

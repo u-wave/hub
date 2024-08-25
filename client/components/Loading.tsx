@@ -1,5 +1,5 @@
-import CircularProgress from '@mui/material/CircularProgress';
-import Typography from '@mui/material/Typography';
+import 'spinners-react/lib/SpinnerCircular.css';
+import { SpinnerCircular } from 'spinners-react';
 import * as styles from './Loading.module.css';
 
 type LoadingProps = {
@@ -8,10 +8,15 @@ type LoadingProps = {
 function Loading({ message }: LoadingProps) {
   return (
     <div className={styles.root}>
-      <CircularProgress size={300} variant="indeterminate" />
-      <Typography>
+      <SpinnerCircular
+        enabled
+        size={300}
+        color="#9d2053"
+        secondaryColor="transparent"
+      />
+      <p className={styles.label}>
         {message}
-      </Typography>
+      </p>
     </div>
   );
 }

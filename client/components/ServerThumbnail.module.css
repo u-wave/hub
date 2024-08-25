@@ -2,11 +2,56 @@
   width: 360px;
   margin: 0px 20px 20px 20px;
   position: relative;
+
+  background-color: #3b3b3b;
+  color: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);
 }
 
 .header {
+  box-sizing: border-box;
   display: flex;
+  align-items: center;
   justify-content: space-between;
+  padding: 16px;
+}
+
+.title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1.334;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.43;
+}
+
+.iconButton {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.iconButton:hover {
+  animation: spawnRipple 200ms ease-out 0ms 1;
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0, rgba(255, 255, 255, 0.1) 70%, transparent 71%);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.iconButton:focus-visible {
+  animation: spawnRipple 200ms ease-out 0ms 1,
+    pulsateRipple 2500ms ease-in-out 200ms infinite;
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0, rgba(255, 255, 255, 0.2) 70%, transparent 71%);
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .link {
@@ -14,11 +59,58 @@
 }
 
 .nobodyPlaying {
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  padding: 16px;
+
   background: black;
   color: white;
   text-decoration: none;
 }
 
 .actions {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
   justify-content: end;
+  padding: 8px;
+}
+
+.joinButton {
+  composes: containedButton from './base.module.css';
+
+  color: #fff;
+  background-color: #9d2053;
+}
+
+.joinButton:hover {
+  background-color: rgb(109, 22, 58);
+}
+
+.warning {
+  color: #ed404f;
+  margin: 0;
+  padding: 16px;
+}
+
+@keyframes spawnRipple {
+  0% {
+    background-size: 0% 0%;
+  }
+  100% {
+    background-size: 100% 100%;
+  }
+}
+
+@keyframes pulsateRipple {
+  0% {
+    background-size: 100% 100%;
+  }
+  50% {
+    background-size: 93% 93%;
+  }
+  100% {
+    background-size: 100% 100%;
+  }
 }
