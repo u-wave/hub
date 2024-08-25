@@ -4,5 +4,5 @@
 }
 
 .label {
-  composes: typography from 'base.module.css';
+  composes: typography from './base.module.css';
 }
