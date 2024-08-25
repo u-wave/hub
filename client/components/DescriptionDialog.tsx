@@ -1,8 +1,5 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import stripIndent from 'strip-indent';
-import Dialog from '@mui/material/Dialog';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Loading from './Loading';
 import * as styles from './DescriptionDialog.module.css';
 import type { Server } from '../utils/hub';
@@ -15,39 +12,49 @@ type DescriptionDialogProps = {
   onCloseDescription: () => void,
 };
 function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDialogProps) {
-  const theme = useTheme();
-  const isFullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const contentStyle = {
-    width: `${theme.breakpoints.values.sm}px`,
-  };
-
+  const [everOpened, setEverOpened] = useState(false);
   const loading = (
-    <div className={styles.loading} style={contentStyle}>
+    <div className={styles.loading}>
       <Loading message="Loading description..." />
     </div>
   );
 
+  const dialog = useRef<HTMLDialogElement>();
+  useEffect(() => {
+    if (isOpen) {
+      dialog.current.showModal();
+      setEverOpened(true);
+    }
+    return () => {
+      dialog.current.close();
+    };
+  }, [isOpen]);
+
   return (
-    <Dialog open={isOpen} fullScreen={isFullScreen} onClose={onCloseDescription}>
-      <h2 className={styles.title}>
-        {server.name}
-      </h2>
-      <div className={styles.content}>
-        <React.Suspense fallback={loading}>
-          <div className={styles.markdown} style={contentStyle}>
-            <Markdown>{stripIndent(server.description)}</Markdown>
-          </div>
-        </React.Suspense>
-      </div>
-      <div className={styles.actions}>
-        <button onClick={onCloseDescription} className={styles.closeButton}>
-          Close
-        </button>
-        <a href={server.url} className={styles.joinButton}>
-          Join
-        </a>
-      </div>
-    </Dialog>
+    <dialog ref={dialog} onClose={onCloseDescription} className={styles.root}>
+      <form method="dialog">
+        <h2 className={styles.title}>
+          {server.name}
+        </h2>
+        <div className={styles.content}>
+          {everOpened ? (
+            <React.Suspense fallback={loading}>
+              <div className={styles.markdown}>
+                <Markdown>{stripIndent(server.description)}</Markdown>
+              </div>
+            </React.Suspense>
+          ) : loading}
+        </div>
+        <div className={styles.actions}>
+          <button className={styles.closeButton}>
+            Close
+          </button>
+          <a href={server.url} className={styles.joinButton}>
+            Join
+          </a>
+        </div>
+      </form>
+    </dialog>
   );
 }
 
