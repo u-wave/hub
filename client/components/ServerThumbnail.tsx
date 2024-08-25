@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { mdiAlert, mdiMenu } from '@mdi/js';
 import Icon from '@mdi/react';
-import IconButton from '@mui/material/IconButton';
 import { intlFormatDistance } from 'date-fns';
 import DescriptionDialog from './DescriptionDialog';
 import CurrentMedia from './CurrentMedia';
@@ -9,6 +8,12 @@ import * as styles from './ServerThumbnail.module.css';
 import type { Media, Server } from '../utils/hub';
 
 const downTimeout = 600_000; // 10 minutes
+
+function IconButton(props: React.ComponentPropsWithoutRef<'button'>) {
+  return (
+    <button type="button" className={styles.iconButton} {...props} />
+  )
+}
 
 function WarningIcon() {
   return (

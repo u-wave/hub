@@ -12,6 +12,7 @@
 .header {
   box-sizing: border-box;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 16px;
 }
@@ -27,6 +28,30 @@
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.43;
+}
+
+.iconButton {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.iconButton:hover {
+  animation: spawnRipple 200ms ease-out 0ms 1;
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0, rgba(255, 255, 255, 0.1) 70%, transparent 71%);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.iconButton:focus-visible {
+  animation: spawnRipple 200ms ease-out 0ms 1,
+    pulsateRipple 2500ms ease-in-out 200ms infinite;
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.2) 0, rgba(255, 255, 255, 0.2) 70%, transparent 71%);
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .link {
@@ -67,4 +92,25 @@
   color: #ed404f;
   margin: 0;
   padding: 16px;
+}
+
+@keyframes spawnRipple {
+  0% {
+    background-size: 0% 0%;
+  }
+  100% {
+    background-size: 100% 100%;
+  }
+}
+
+@keyframes pulsateRipple {
+  0% {
+    background-size: 100% 100%;
+  }
+  50% {
+    background-size: 93% 93%;
+  }
+  100% {
+    background-size: 100% 100%;
+  }
 }
