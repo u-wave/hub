@@ -7,14 +7,12 @@ on:
       - '.github/workflows/deploy-client.yml'
       - 'package.json'
       - 'client/**'
-      - 'react-server-list/**'
   pull_request:
     branches: [default]
     paths:
       - '.github/workflows/deploy-client.yml'
       - 'package.json'
       - 'client/**'
-      - 'react-server-list/**'
 
 jobs:
   netlify:
