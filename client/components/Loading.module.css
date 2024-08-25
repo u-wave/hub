@@ -2,3 +2,7 @@
   width: 100%;
   text-align: center;
 }
+
+.label {
+  composes: typography from 'base.module.css';
+}

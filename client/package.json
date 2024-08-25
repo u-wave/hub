@@ -18,6 +18,7 @@
     "react": "^19.0.0-rc-b57d2823-20240822",
     "react-dom": "^19.0.0-rc-b57d2823-20240822",
     "react-markdown": "^9.0.0",
+    "spinners-react": "^1.0.7",
     "strip-indent": "^4.0.0",
     "swr": "^2.1.3"
   },
