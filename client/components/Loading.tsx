@@ -1,6 +1,6 @@
 import 'spinners-react/lib/SpinnerCircular.css';
 import { SpinnerCircular } from 'spinners-react';
-import * as styles from './Loading.module.css';
+import styles from './Loading.module.css';
 
 type LoadingProps = {
   message: string,

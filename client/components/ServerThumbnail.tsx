@@ -4,7 +4,7 @@ import Icon from '@mdi/react';
 import { intlFormatDistance } from 'date-fns';
 import DescriptionDialog from './DescriptionDialog';
 import CurrentMedia from './CurrentMedia';
-import * as styles from './ServerThumbnail.module.css';
+import styles from './ServerThumbnail.module.css';
 import type { Media, Server } from '../utils/hub';
 
 const downTimeout = 600_000; // 10 minutes

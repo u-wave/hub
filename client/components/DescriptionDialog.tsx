@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import stripIndent from 'strip-indent';
 import Loading from './Loading';
-import * as styles from './DescriptionDialog.module.css';
+import styles from './DescriptionDialog.module.css';
 import type { Server } from '../utils/hub';
 
 const Markdown = React.lazy(() => import('react-markdown'));
@@ -19,14 +19,14 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDi
     </div>
   );
 
-  const dialog = useRef<HTMLDialogElement>();
+  const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     if (isOpen) {
-      dialog.current.showModal();
+      dialog.current?.showModal();
       setEverOpened(true);
     }
     return () => {
-      dialog.current.close();
+      dialog.current?.close();
     };
   }, [isOpen]);
 

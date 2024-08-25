@@ -1,14 +1,6 @@
 import Container from './Container';
 import Header from './Header';
-import * as styles from './App.module.css';
-
-declare global {
-  interface ImportMeta {
-    env: {
-      VITE_HUB_SERVER: string,
-    },
-  }
-}
+import styles from './App.module.css';
 
 const { VITE_HUB_SERVER } = import.meta.env;
 

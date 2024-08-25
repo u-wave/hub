@@ -1,9 +1,17 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
     "target": "es2022",
     "module": "es2022",
     "lib": ["dom", "es2022"],
-    "jsx": "react-jsx"
+    "moduleResolution": "bundler",
+    "verbatimModuleSyntax": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "types": ["vite/client", "./vite-env.d.ts"],
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   }
 }
