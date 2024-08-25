@@ -1,3 +1,24 @@
+.title {
+  margin: 0;
+  padding: 16px 24px;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+.content {
+  padding: 0 24px 20px 24px;
+  overflow-y: auto;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px;
+  gap: 8px;
+}
+
 .markdown {
   max-width: 100%;
   line-height: calc(1em + 1ex);

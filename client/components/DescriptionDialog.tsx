@@ -1,9 +1,6 @@
 import React from 'react';
 import stripIndent from 'strip-indent';
 import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Loading from './Loading';
@@ -32,24 +29,24 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDi
 
   return (
     <Dialog open={isOpen} fullScreen={isFullScreen} onClose={onCloseDescription}>
-      <DialogTitle>
+      <h2 className={styles.title}>
         {server.name}
-      </DialogTitle>
-      <DialogContent>
+      </h2>
+      <div className={styles.content}>
         <React.Suspense fallback={loading}>
           <div className={styles.markdown} style={contentStyle}>
             <Markdown>{stripIndent(server.description)}</Markdown>
           </div>
         </React.Suspense>
-      </DialogContent>
-      <DialogActions>
+      </div>
+      <div className={styles.actions}>
         <button onClick={onCloseDescription} className={styles.closeButton}>
           Close
         </button>
         <a href={server.url} className={styles.joinButton}>
           Join
         </a>
-      </DialogActions>
+      </div>
     </Dialog>
   );
 }
