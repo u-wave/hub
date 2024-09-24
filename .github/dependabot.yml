@@ -32,6 +32,8 @@ updates:
       - "react-dom"
       - "@types/react"
       - "@types/react-dom"
+      - "babel-plugin-react-compiler"
+      - "eslint-plugin-react-compiler"
     mui:
       patterns:
       - "@mui/*"
