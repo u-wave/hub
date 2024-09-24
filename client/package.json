@@ -10,7 +10,7 @@
     "@babel/runtime": "^7.25.6",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
-    "date-fns": "^4.0.0",
+    "date-fns": "^4.1.0",
     "node-fetch": "^3.3.1",
     "prop-types": "^15.7.2",
     "react": "19.0.0-rc-f65ac7bd-20240826",
