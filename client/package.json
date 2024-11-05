@@ -7,7 +7,7 @@
     "node": ">= 14"
   },
   "dependencies": {
-    "@babel/runtime": "^7.25.7",
+    "@babel/runtime": "^7.26.0",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
     "date-fns": "^4.1.0",
