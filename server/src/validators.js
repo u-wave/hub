@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 /** @type {import('ajv').JSONSchemaType<import('./store').Server>} */
 export const announceData = {
   $id: 'https://ns.u-wave.net/schemas/AnnounceData.json',

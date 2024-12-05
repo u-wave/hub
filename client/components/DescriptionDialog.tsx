@@ -21,12 +21,13 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDi
 
   const dialog = useRef<HTMLDialogElement>(null);
   useEffect(() => {
+    const el = dialog.current;
     if (isOpen) {
-      dialog.current?.showModal();
+      el?.showModal();
       setEverOpened(true);
     }
     return () => {
-      dialog.current?.close();
+      el?.close();
     };
   }, [isOpen]);
 

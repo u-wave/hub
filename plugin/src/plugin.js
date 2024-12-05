@@ -96,14 +96,6 @@ async function getAnnounceData(uw, options) {
   // TODO add something to üWave Core so we don't have to manually populate
   // the relationships.
   const entry = await uw.booth.getCurrentEntry();
-  if (entry) {
-    if (entry.execPopulate) {
-      entry.populate('user media.media');
-      await entry.execPopulate();
-    } else {
-      await entry.populate('user media.media');
-    }
-  }
 
   // TODO add something to üWave Core so we don't have to manually ask Redis for
   // this information. Currently üWave Core may register duplicates in this

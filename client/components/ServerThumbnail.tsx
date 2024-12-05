@@ -12,7 +12,7 @@ const downTimeout = 600_000; // 10 minutes
 function IconButton(props: React.ComponentPropsWithoutRef<'button'>) {
   return (
     <button type="button" className={styles.iconButton} {...props} />
-  )
+  );
 }
 
 function WarningIcon() {
