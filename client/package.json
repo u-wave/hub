@@ -17,7 +17,7 @@
     "react-compiler-runtime": "19.0.0-beta-df7b47d-20241124",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.0",
-    "spinners-react": "^1.0.7",
+    "spinners-react": "^1.0.10",
     "strip-indent": "^4.0.0",
     "swr": "^2.1.3"
   },
