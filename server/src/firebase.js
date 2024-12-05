@@ -62,8 +62,8 @@ export default class FirebaseStore extends EventEmitter {
    */
   async deleteBefore(staleTimestamp) {
     const query = () => this.collection.where('ping', '<', staleTimestamp).limit(100).get();
-    /* eslint-disable no-await-in-loop */
-    while (true) { // eslint-disable-line no-constant-condition
+
+    while (true) {
       const snapshot = await query();
       if (snapshot.size === 0) {
         break;
@@ -74,6 +74,5 @@ export default class FirebaseStore extends EventEmitter {
       }
       await batch.commit();
     }
-    /* eslint-enable no-await-in-loop */
   }
 }

@@ -31,7 +31,7 @@ export type Server = {
 }
 
 /** @param hubServer - URL of the announce server. */
-export function loadServers(hubServer: string): Promise<Server[]> { // eslint-disable-line import/prefer-default-export
+export function loadServers(hubServer: string): Promise<Server[]> {
   return fetch(hubServer)
     .then((response) => response.json())
     .then((state: { servers: Server[] }) => (

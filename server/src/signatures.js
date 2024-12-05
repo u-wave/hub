@@ -2,7 +2,7 @@
 import sodium from 'libsodium-wrappers';
 
 /**
- * @param {Buffer} seed
+ * @param {Uint8Array} [seed]
  */
 async function keyPair(seed) {
   await sodium.ready;
@@ -18,8 +18,8 @@ async function keyPair(seed) {
 }
 
 /**
- * @param {Buffer} message
- * @param {Buffer} secretKey
+ * @param {Uint8Array | string} message
+ * @param {Uint8Array} secretKey
  */
 async function sign(message, secretKey) {
   await sodium.ready;
@@ -27,9 +27,9 @@ async function sign(message, secretKey) {
 }
 
 /**
- * @param {Buffer} message
- * @param {Buffer} signature
- * @param {Buffer} publicKey
+ * @param {Uint8Array | string} message
+ * @param {Uint8Array} signature
+ * @param {Uint8Array} publicKey
  */
 async function verify(message, signature, publicKey) {
   await sodium.ready;
