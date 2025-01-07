@@ -14,7 +14,6 @@
     "node-fetch": "^3.3.1",
     "prop-types": "^15.7.2",
     "react": "^19.0.0",
-    "react-compiler-runtime": "19.0.0-beta-df7b47d-20241124",
     "react-dom": "^19.0.0",
     "react-markdown": "^9.0.0",
     "spinners-react": "^1.0.10",

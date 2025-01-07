@@ -7,9 +7,7 @@ export default defineConfig({
     patchCssModules(),
     react({
       babel: {
-        plugins: [
-          ['react-compiler', { target: '18' }],
-        ],
+        plugins: ['react-compiler'],
       },
     }),
   ],
