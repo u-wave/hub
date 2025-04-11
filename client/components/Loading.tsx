@@ -1,5 +1,3 @@
-import 'spinners-react/lib/SpinnerCircular.css';
-import { SpinnerCircular } from 'spinners-react';
 import styles from './Loading.module.css';
 
 type LoadingProps = {
@@ -8,12 +6,18 @@ type LoadingProps = {
 function Loading({ message }: LoadingProps) {
   return (
     <div className={styles.root}>
-      <SpinnerCircular
-        enabled
-        size={300}
-        color="#9d2053"
-        secondaryColor="transparent"
-      />
+      <svg fill="none" className={styles.spinner} viewBox="0 0 66 66">
+        <circle
+          className={styles.spinnerFill}
+          cx="33"
+          cy="33"
+          fill="none"
+          r="28"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeWidth="4"
+        />
+      </svg>
       <p className={styles.label}>
         {message}
       </p>
