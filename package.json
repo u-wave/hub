@@ -1,12 +1,13 @@
 {
   "name": "u-wave-hub",
+  "type": "module",
   "dependencies": {
     "@u-wave/hub-server": "file:server",
     "u-wave-announce": "file:plugin",
     "u-wave-hub-client": "file:client"
   },
   "engines": {
-    "node": ">= 14",
+    "node": ">= 20",
     "npm": ">= 7"
   },
   "devDependencies": {
