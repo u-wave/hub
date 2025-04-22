@@ -6,11 +6,14 @@ import EventEmitter from 'events';
 /** @typedef {import('./store').StoreEntry} StoreEntry */
 /** @implements {Store} */
 export default class FirebaseStore extends EventEmitter {
-  constructor() {
+  /** @param {URL} url */
+  constructor(url) {
     super();
 
+    const projectId = url.pathname;
+
     this.backend = new Firestore({
-      projectId: process.env.FIRESTORE_PROJECT,
+      projectId,
       credentials: JSON.parse(process.env.FIRESTORE_CREDENTIALS ?? 'null'),
     });
     /** @type {import('@google-cloud/firestore').CollectionReference<StoreEntry>} */
