@@ -11,9 +11,9 @@
     "npm": ">= 7"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.10",
-    "@babel/eslint-parser": "^7.27.0",
-    "@babel/eslint-plugin": "^7.27.0",
+    "@babel/core": "^7.27.1",
+    "@babel/eslint-parser": "^7.27.1",
+    "@babel/eslint-plugin": "^7.27.1",
     "cross-env": "^7.0.2",
     "eslint": "^9.24.0",
     "eslint-plugin-import": "^2.31.0",
