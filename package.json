@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.10",
-    "@babel/eslint-parser": "^7.27.0",
+    "@babel/eslint-parser": "^7.27.5",
     "@babel/eslint-plugin": "^7.27.0",
     "cross-env": "^7.0.2",
     "eslint": "^9.24.0",
