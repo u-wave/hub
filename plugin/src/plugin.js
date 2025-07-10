@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import randomBytes from 'node:crypto';
+import { randomBytes } from 'node:crypto';
 import fetch from 'node-fetch';
 import stripIndent from 'strip-indent';
 import * as sodium from './signatures.js';
@@ -93,8 +93,6 @@ function stripSlashes(url) {
 async function getAnnounceData(uw, options) {
   const url = stripSlashes(options.url);
 
-  // TODO add something to üWave Core so we don't have to manually populate
-  // the relationships.
   const entry = await uw.booth.getCurrentEntry();
 
   // TODO add something to üWave Core so we don't have to manually ask Redis for
@@ -132,7 +130,7 @@ async function getAnnounceData(uw, options) {
 async function getOrGenerateSeed(uw) {
   const options = await uw.config.get(optionsSchema['uw:key']);
   if (!options.seed) {
-    options.seed = (await randomBytes(32)).toString('hex');
+    options.seed = randomBytes(32).toString('hex');
     await uw.config.set(optionsSchema['uw:key'], options);
   }
   return Buffer.from(options.seed, 'hex');
