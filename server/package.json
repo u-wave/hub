@@ -26,7 +26,7 @@
   },
   "scripts": {
     "start": "node bin/u-wave-hub.js",
-    "test": "vitest run"
+    "test": "vitest run --coverage"
   },
   "devDependencies": {
     "@tsconfig/node16": "^16.0.0",
