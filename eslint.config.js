@@ -639,7 +639,7 @@ export default [
   },
 
   {
-    files: ['{plugin,server}/**/*.{mjs,cjs,js,ts,mts,cts,jsx,tsx}'],
+    files: ['{plugin,server,test}/**/*.{mjs,cjs,js,ts,mts,cts,jsx,tsx}'],
     languageOptions: {
       globals: globals.node,
     },

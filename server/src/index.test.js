@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { expect, describe, it } from 'vitest';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import build from '@u-wave/hub-server';
