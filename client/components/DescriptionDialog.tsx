@@ -24,6 +24,9 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDi
     const el = dialog.current;
     if (isOpen) {
       el?.showModal();
+      // FIXME: this lint is correctly warning about this, but not sure about
+      // a better way to go about this right now
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setEverOpened(true);
     }
     return () => {
