@@ -4,7 +4,6 @@ import js from '@eslint/js';
 import ts from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import reactCompiler from 'eslint-plugin-react-compiler';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import importPlugin from 'eslint-plugin-import';
 import globals from 'globals';
@@ -532,17 +531,12 @@ const styleRules = {
 
 export default [
   { ignores: ['coverage/**', '**/dist/**'] },
-  {
-    plugins: {
-      'react-hooks': reactHooks,
-      'react-compiler': reactCompiler,
-    },
-  },
 
   js.configs.recommended,
 
   react.configs.flat.recommended,
   react.configs.flat['jsx-runtime'],
+  reactHooks.configs.flat['recommended-latest'],
   jsxA11y.flatConfigs.recommended,
   {
     settings: {
@@ -610,7 +604,6 @@ export default [
       'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
       // Not following this at the moment
       'jsx-a11y/no-autofocus': 'warn',
-      'react-compiler/react-compiler': 'warn',
     },
   },
 
@@ -637,15 +630,6 @@ export default [
   },
 
   { rules: styleRules },
-
-  {
-    files: ['client/**'],
-    rules: {
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'error',
-      'react-compiler/react-compiler': 'warn',
-    },
-  },
 
   {
     files: ['{plugin,server,test}/**/*.{mjs,cjs,js,ts,mts,cts,jsx,tsx}'],
