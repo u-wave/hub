@@ -4,7 +4,7 @@
   "version": "0.5.2",
   "description": "Web client for üWave's server listing.",
   "engines": {
-    "node": ">= 14"
+    "node": ">= 24"
   },
   "dependencies": {
     "@babel/runtime": "^7.28.3",

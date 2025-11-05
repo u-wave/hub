@@ -7,7 +7,7 @@
   "bin": "bin/u-wave-hub.js",
   "type": "module",
   "engines": {
-    "node": ">= 14"
+    "node": ">= 24"
   },
   "dependencies": {
     "@fastify/ajv-compiler": "^4.0.2",
@@ -29,7 +29,7 @@
     "test": "vitest run --coverage"
   },
   "devDependencies": {
-    "@types/node": "^20.19.6",
+    "@types/node": "^24.10.0",
     "@types/libsodium-wrappers": "^0.7.9",
     "typescript": "^5.8.3"
   }
