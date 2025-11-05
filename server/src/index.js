@@ -1,6 +1,4 @@
-import { URL } from 'url';
 import { env } from 'process';
-import { readFile } from 'fs/promises';
 import Fastify from 'fastify';
 import plugin from 'fastify-plugin';
 import AjvCompiler from '@fastify/ajv-compiler';
@@ -11,11 +9,10 @@ import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import rateLimit from '@fastify/rate-limit';
 import { FastifySSEPlugin } from 'fastify-sse-v2';
+import { version } from '../package.json' with { type: 'json' };
 import announce from './announce.js';
 import list from './list.js';
 import events from './events.js';
-
-const pkg = JSON.parse((await readFile(new URL('../package.json', import.meta.url))).toString());
 
 export default function hubServer() {
   const app = Fastify({
@@ -43,7 +40,7 @@ export default function hubServer() {
     openapi: {
       info: {
         title: 'üWave Announce',
-        version: pkg.version,
+        version,
         license: {
           name: 'MIT',
           url: 'https://github.com/u-wave/hub/blob/default/LICENSE',
