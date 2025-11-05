@@ -1,12 +1,8 @@
-import fs from 'node:fs';
 import { randomBytes } from 'node:crypto';
 import fetch from 'node-fetch';
 import stripIndent from 'strip-indent';
+import { version } from '../package.json' with { type: 'json' };
 import * as sodium from './signatures.js';
-
-const pkg = JSON.parse(
-  fs.readFileSync(new URL('../package.json', import.meta.url), 'utf8'),
-);
 
 const optionsSchema = {
   type: 'object',
@@ -169,7 +165,7 @@ async function announcePlugin(uw, staticOptions) {
     await fetch(announceUrl, {
       method: 'post',
       headers: {
-        'user-agent': `u-wave-announce ${pkg.version}`,
+        'user-agent': `u-wave-announce ${version}`,
         'content-type': 'application/json',
       },
       body: JSON.stringify({
