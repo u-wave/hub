@@ -5,13 +5,13 @@ on:
     branches: [default]
     paths:
       - '.github/workflows/deploy-client.yml'
-      - 'package.json'
+      - 'package-lock.json'
       - 'client/**'
   pull_request:
     branches: [default]
     paths:
       - '.github/workflows/deploy-client.yml'
-      - 'package.json'
+      - 'package-lock.json'
       - 'client/**'
 
 jobs:
