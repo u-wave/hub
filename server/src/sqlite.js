@@ -52,11 +52,11 @@ export default class SqliteStore extends EventEmitter {
     });
   }
 
-  /** @param {unknown} row */
+  /** @param {Record<string, import('node:sqlite').SQLOutputValue>} row */
   #parseRow(row) {
     return /** @type {StoreEntry} */ ({
       ping: row.ping,
-      data: JSON.parse(row.data),
+      data: JSON.parse(/** @type {string} */ (row.data)),
     });
   }
 
