@@ -15,29 +15,39 @@ const MIGRATIONS = [
 /** @typedef {import('./store').StoreEntry} StoreEntry */
 /** @implements {Store} */
 export default class SqliteStore extends EventEmitter {
+  #db;
+
+  #updateStmt;
+
+  #deleteStmt;
+
+  #getStmt;
+
+  #listStmt;
+
   /** @param {URL} url */
   constructor(url) {
     super();
 
-    this.db = new DatabaseSync(url.pathname || ':memory:');
+    this.#db = new DatabaseSync(url.pathname || ':memory:');
 
-    this.db.exec('BEGIN');
+    this.#db.exec('BEGIN');
     try {
-      let version = this.db.prepare('PRAGMA user_version').get().user_version;
+      let version = this.#db.prepare('PRAGMA user_version').get().user_version;
       for (; version < MIGRATIONS.length; version += 1) {
-        this.db.exec(MIGRATIONS[0]);
+        this.#db.exec(MIGRATIONS[0]);
       }
-      this.db.prepare(`PRAGMA user_version = ${version}`).run();
-      this.db.exec('COMMIT');
+      this.#db.prepare(`PRAGMA user_version = ${version}`).run();
+      this.#db.exec('COMMIT');
     } catch (error) {
-      this.db.exec('ROLLBACK');
+      this.#db.exec('ROLLBACK');
       throw error;
     }
 
-    this.updateStmt = this.db.prepare('REPLACE INTO entries (key, last_ping, data) VALUES (:key, :ping, :data)');
-    this.deleteStmt = this.db.prepare('DELETE FROM entries WHERE last_ping < ?');
-    this.getStmt = this.db.prepare('SELECT last_ping AS ping, data FROM entries WHERE key = ?');
-    this.listStmt = this.db.prepare('SELECT key, last_ping AS ping, data FROM entries');
+    this.#updateStmt = this.#db.prepare('REPLACE INTO entries (key, last_ping, data) VALUES (:key, :ping, :data)');
+    this.#deleteStmt = this.#db.prepare('DELETE FROM entries WHERE last_ping < ?');
+    this.#getStmt = this.#db.prepare('SELECT last_ping AS ping, data FROM entries WHERE key = ?');
+    this.#listStmt = this.#db.prepare('SELECT key, last_ping AS ping, data FROM entries');
   }
 
   /**
@@ -45,7 +55,7 @@ export default class SqliteStore extends EventEmitter {
    * @param {StoreEntry} entry
    */
   async update(id, { ping, data }) {
-    this.updateStmt.run({
+    this.#updateStmt.run({
       key: id,
       ping,
       data: JSON.stringify(data),
@@ -64,7 +74,7 @@ export default class SqliteStore extends EventEmitter {
    * @param {string} id
    */
   async get(id) {
-    const result = this.getStmt.get(id);
+    const result = this.#getStmt.get(id);
     if (result == null) {
       return undefined;
     }
@@ -73,7 +83,7 @@ export default class SqliteStore extends EventEmitter {
   }
 
   async* list() {
-    const it = this.listStmt.all();
+    const it = this.#listStmt.all();
     for (const row of it) {
       const key = /** @type {string} */ (row.key);
       const data = this.#parseRow(row);
@@ -85,6 +95,6 @@ export default class SqliteStore extends EventEmitter {
    * @param {number} staleTimestamp
    */
   async deleteBefore(staleTimestamp) {
-    this.deleteStmt.run(staleTimestamp);
+    this.#deleteStmt.run(staleTimestamp);
   }
 }
