@@ -58,15 +58,15 @@ export default function hubServer(opts) {
 
   app.register(plugin(async (fastify) => {
     let module;
-    const store = new URL(opts?.store ?? 'memory:')
+    const store = new URL(opts?.store ?? 'memory:');
     switch (store.protocol) {
       case 'memory:':
         module = defaultStore;
         break;
-      case 'sqlite':
+      case 'sqlite:':
         module = await import('./sqlite.js');
         break;
-      case 'firestore':
+      case 'firestore:':
         module = await import('./firebase.js');
         break;
       default:

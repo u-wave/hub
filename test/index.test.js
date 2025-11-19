@@ -3,8 +3,11 @@ import core from 'u-wave-core';
 import hubServer from '@u-wave/hub-server';
 import plugin from 'u-wave-announce';
 
-it('integration test', async () => {
-  const hub = hubServer();
+it.for([
+  ['in-memory', 'memory:'],
+  ['sqlite', 'sqlite:'],
+])('publishing test with %s store', async ([, store]) => {
+  const hub = hubServer({ store });
   const url = await hub.listen();
 
   const uw = core({
