@@ -20,7 +20,9 @@ export default async function eventsPlugin(fastify) {
   }
 
   fastify.get('/events', {
-    description: 'Listen for updates announced by servers',
+    schema: {
+      description: 'Listen for updates announced by servers',
+    },
   }, (request, reply) => {
     reply.sse(events());
   });

@@ -33,7 +33,9 @@ export default class SqliteStore extends EventEmitter {
 
     this.#db.exec('BEGIN');
     try {
-      let version = this.#db.prepare('PRAGMA user_version').get().user_version;
+      let version = /** @type {number} */ (
+        this.#db.prepare('PRAGMA user_version').get()?.user_version ?? 0
+      );
       for (; version < MIGRATIONS.length; version += 1) {
         this.#db.exec(MIGRATIONS[0]);
       }
