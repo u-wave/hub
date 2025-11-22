@@ -1,4 +1,4 @@
-import { env } from 'process';
+import { URL } from 'node:url';
 import Fastify from 'fastify';
 import plugin from 'fastify-plugin';
 import AjvCompiler from '@fastify/ajv-compiler';
@@ -14,7 +14,10 @@ import announce from './announce.js';
 import list from './list.js';
 import events from './events.js';
 
-export default function hubServer() {
+/**
+ * @param {{ store?: string }} [opts]
+ */
+export default function hubServer(opts) {
   const app = Fastify({
     logger: true,
     ajv: {
@@ -53,11 +56,22 @@ export default function hubServer() {
   });
 
   app.register(plugin(async (fastify) => {
-    const { default: Store } = await (
-      env.FIRESTORE_PROJECT ? import('./firebase.js') : import('./memory.js')
-    );
+    let module;
+    const store = new URL(opts?.store ?? 'sqlite:');
+    switch (store.protocol) {
+      case 'sqlite:':
+        module = await import('./sqlite.js');
+        break;
+      case 'firestore:':
+        module = await import('./firebase.js');
+        break;
+      default:
+        throw new Error(`unsupported store "${store.protocol}"`);
+    }
 
-    fastify.decorate('store', new Store());
+    const { default: Store } = module;
+
+    fastify.decorate('store', new Store(store));
   }));
 
   app.register(announce);

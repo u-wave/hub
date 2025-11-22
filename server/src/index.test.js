@@ -98,9 +98,15 @@ it('publishes announces without media', async () => {
 it('publishes multiple announces without media', async () => {
   const app = build();
 
-  const kp1 = await keyPair();
+  const kp1 = await keyPair(new Uint8Array([
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+  ]));
+  const kp2 = await keyPair(new Uint8Array([
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+  ]));
   const publicKey1 = Buffer.from(kp1.publicKey).toString('hex');
-  const kp2 = await keyPair();
   const publicKey2 = Buffer.from(kp2.publicKey).toString('hex');
 
   const data1 = JSON.stringify({
