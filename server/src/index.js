@@ -13,7 +13,6 @@ import { version } from '../package.json' with { type: 'json' };
 import announce from './announce.js';
 import list from './list.js';
 import events from './events.js';
-import * as defaultStore from './memory.js';
 
 /**
  * @param {{ store?: string }} [opts]
@@ -58,11 +57,8 @@ export default function hubServer(opts) {
 
   app.register(plugin(async (fastify) => {
     let module;
-    const store = new URL(opts?.store ?? 'memory:');
+    const store = new URL(opts?.store ?? 'sqlite:');
     switch (store.protocol) {
-      case 'memory:':
-        module = defaultStore;
-        break;
       case 'sqlite:':
         module = await import('./sqlite.js');
         break;

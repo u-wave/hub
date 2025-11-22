@@ -49,7 +49,7 @@ export default class SqliteStore extends EventEmitter {
     this.#updateStmt = this.#db.prepare('REPLACE INTO entries (key, last_ping, data) VALUES (:key, :ping, :data)');
     this.#deleteStmt = this.#db.prepare('DELETE FROM entries WHERE last_ping < ?');
     this.#getStmt = this.#db.prepare('SELECT last_ping AS ping, data FROM entries WHERE key = ?');
-    this.#listStmt = this.#db.prepare('SELECT key, last_ping AS ping, data FROM entries');
+    this.#listStmt = this.#db.prepare('SELECT key, last_ping AS ping, data FROM entries ORDER BY key');
   }
 
   /**
