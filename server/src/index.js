@@ -1,4 +1,4 @@
-import { URL } from 'url';
+import { URL } from 'node:url';
 import Fastify from 'fastify';
 import plugin from 'fastify-plugin';
 import AjvCompiler from '@fastify/ajv-compiler';

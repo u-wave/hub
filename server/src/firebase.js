@@ -1,6 +1,6 @@
 import { Firestore } from '@google-cloud/firestore';
-import { PassThrough } from 'stream';
-import EventEmitter from 'events';
+import { PassThrough } from 'node:stream';
+import EventEmitter from 'node:events';
 
 /** @typedef {import('./store').Store} Store */
 /** @typedef {import('./store').StoreEntry} StoreEntry */

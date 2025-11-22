@@ -1,4 +1,4 @@
-import { on } from 'events';
+import { on } from 'node:events';
 
 /**
  * @param {import('fastify').FastifyInstance} fastify
