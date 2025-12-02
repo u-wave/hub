@@ -62,9 +62,6 @@ export default function hubServer(opts) {
       case 'sqlite:':
         module = await import('./sqlite.js');
         break;
-      case 'firestore:':
-        module = await import('./firebase.js');
-        break;
       default:
         throw new Error(`unsupported store "${store.protocol}"`);
     }
