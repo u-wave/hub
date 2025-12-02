@@ -1,6 +1,6 @@
 {
   "name": "@u-wave/hub-server",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "üWave server listing.",
   "main": "src/index.js",
   "exports": "./src/index.js",
