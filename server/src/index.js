@@ -9,7 +9,7 @@ import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import rateLimit from '@fastify/rate-limit';
 import { FastifySSEPlugin } from 'fastify-sse-v2';
-import { version } from '../package.json' with { type: 'json' };
+import pkg from '../package.json' with { type: 'json' };
 import announce from './announce.js';
 import list from './list.js';
 import events from './events.js';
@@ -43,7 +43,7 @@ export default function hubServer(opts) {
     openapi: {
       info: {
         title: 'üWave Announce',
-        version,
+        version: pkg.version,
         license: {
           name: 'MIT',
           url: 'https://github.com/u-wave/hub/blob/default/LICENSE',
