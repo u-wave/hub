@@ -5,7 +5,7 @@
   "author": "Renée Kooi <renee@kooi.me>",
   "type": "module",
   "dependencies": {
-    "libsodium-wrappers": "^0.7.16",
+    "libsodium-wrappers": "^0.8.0",
     "node-fetch": "^3.3.1",
     "strip-indent": "^4.0.0"
   },
