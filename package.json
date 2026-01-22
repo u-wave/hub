@@ -14,7 +14,7 @@
     "@babel/core": "^7.28.3",
     "@babel/eslint-parser": "^7.27.0",
     "@babel/eslint-plugin": "^7.27.0",
-    "@types/node": "^24.10.0",
+    "@types/node": "^25.0.10",
     "@vitest/coverage-v8": "^4.0.16",
     "cross-env": "^10.0.0",
     "eslint": "^9.39.2",
