@@ -22,8 +22,8 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.0",
-    "globals": "^17.3.0",
-    "typescript-eslint": "^8.54.0",
+    "globals": "^17.4.0",
+    "typescript-eslint": "^8.56.1",
     "u-wave-core": "github:u-wave/core",
     "vitest": "^4.0.7"
   },
