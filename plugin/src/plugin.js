@@ -91,11 +91,13 @@ async function getAnnounceData(uw, options) {
 
   const entry = await uw.booth.getCurrentEntry();
 
-  // TODO add something to üWave Core so we don't have to manually ask Redis for
-  // this information. Currently üWave Core may register duplicates in this
-  // list, too, which is a bit annoying!
+  // TODO add something to üWave Core so we don't have to manually ask
+  // Redis/SQLite for this information. Currently üWave Core may register
+  // duplicates in this list, too, which is a bit annoying!
   // TODO add guest users here too.
-  const onlineUserIDs = await uw.redis.lrange('users', 0, -1);
+  const onlineUserIDs = uw.redis
+    ? await uw.redis.lrange('users', 0, -1)
+    : await uw.keyv.get('users');
   const usersCount = new Set(onlineUserIDs).size;
 
   return {
