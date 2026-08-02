@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
-    "@types/node": "^25.9.1",
+    "@types/node": "^26.1.2",
     "typescript": "^7.0.2"
   }
 }
