@@ -84,7 +84,7 @@ export default class SqliteStore extends EventEmitter {
     return this.#parseRow(result);
   }
 
-  async* list() {
+  async *list() {
     const it = this.#listStmt.all();
     for (const row of it) {
       const key = /** @type {string} */ (row.key);

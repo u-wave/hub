@@ -28,7 +28,7 @@ export type Server = {
   /** Time in milliseconds since the most recent update from this server. */
   timeSincePing: number,
   booth?: Booth | null,
-}
+};
 
 /** @param hubServer - URL of the announce server. */
 export function loadServers(hubServer: string): Promise<Server[]> {

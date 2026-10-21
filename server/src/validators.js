@@ -36,7 +36,7 @@ export const announceData = {
       ],
     },
     apiUrl: {
-      description: 'The base URL for the server\'s HTTP API',
+      description: "The base URL for the server's HTTP API",
       type: 'string',
       format: 'uri',
       examples: [
@@ -45,7 +45,7 @@ export const announceData = {
       ],
     },
     socketUrl: {
-      description: 'The base URL for the server\'s WebSocket API',
+      description: "The base URL for the server's WebSocket API",
       type: 'string',
       format: 'uri',
       examples: [
@@ -59,7 +59,7 @@ export const announceData = {
       nullable: true,
       properties: {
         media: {
-          description: 'An object describing the media that\'s being played',
+          description: "An object describing the media that's being played",
           type: 'object',
           properties: {
             artist: { description: 'The media artist or author', type: 'string' },
@@ -73,7 +73,7 @@ export const announceData = {
           type: 'object',
           properties: {
             username: {
-              description: 'The user\'s name',
+              description: "The user's name",
               type: 'string',
             },
           },

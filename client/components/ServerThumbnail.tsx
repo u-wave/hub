@@ -1,24 +1,20 @@
-import { useState } from 'react';
 import { mdiAlert, mdiMenu } from '@mdi/js';
 import Icon from '@mdi/react';
 import { intlFormatDistance } from 'date-fns';
-import DescriptionDialog from './DescriptionDialog';
-import CurrentMedia from './CurrentMedia';
-import styles from './ServerThumbnail.module.css';
+import { useState } from 'react';
 import type { Media, Server } from '../utils/hub';
+import CurrentMedia from './CurrentMedia';
+import DescriptionDialog from './DescriptionDialog';
+import styles from './ServerThumbnail.module.css';
 
 const downTimeout = 600_000; // 10 minutes
 
 function IconButton(props: React.ComponentPropsWithoutRef<'button'>) {
-  return (
-    <button type="button" className={styles.iconButton} {...props} />
-  );
+  return <button type="button" className={styles.iconButton} {...props} />;
 }
 
 function WarningIcon() {
-  return (
-    <Icon size={1} style={{ verticalAlign: 'sub' }} path={mdiAlert} />
-  );
+  return <Icon size={1} style={{ verticalAlign: 'sub' }} path={mdiAlert} />;
 }
 
 type WarningTextProps = {
@@ -72,43 +68,49 @@ function ServerThumbnail({ server, media }: ServerThumbnailProps) {
         )}
       </div>
 
-      {media ? (
-        <a href={server.url} className={styles.link} aria-label="Join">
-          <CurrentMedia media={media} />
-        </a>
-      ) : (
-        <>
-          <a href={server.url} className={styles.nobodyPlaying}>
-            Nobody is playing!
+      {media
+        ? (
+          <a href={server.url} className={styles.link} aria-label="Join">
+            <CurrentMedia media={media} />
           </a>
-          <div className={styles.actions}>
-            <a href={server.url} className={styles.joinButton}>
-              Join
+        )
+        : (
+          <>
+            <a href={server.url} className={styles.nobodyPlaying}>
+              Nobody is playing!
             </a>
-          </div>
-        </>
-      )}
+            <div className={styles.actions}>
+              <a href={server.url} className={styles.joinButton}>
+                Join
+              </a>
+            </div>
+          </>
+        )}
 
-      {server.timeSincePing >= downTimeout ? (
-        <WarningText>
-          <WarningIcon />
-          {timedOutMessage(intlFormatDistance(
-            // This is indeed impure, but we don't use SSR
-            // and this does not need to be super accurate
-            // eslint-disable-next-line react-hooks/purity
-            new Date(Date.now() - server.timeSincePing),
-            new Date(),
-          ))}
-        </WarningText>
-      ) : null}
+      {server.timeSincePing >= downTimeout
+        ? (
+          <WarningText>
+            <WarningIcon />
+            {timedOutMessage(intlFormatDistance(
+              // This is indeed impure, but we don't use SSR and this does not need to be super accurate
+              // eslint-disable-next-line react-hooks/purity
+              new Date(Date.now() - server.timeSincePing),
+              // eslint-disable-next-line react-hooks/purity
+              new Date(),
+            ))}
+          </WarningText>
+        )
+        : null}
 
-      {hasDescription(server) ? (
-        <DescriptionDialog
-          server={server}
-          isOpen={isOpen}
-          onCloseDescription={() => setDescriptionOpen(false)}
-        />
-      ) : null}
+      {hasDescription(server)
+        ? (
+          <DescriptionDialog
+            server={server}
+            isOpen={isOpen}
+            onCloseDescription={() => setDescriptionOpen(false)}
+          />
+        )
+        : null}
     </div>
   );
 }
