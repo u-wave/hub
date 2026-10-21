@@ -93,10 +93,10 @@ function ServerThumbnail({ server, media }: ServerThumbnailProps) {
         <WarningText>
           <WarningIcon />
           {timedOutMessage(intlFormatDistance(
-            // This is indeed impure, but we don't use SSR
-            // and this does not need to be super accurate
+            // This is indeed impure, but we don't use SSR and this does not need to be super accurate
             // eslint-disable-next-line react-hooks/purity
             new Date(Date.now() - server.timeSincePing),
+            // eslint-disable-next-line react-hooks/purity
             new Date(),
           ))}
         </WarningText>

@@ -1,6 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { expect, describe, it } from 'vitest';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import build from '@u-wave/hub-server';
 import { keyPair, sign } from './signatures.js';
 
@@ -98,10 +96,12 @@ it('publishes announces without media', async () => {
 it('publishes multiple announces without media', async () => {
   const app = build();
 
+  // dprint-ignore
   const kp1 = await keyPair(new Uint8Array([
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   ]));
+  // dprint-ignore
   const kp2 = await keyPair(new Uint8Array([
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
