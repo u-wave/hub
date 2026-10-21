@@ -36,8 +36,4 @@ async function verify(message, signature, publicKey) {
   return sodium.crypto_sign_verify_detached(signature, message, publicKey);
 }
 
-export {
-  keyPair,
-  sign,
-  verify,
-};
+export { keyPair, sign, verify };

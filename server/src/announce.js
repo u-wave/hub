@@ -59,7 +59,7 @@ export default async function announce(fastify) {
             contentSchema: validators.announceData,
           },
           signature: {
-            description: 'Sodium signature for the server data signed with the server\'s private key',
+            description: "Sodium signature for the server data signed with the server's private key",
             type: 'string',
             pattern: '^[0-9a-fA-F]+$',
           },

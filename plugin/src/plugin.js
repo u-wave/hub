@@ -1,5 +1,5 @@
-import { randomBytes } from 'node:crypto';
 import fetch from 'node-fetch';
+import { randomBytes } from 'node:crypto';
 import stripIndent from 'strip-indent';
 import pkg from '../package.json' with { type: 'json' };
 import * as sodium from './signatures.js';
@@ -7,7 +7,8 @@ import * as sodium from './signatures.js';
 const optionsSchema = {
   type: 'object',
   title: 'Announce',
-  description: 'Options for publically announcing this server. Announcing allows users to find this server on "Hubs", such as https://hub.u-wave.net.',
+  description:
+    'Options for publically announcing this server. Announcing allows users to find this server on "Hubs", such as https://hub.u-wave.net.',
   'uw:key': 'u-wave:announce',
   properties: {
     enabled: {
@@ -31,7 +32,7 @@ const optionsSchema = {
     subtitle: {
       type: 'string',
       title: 'Tagline',
-      description: 'A short description of the server\'s purpose, up to about 30 characters.',
+      description: "A short description of the server's purpose, up to about 30 characters.",
       examples: [
         'EDM and more!',
         'International K-Pop Community',
@@ -56,19 +57,22 @@ const optionsSchema = {
       type: 'string',
       format: 'uri',
       title: 'WebSocket URL',
-      description: 'A WebSocket endpoint URL for your server. This defaults to `url` with the ws:// or wss:// protocol, so this almost never has to be set.',
+      description:
+        'A WebSocket endpoint URL for your server. This defaults to `url` with the ws:// or wss:// protocol, so this almost never has to be set.',
     },
     apiUrl: {
       type: 'string',
       format: 'uri',
       title: 'API URL',
-      description: 'The base URL for the HTTP API your server. This defaults to `url` + /v1, so this almost never has to be set.',
+      description:
+        'The base URL for the HTTP API your server. This defaults to `url` + /v1, so this almost never has to be set.',
     },
     hub: {
       type: 'string',
       format: 'uri',
       title: 'Hub URL',
-      description: 'The announce server to announce to. Uses https://announce.u-wave.net, the server behind https://hub.u-wave.net, by default.',
+      description:
+        'The announce server to announce to. Uses https://announce.u-wave.net, the server behind https://hub.u-wave.net, by default.',
       default: 'https://announce.u-wave.net',
     },
   },
@@ -105,16 +109,20 @@ async function getAnnounceData(uw, options) {
     subtitle: options.subtitle,
     description: options.description ? stripIndent(options.description) : null,
 
-    booth: entry ? {
-      media: {
-        artist: entry.media.artist,
-        title: entry.media.title,
-        thumbnail: entry.media.media.thumbnail,
-      },
-      dj: entry.user ? {
-        username: entry.user.username,
-      } : null,
-    } : null,
+    booth: entry
+      ? {
+        media: {
+          artist: entry.media.artist,
+          title: entry.media.title,
+          thumbnail: entry.media.media.thumbnail,
+        },
+        dj: entry.user
+          ? {
+            username: entry.user.username,
+          }
+          : null,
+      }
+      : null,
 
     usersCount,
 

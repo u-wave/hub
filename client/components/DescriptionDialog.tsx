@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import stripIndent from 'strip-indent';
-import Loading from './Loading';
-import styles from './DescriptionDialog.module.css';
 import type { Server } from '../utils/hub';
+import styles from './DescriptionDialog.module.css';
+import Loading from './Loading';
 
 const Markdown = React.lazy(() => import('react-markdown'));
 
@@ -41,13 +41,15 @@ function DescriptionDialog({ server, isOpen, onCloseDescription }: DescriptionDi
           {server.name}
         </h2>
         <div className={styles.content}>
-          {everOpened ? (
-            <React.Suspense fallback={loading}>
-              <div className={styles.markdown}>
-                <Markdown>{stripIndent(server.description)}</Markdown>
-              </div>
-            </React.Suspense>
-          ) : loading}
+          {everOpened
+            ? (
+              <React.Suspense fallback={loading}>
+                <div className={styles.markdown}>
+                  <Markdown>{stripIndent(server.description)}</Markdown>
+                </div>
+              </React.Suspense>
+            )
+            : loading}
         </div>
         <div className={styles.actions}>
           <button className={styles.closeButton}>

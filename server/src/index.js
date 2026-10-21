@@ -1,18 +1,18 @@
-import { URL } from 'node:url';
-import Fastify from 'fastify';
-import plugin from 'fastify-plugin';
 import AjvCompiler from '@fastify/ajv-compiler';
-import ajvFormats from 'ajv-formats';
 import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
+import rateLimit from '@fastify/rate-limit';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
-import rateLimit from '@fastify/rate-limit';
+import ajvFormats from 'ajv-formats';
+import Fastify from 'fastify';
+import plugin from 'fastify-plugin';
 import { FastifySSEPlugin } from 'fastify-sse-v2';
+import { URL } from 'node:url';
 import pkg from '../package.json' with { type: 'json' };
 import announce from './announce.js';
-import list from './list.js';
 import events from './events.js';
+import list from './list.js';
 
 /**
  * @param {{ store?: string }} [opts]

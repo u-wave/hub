@@ -1,6 +1,6 @@
-import ServerThumbnail from './ServerThumbnail';
 import type { Server } from '../utils/hub';
 import styles from './ServerList.module.css';
+import ServerThumbnail from './ServerThumbnail';
 
 type ServerListProps = {
   servers: Server[],
@@ -8,17 +8,19 @@ type ServerListProps = {
 function ServerList({ servers }: ServerListProps) {
   return (
     <div className={styles.root}>
-      {servers.length === 0 ? (
-        <p className={styles.typography}>
-          No servers are currently available.
-        </p>
-      ) : servers.map((server) => (
-        <ServerThumbnail
-          key={server.url}
-          server={server}
-          media={server.booth && server.booth.media}
-        />
-      ))}
+      {servers.length === 0
+        ? (
+          <p className={styles.typography}>
+            No servers are currently available.
+          </p>
+        )
+        : servers.map((server) => (
+          <ServerThumbnail
+            key={server.url}
+            server={server}
+            media={server.booth && server.booth.media}
+          />
+        ))}
     </div>
   );
 }

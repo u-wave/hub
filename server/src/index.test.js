@@ -1,5 +1,5 @@
-import { expect, describe, it } from 'vitest';
 import build from '@u-wave/hub-server';
+import { describe, expect, it } from 'vitest';
 import { keyPair, sign } from './signatures.js';
 
 describe('/announce', () => {

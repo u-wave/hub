@@ -1,6 +1,6 @@
+import styles from './App.module.css';
 import Container from './Container';
 import Header from './Header';
-import styles from './App.module.css';
 
 const { VITE_HUB_SERVER } = import.meta.env;
 
