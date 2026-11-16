@@ -1,4 +1,4 @@
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
 import core from 'u-wave-core';
 import hubServer from '@u-wave/hub-server';
 import plugin from 'u-wave-announce';
@@ -29,14 +29,14 @@ it('publishing test', async () => {
 
   await uw.ready();
 
-  // 500ms is surely enough to do a local network request!
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  const list = await hub.inject({ method: 'GET', url: '/' });
-  expect(list.statusCode).toBe(200);
-  expect(list.json().servers).toMatchObject([
-    { name: 'Test' },
-  ]);
+  // It depends on a network request, so even though it's local it's hard to know exactly when we should check
+  vi.waitFor(async () => {
+    const list = await hub.inject({ method: 'GET', url: '/' });
+    expect(list.statusCode).toBe(200);
+    expect(list.json().servers).toMatchObject([
+      { name: 'Test' },
+    ]);
+  }, { timeout: 1_000 });
 
   await uw.close();
 });
@@ -92,21 +92,21 @@ it('publishing test with active booth', async () => {
   // Join the waitlist (& auto-advance)
   await uw.waitlist.addUser(user.id);
 
-  // 500ms is surely enough to do a local network request!
-  await new Promise((resolve) => setTimeout(resolve, 500));
-
-  const list = await hub.inject({ method: 'GET', url: '/' });
-  expect(list.statusCode).toBe(200);
-  expect(list.json().servers).toMatchObject([
-    {
-      name: 'Test',
-      booth: {
-        media: {
-          title: 'Song!',
-        },
-      }
-    },
-  ]);
+  // It depends on a network request, so even though it's local it's hard to know exactly when we should check
+  vi.waitFor(async () => {
+    const list = await hub.inject({ method: 'GET', url: '/' });
+    expect(list.statusCode).toBe(200);
+    expect(list.json().servers).toMatchObject([
+      {
+        name: 'Test',
+        booth: {
+          media: {
+            title: 'Song!',
+          },
+        }
+      },
+    ]);
+  }, { timeout: 1_000 });
 
   await uw.close();
 });
