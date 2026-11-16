@@ -95,22 +95,15 @@ async function getAnnounceData(uw, options) {
 
   const entry = await uw.booth.getCurrentEntry();
 
-  // TODO add something to üWave Core so we don't have to manually ask
-  // Redis/SQLite for this information. Currently üWave Core may register
-  // duplicates in this list, too, which is a bit annoying!
-  // TODO add guest users here too.
-  const onlineUserIDs = uw.redis
-    ? await uw.redis.lrange('users', 0, -1)
-    : await uw.keyv.get('users');
-  const usersCount = new Set(onlineUserIDs).size;
+  let usersCount = 0;
+  let booth = null;
 
-  return {
-    name: options.name,
-    subtitle: options.subtitle,
-    description: options.description ? stripIndent(options.description) : null,
+  if (uw.redis) {
+    const onlineUserIDs = await uw.redis.lrange('users', 0, -1);
+    usersCount = new Set(onlineUserIDs).size;
 
-    booth: entry
-      ? {
+    if (entry != null) {
+      booth = {
         media: {
           artist: entry.media.artist,
           title: entry.media.title,
@@ -121,11 +114,38 @@ async function getAnnounceData(uw, options) {
             username: entry.user.username,
           }
           : null,
-      }
-      : null,
+      };
+    }
+  } else {
+    // TODO add something to üWave Core so we don't have to manually ask
+    // Redis/SQLite for this information. Currently üWave Core may register
+    // duplicates in this list, too, which is a bit annoying!
+    // TODO add guest users here too.
+    const onlineUserIDs = await uw.keyv.get('users');
+    usersCount = new Set(onlineUserIDs).size;
 
+    if (entry != null) {
+      booth = {
+        media: {
+          artist: entry.historyEntry.artist,
+          title: entry.historyEntry.title,
+          thumbnail: entry.media.thumbnail,
+        },
+        dj: entry.user
+          ? {
+            username: entry.user.username,
+          }
+          : null,
+      };
+    }
+  }
+
+  return {
+    name: options.name,
+    subtitle: options.subtitle,
+    description: options.description ? stripIndent(options.description) : null,
+    booth,
     usersCount,
-
     url,
     // Derive URLs if not given.
     apiUrl: options.apiUrl || `${url}/v1`,
@@ -203,9 +223,15 @@ async function announcePlugin(uw, staticOptions) {
   });
 
   // Announce again every time the song changes.
-  uw.on('advance', () => {
-    announce().catch(onError);
-  });
+  if (uw.events) {
+    uw.events.on('advance:complete', () => {
+      announce().catch(onError);
+    });
+  } else {
+    uw.on('advance', () => {
+      announce().catch(onError);
+    });
+  }
 
   uw.onClose(() => {
     clearInterval(interval);
