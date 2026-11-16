@@ -5,7 +5,7 @@ function Header() {
   return (
     <header className={styles.appBar}>
       <a href="https://u-wave.net/" className={styles.logo}>
-        <img alt="üWave" src={logo} height={48} />
+        <img alt="üWave" src={logo} height={114} width={609} />
       </a>
       <a href="/" className={styles.link}>
         Join
