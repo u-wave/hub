@@ -1,4 +1,3 @@
-import fetch from 'node-fetch';
 import { randomBytes } from 'node:crypto';
 import stripIndent from 'strip-indent';
 import pkg from '../package.json' with { type: 'json' };
