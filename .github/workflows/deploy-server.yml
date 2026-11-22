@@ -2,7 +2,7 @@ name: Deploy Server
 
 on:
   push:
-    branches: [default]
+    branches: [default, docker-server]
     paths:
       - '.github/workflows/deploy-server.yml'
       - 'package-lock.json'
