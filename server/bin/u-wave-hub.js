@@ -9,5 +9,6 @@ if (process.env.SQLITE_PATH) {
 }
 
 await hub({ store }).listen({
+  host: Number(process.env.HOST || 'localhost'),
   port: Number(process.env.PORT || 6451),
 });
